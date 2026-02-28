@@ -1,25 +1,34 @@
-
-# Today a Raft follower, tomorrow a Raft leader
-
-_September 8, 2021 | Ensar Basri Kahveci_
-
-We start _the ins and outs of MicroRaft_ series with diving deep into how
-MicroRaft detects and acts upon leader failures.
+---
+seo_title: "Today a Raft Follower, Tomorrow a Raft Leader in MicroRaft"
+description: "A MicroRaft deep dive into Java Raft leader failure detection, election timing, and the availability impact of timeout design."
+keywords: "raft leader election java, microraft leader article, raft timeout java, follower to leader raft, java raft availability"
+schema_type: BlogPosting
+og_type: article
+date: "2021-09-08"
+---
+<div class="mr-blog-shell">
+  <section class="mr-blog-hero">
+    <div class="mr-page-kicker mr-blog-meta">September 8, 2021 | Ensar Basri Kahveci</div>
+    <h1 class="mr-page-title">Today a Raft follower, tomorrow a Raft leader</h1>
+    <p class="mr-page-summary">
+      A Java Raft leader-election deep dive on failure detection, election timing,
+      quorum loss, and the availability impact of timeout design.
+    </p>
+  </section>
+</div>
 
 Readers are expected to have an understanding of how leader election works in
-Raft. <a href="https://raft.github.io/" target="_blank">Raft paper</a> already
-does a great job on explaining its details and safety properties. In addition,
-there is a number of visual demonstrations and blog posts available on the web,
-for example <a href="http://thesecretlivesofdata.com/raft/" target="_blank">The
-Secret Lives of Data</a>.
+Raft. [Raft paper](https://raft.github.io/) already does a great job on
+explaining its details and safety properties. In addition, there is a number of
+visual demonstrations and blog posts available on the web, for example
+[The Secret Lives of Data](http://thesecretlivesofdata.com/raft/).
 
-In this blog post, we follow <a
-href="https://microraft.io/docs/main-abstractions/" target="_blank" >the
-terminology used in MicroRaft</a>. In summary, a _Raft node_ runs the Raft
+In this blog post, we follow
+[the terminology used in MicroRaft](../docs/main-abstractions.md). In summary, a _Raft node_ runs the Raft
 consensus algorithm as a member of a _Raft group_. A Raft group is a cluster of
-Raft nodes that behave as a _replicated state machine_. <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java"
-target="_blank">`RaftNode`</a>  interface contains APIs for handling client
+Raft nodes that behave as a _replicated state machine_.
+[`RaftNode`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java)
+interface contains APIs for handling client
 requests, Raft RPCs, etc.
 
 _"Today a reader, tomorrow a leader." -- Margaret Fuller_
@@ -38,7 +47,17 @@ Since availability of a Raft cluster relies on having a functional leader,
 graceful handling of leader failures becomes very important for robustness of a
 Raft implementation.
 
+<div class="mr-snippet-note">
+  <strong>What this article clarifies</strong>
+  <p>This post is about availability under leader instability. The main ideas are timeout separation, disruptive follower control, and leader self-demotion on quorum loss.</p>
+</div>
+
 ## Separating the leader failure detection and election timeouts
+
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>MicroRaft splits “detect failure” from “retry election”. That reduces unnecessary elections without making split-vote recovery painfully slow.</p>
+</div>
 
 Raft's leader election logic runs in 2 steps. First, Raft nodes decide that
 there is no live leader in the Raft cluster. A leader Raft node sends periodic
@@ -62,9 +81,9 @@ leader promptly after an actual leader failure. However, it could also cause
 unnecessary leader elections. A leader Raft node could fail to send heartbeats
 on time because of a GC pause or a long-running user operation occupying the
 Raft thread. Its CPU and network resources could be also congested by other Raft
-nodes belonging to different Raft groups in a <a
-href="https://www.cockroachlabs.com/blog/scaling-raft/" target="_blank">_Multi
-Raft_</a> deployment. In such cases, followers may decide to start a new leader
+nodes belonging to different Raft groups in a
+[_Multi Raft_](https://www.cockroachlabs.com/blog/scaling-raft/) deployment.
+In such cases, followers may decide to start a new leader
 election round while the leader is actually alive. Even if electing a new leader
 does not hurt correctness, it may not necessarily improve availability. A Raft
 group does not handle new requests during leader elections, and it usually takes
@@ -77,10 +96,10 @@ probability. For instance, if election timeout is 10 seconds, it takes 10
 seconds to trigger leader election, and if it ends up with split vote, it takes
 more than 20 seconds to elect a new leader.
 
-MicroRaft chooses a more verbose approach and uses <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftConfig.java"
-target="_blank">2 timeout values</a> for leader election: _leader heartbeat
-timeout_ and _leader election timeout_. Leader heartbeat timeout is the duration
+MicroRaft chooses a more verbose approach and uses
+[2 timeout values](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftConfig.java)
+for leader election: _leader heartbeat timeout_ and _leader election timeout_.
+Leader heartbeat timeout is the duration
 for a follower to detect failure of the current leader and trigger leader
 election. Leader election timeout is the duration candidates wait before giving
 up a leader election round and move to the next term for a new round. These 2
@@ -93,12 +112,18 @@ and the leader election logic completes after 11-12 seconds.
 There is also a third configuration parameter in MicroRaft: _leader heartbeat
 period_. It is the period for a leader Raft node to send heartbeats to its
 followers in order to denote its liveliness. By default, a leader Raft node runs
-<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/impl/task/HeartbeatTask.java" target="_blank">a task</a> every 2 seconds. This task sends a heartbeat to each follower which did
-not receive an <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/AppendEntriesRequest.java"
-target="_blank">`AppendEntriesRequest`</a> in the last 2 seconds.
+[a task](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/impl/task/HeartbeatTask.java)
+every 2 seconds. This task sends a heartbeat to each follower which did not
+receive an
+[`AppendEntriesRequest`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/AppendEntriesRequest.java)
+in the last 2 seconds.
 
 ## Dealing with disruptive followers
+
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>Pre-voting and leader stickiness exist to stop noisy followers from creating avoidable leader churn. This is a liveness story as much as a correctness one.</p>
+</div>
 
 Raft's term and leader election logics can create some flakiness in some network
 failure cases. Consider a scenario where a follower Raft node disconnects from
@@ -111,9 +136,9 @@ it causes the other Raft nodes, including the healthy leader, to move to its own
 term. The leader also steps down to the follower role while moving to the new
 term, and probably becomes the leader again in the next leader election round.
 Long story short, a temporarily-disconnected follower may hurt availability of
-the Raft group by causing unnecessary leader elections. Section 4.2.3 of <a
-href="https://web.stanford.edu/~ouster/cgi-bin/papers/OngaroPhD.pdf"
-target="_blank">the Raft dissertation</a> describes a membership change scenario
+the Raft group by causing unnecessary leader elections. Section 4.2.3 of
+[the Raft dissertation](https://web.stanford.edu/~ouster/cgi-bin/papers/OngaroPhD.pdf)
+describes a membership change scenario
 that could lead to the same problem.
 
 ![Figure 1](https://microraft.io/img/blog2-fig1.png)
@@ -121,14 +146,14 @@ that could lead to the same problem.
 Figure 1
 
 The Raft dissertation sketches out a solution to this problem, and Henrik Ingo
-details the solution in his <a
-href="https://www.openlife.cc/sites/default/files/php_uploads/4-modifications-for-Raft-consensus.pdf"
-target="_blank">Four modifications of the Raft consensus algorithm</a> work. The
+details the solution in his
+[Four modifications of the Raft consensus algorithm](https://www.openlife.cc/sites/default/files/php_uploads/4-modifications-for-Raft-consensus.pdf)
+work. The
 idea is to add _a pre-voting_ step before triggering leader election. MicroRaft
 implements this. When the leader heartbeat timeout elapses, a follower Raft node
-sends <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/PreVoteRequest.java"
-target="_blank">`PreVoteRequest`</a> to other Raft nodes for the next term
+sends
+[`PreVoteRequest`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/model/message/PreVoteRequest.java)
+to other Raft nodes for the next term
 without actually incrementing its local term. Other Raft nodes respond as if it
 was an actual _RequestVote RPC_. They grant a _non-binding pre-vote_ only if the
 requesting follower's term is greater than or equal to their local term and the
@@ -160,6 +185,11 @@ Raft dissertation and Henrik Ingo's work.
 
 ## Stepping down an overthrown leader
 
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>Check-quorum style demotion protects clients from talking to a leader that no longer has authority. That turns silent partial outage into explicit retryable failure.</p>
+</div>
+
 Figure 3 demonstrates another case which is handled by MicroRaft to prevent
 partial unavailability in case of network problems. Suppose a leader Raft node
 is partitioned from the rest of its Raft group. Eventually, the other Raft nodes
@@ -179,11 +209,11 @@ described in Section 6.2 of the Raft dissertation. It is called _Check Quorum_.
 A leader Raft node keeps track of _AppendEntries RPC_ responses sent by
 followers. It steps down if the leader heartbeat timeout elapses before it
 receives _AppendEntries RPC_ responses from the majority of the Raft group. It
-also fails pending requests with <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/IndeterminateStateException.java"
-target="_blank">`IndeterminateStateException`</a> and new requests with <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/NotLeaderException.java"
-target="_blank">`NotLeaderException`</a> so that clients can retry their
+also fails pending requests with
+[`IndeterminateStateException`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/IndeterminateStateException.java)
+and new requests with
+[`NotLeaderException`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/NotLeaderException.java)
+so that clients can retry their
 requests on the other Raft nodes.
 
 ## Sum up
@@ -208,7 +238,6 @@ MicroRaft's leader failure handling behavior is summarized below.
   heartbeat timeout elapses, hence allows clients to retry their requests on the
   other Raft nodes and discover the new leader.
 
-You can also check out <a
-href="https://decentralizedthoughts.github.io/2020-12-12-raft-liveness-full-omission/"
-target="_blank">Heidi Howard and Ittai Abraham's great post</a> on the same
-topic.
+You can also check out
+[Heidi Howard and Ittai Abraham's great post](https://decentralizedthoughts.github.io/2020-12-12-raft-liveness-full-omission/)
+on the same topic.

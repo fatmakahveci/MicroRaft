@@ -1,21 +1,60 @@
+---
+seo_title: "MicroRaft Resiliency and Fault Tolerance for Java Raft Clusters"
+description: "Study MicroRaft resiliency behavior under high load, leader loss, minority failure, recovery, and other Java Raft fault tolerance scenarios."
+keywords: "microraft resiliency, java raft fault tolerance, raft leader failure java, quorum loss raft, microraft recovery"
+schema_type: TechArticle
+og_type: article
+---
+<div class="mr-doc-shell" data-mr-doc-layout="article">
+  <section class="mr-doc-hero">
+    <h1 class="mr-page-title mr-doc-title">Resiliency and Fault Tolerance</h1>
+    <p class="mr-page-summary">
+      This page is about failure behavior, not feature marketing. It walks
+      through the cases that actually decide whether a Raft-backed subsystem is
+      operable under stress.
+    </p>
+  </section>
 
-# Resiliency and Fault Tolerance
+  <section class="mr-doc-grid">
+    <article class="mr-doc-card">
+      <h3>Core rule</h3>
+      <p>
+        Safety holds as long as there is no Byzantine behavior. Availability
+        depends on majority health and communication.
+      </p>
+    </article>
+    <article class="mr-doc-card">
+      <h3>What you will see</h3>
+      <ul class="mr-doc-list">
+        <li>high load and backpressure</li>
+        <li>minority and majority failures</li>
+        <li>leader failure and retry semantics</li>
+        <li>recovery with and without persistence</li>
+      </ul>
+    </article>
+    <article class="mr-doc-card">
+      <h3>Good companion pages</h3>
+      <ul class="mr-doc-list">
+        <li><a href="/docs/configuration/">Configuration</a></li>
+        <li><a href="/docs/monitoring/">Monitoring</a></li>
+        <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+      </ul>
+    </article>
+  </section>
+</div>
 
 In this section, we will walk through different types of failure scenarios and
-discuss how MicroRaft handles each one of them. We will use MicroRaft's <a
-href="https://github.com/MicroRaft/MicroRaft/tree/master/microraft/src/test/java/io/microraft/impl/local"
-target="_blank">local testing utilities</a> to demonstrate those failure
+discuss how MicroRaft handles each one of them. We will use MicroRaft's
+[local testing utilities](https://github.com/MicroRaft/MicroRaft/tree/master/microraft/src/test/java/io/microraft/impl/local)
+to demonstrate those failure
 scenarios. These utilities are mainly used for testing MicroRaft to a great
 extent without a distributed setting. Here, we will use them to run a Raft group
 in a single JVM process and inject different types of failures into the system.
 
-![](/img/info.png){: style="height:25px;width:25px"} In terms of safety, the
-fundamental guarantee of the Raft consensus algorithm and hence MicroRaft is,
-operations are committed in a single global order, and a committed operation is
-never lost, as long as there is no Byzantine failure in the system. In
-MicroRaft, restarting a Raft node that has no persistence layer with the same
-identity or restarting it with a corrupted persistence state are examples of
-Byzantine failure.
+<div class="mr-callout mr-callout-info">
+  <div class="mr-callout-title">Safety baseline</div>
+  <p>Operations remain committed in a single global order and are not lost as long as there is no Byzantine failure. In MicroRaft, restarting a node with the same identity but without valid persisted state is an example of the kind of behavior that breaks that assumption.</p>
+</div>
 
 The availability of a Raft group mainly depends on if the majority (i.e., more
 than half) of the Raft nodes are alive and able to communicate with each other.
@@ -23,14 +62,33 @@ The main rule is, `2f + 1` Raft nodes tolerate failure of `f` Raft nodes. For
 instance, a 3-node Raft group can tolerate failure of 1 Raft node, or a 5-node
 Raft group can tolerate failure of 2 Raft nodes without losing availability.
 
+<div class="mr-doc-grid">
+  <article class="mr-doc-card">
+    <h3>Read this page in three questions</h3>
+    <ul class="mr-doc-list">
+      <li>what happens under load?</li>
+      <li>what happens when a minority or leader fails?</li>
+      <li>what failures are unrecoverable without restoring majority?</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Operational lens</h3>
+    <ul class="mr-doc-list">
+      <li>safety and availability are different questions</li>
+      <li>persistence changes your recovery options materially</li>
+      <li>client retry behavior is part of the system design</li>
+    </ul>
+  </article>
+</div>
+
 ## 1. Handling high system load
 
 Even if the majority of a Raft group is alive, we may encounter unavailability
 issues if the Raft group is under high load and cannot keep up with the request
 rate. In this case, the leader Raft node temporarily stops accepting new
-requests and notifies the futures returned from the `RaftNode` methods with <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/CannotReplicateException.java"
-target="_blank">`CannotReplicateException`</a>. This exception means that there
+requests and notifies the futures returned from the `RaftNode` methods with
+[`CannotReplicateException`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/CannotReplicateException.java).
+This exception means that there
 are too many operations pending to be committed in the leader's local Raft log,
 or too many queries pending to be executed, so it temporarily rejects accepting
 new requests. Clients should apply some backoff before retrying their requests.
@@ -45,20 +103,41 @@ synthetically by making them sleep for 3 seconds. Then, we start sending
 requests to the leader. After some time, our requests fail with
 `CannotReplicateException`.
 
+<div class="mr-snippet-note">
+  <strong>What this snippet proves</strong>
+  <p>The leader should apply backpressure instead of pretending it can buffer unbounded work. Under sustained load, failure is explicit and therefore operable.</p>
+</div>
+
 <script src="https://gist.github.com/metanet/3350f8107c01171f46bf08644cec582c.js"></script>
 
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ gh repo clone MicroRaft/MicroRaft
-$ cd MicroRaft && ./mvnw clean test -Dtest=io.microraft.faulttolerance.HighLoadTest -DfailIfNoTests=false -Ptutorial
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.HighLoadTest -Pmicroraft.javaVersion=20
 ~~~~
 
-You can also see it in the <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/HighLoadTest.java"
-target="_blank">MicroRaft Github repository</a>.
+You can also see it in the
+[MicroRaft GitHub repository](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/HighLoadTest.java).
 
------
+<div class="mr-doc-grid">
+  <article class="mr-doc-card">
+    <h3>Takeaway from high load</h3>
+    <p>
+      Backpressure is a feature, not a bug. If the leader cannot safely keep up,
+      it should reject new work instead of pretending throughput is infinite.
+    </p>
+  </article>
+  <article class="mr-doc-card">
+    <h3>What to tune next</h3>
+    <ul class="mr-doc-list">
+      <li>pending log entry count</li>
+      <li>append entries batch size</li>
+      <li>client retry and backoff policy</li>
+    </ul>
+  </article>
+</div>
+
+<div class="mr-section-break"><span>Minority Failure</span></div>
 
 ## 2. Minority failure
 
@@ -73,13 +152,10 @@ the Raft group. In order to replace a non-recoverable Raft node without hurting
 the overall availability of the Raft group, we should remove the crashed Raft
 node first and then add a fresh-new one.
 
-![](/img/warning.png){: style="height:25px;width:25px"} If Raft nodes are
-created without an actual `RaftStore` implementation in the beginning,
-restarting crashed Raft nodes with the same Raft endpoint identity breaks the
-safety of the Raft consensus algorithm. Therefore, when there is no persistence
-layer, the only recovery option for a failed Raft node is to remove it from the
-Raft group, which is possible only if the majority of the Raft group is up and
-running. 
+<div class="mr-callout mr-callout-warning">
+  <div class="mr-callout-title">Warning</div>
+  <p>If nodes start without a real <code>RaftStore</code>, restarting a crashed node with the same identity breaks Raft safety. Without persistence, the only safe recovery path is to remove the failed node while majority is still alive.</p>
+</div>
 
 To restart a crashed or terminated Raft node, we can read its persisted state
 into a `RestoredRaftState` object. Then, we can use this object to restore the
@@ -91,17 +167,21 @@ MicroRaft provides a basic in-memory `RaftStore` implementation to enable
 crash-recovery testing. In the following code sample, we use this utility, i.e.,
 `InMemoryRaftStore`, to demonstrate how to recover from Raft node failures.
 
+<div class="mr-snippet-note">
+  <strong>What this snippet proves</strong>
+  <p>Minority loss is recoverable when persisted Raft state exists. The snippet demonstrates that restored nodes can rejoin safely and replay committed state.</p>
+</div>
+
 <script src="https://gist.github.com/metanet/14e9ef6d9a5f3992a03de5cd8a874589.js"></script>
 
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ gh repo clone MicroRaft/MicroRaft
-$ cd MicroRaft && ./mvnw clean test -Dtest=io.microraft.faulttolerance.RestoreCrashedRaftNodeTest -DfailIfNoTests=false -Ptutorial
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.RestoreCrashedRaftNodeTest -Pmicroraft.javaVersion=20
 ~~~~
 
-You can also see it in the 
-<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/RestoreCrashedRaftNodeTest.java" target="_blank">MicroRaft Github repository</a>.
+You can also see it in the
+[MicroRaft GitHub repository](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/RestoreCrashedRaftNodeTest.java).
 
 This time we provide a factory object to enable `LocalRaftGroup` to create
 `InMemoryRaftStore` objects while configuring our Raft nodes. Hence, after we
@@ -122,16 +202,29 @@ monotonic local query successful on follower. query result: value, commit index:
 monotonic local query successful on restarted follower. query result: value, commit index: 1
 ~~~~
 
-![](/img/warning.png){: style="height:25px;width:25px"} When a Raft node starts
-with a restored Raft state, it discovers the current commit index and replays
-the Raft log, i.e., automatically applies all the log entries up to the commit
-index. We should be careful about operations that have side effects because the
-Raft log replay process triggers those side effects again. Please refer to the
-<a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/statemachine/StateMachine.java"
-target="_blank">State Machine</a> for more details.
+<div class="mr-callout mr-callout-warning">
+  <div class="mr-callout-title">Replay caveat</div>
+  <p>When a node starts from restored state, it replays committed log entries to rebuild the state machine. If your operations have side effects, replay can trigger them again unless the state machine is designed for it. See <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/statemachine/StateMachine.java" target="_blank" rel="noreferrer">StateMachine</a> for the boundary.</p>
+</div>
 
------
+<div class="mr-doc-grid">
+  <article class="mr-doc-card">
+    <h3>Takeaway from minority failure</h3>
+    <p>
+      Minority loss is survivable, but your exact recovery path depends on
+      whether persisted state exists and can be trusted.
+    </p>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Do not miss this</h3>
+    <ul class="mr-doc-list">
+      <li>restarting a node without real persistence can break safety</li>
+      <li>restored logs replay side effects unless your state machine accounts for them</li>
+    </ul>
+  </article>
+</div>
+
+<div class="mr-section-break"><span>Leader Failure</span></div>
 
 ## 3. Raft leader failure
 
@@ -139,7 +232,7 @@ When a leader Raft node fails, the Raft group temporarily loses availability
 until the other Raft nodes notice the failure and elect a new leader. Delay of
 the detection of the leader's failure depends on the _leader heartbeat timeout_
 configuration. Please refer to the [Configuration
-section](/docs/configuration/) to learn more about the _leader election
+section](configuration.md) to learn more about the _leader election
 timeout_ and _leader heartbeat timeout_ configuration parameters.
 
 If a client notices that the current leader is not responding, it can contact
@@ -175,12 +268,10 @@ passed to `RaftNode.replicate()`, there are multiple possibilities:
 - The good thing about queries is, they are idempotent. Clients can safely retry
   their queries on the new leader.
 
-![](/img/warning.png){: style="height:25px;width:25px"} It is up to the client
-to retry an operation whose result is not received, because a retry could cause
-the operation to be committed twice based on the actual failure scenario.
-MicroRaft goes for simplicity and does not employ deduplication (I have plans to
-implement an opt-in deduplication mechanism in future). If deduplication is
-needed, it can be done inside `StateMachine` implementations for now.
+<div class="mr-callout mr-callout-warning">
+  <div class="mr-callout-title">Retry caveat</div>
+  <p>Clients own retry behavior when a write result is ambiguous. A retry may commit the same logical operation twice. MicroRaft intentionally does not add built-in deduplication here; if you need it, implement it in your <code>StateMachine</code>.</p>
+</div>
 
 We will see the second scenario described above in a code sample. In the
 following test, we replicate an operation via the Raft leader, but block the
@@ -194,26 +285,47 @@ the majority, so the new leader will commit it. Since we replicate it for the
 second time with the new leader, we cause a duplicate commit. When we query the
 new leader, we see that there are 2 values applied to the state machine.
 
+<div class="mr-snippet-note">
+  <strong>What this snippet proves</strong>
+  <p>Leader failure turns protocol correctness into a client semantics problem. A write can become ambiguous, so retries must be designed for duplicate effects.</p>
+</div>
+
 <script src="https://gist.github.com/metanet/125d33a0e009e9119f5c9a96061ec69e.js"></script>
 
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ gh repo clone MicroRaft/MicroRaft
-$ cd MicroRaft && ./mvnw clean test -Dtest=io.microraft.faulttolerance.RaftLeaderFailureTest -DfailIfNoTests=false -Ptutorial
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.RaftLeaderFailureTest -Pmicroraft.javaVersion=20
 ~~~~
 
-You can also see it in the <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/RaftLeaderFailureTest.java"
-target="_blank">MicroRaft Github repository</a>.
+You can also see it in the
+[MicroRaft GitHub repository](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/RaftLeaderFailureTest.java).
 
-![](/img/info.png){: style="height:25px;width:25px"} Another trick could be
-designing our operations in an idempotent way and retry them automatically on
-leader failures, because duplicate commits do not make any harm for idempotent
-operations. However, it is not very easy to make every type of operation
-idempotent.
+<div class="mr-callout mr-callout-info">
+  <div class="mr-callout-title">Practical pattern</div>
+  <p>Idempotent operations make leader-failure retries far safer because duplicate commits become tolerable. That is often a good design target, even though not every workload can express its writes that way.</p>
+</div>
 
------
+<div class="mr-doc-grid">
+  <article class="mr-doc-card">
+    <h3>Takeaway from leader failure</h3>
+    <p>
+      Leader failure is mostly a client semantics problem after it becomes a
+      protocol problem. Your retry model decides whether ambiguity turns into
+      duplicate effects.
+    </p>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Design implication</h3>
+    <ul class="mr-doc-list">
+      <li>prefer idempotent operations where possible</li>
+      <li>treat <code>NotLeaderException</code> as a leader discovery signal</li>
+      <li>separate retry policy for reads and writes</li>
+    </ul>
+  </article>
+</div>
+
+<div class="mr-section-break"><span>Majority Failure</span></div>
 
 ## 4. Majority failure
 
@@ -237,9 +349,8 @@ seconds of _leader heartbeat timeout_, a Raft leader keeps its leadership role
 as long as at least 1 follower has sent an _Append Entries RPC_ response in the
 last 5 seconds. Otherwise, the leader Raft node demotes itself to the follower
 role and fails pending (i.e., locally appended but not yet committed) operations
-with <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/IndeterminateStateException.java"
-target="_blank">`IndeterminateStateException`</a>. This behaviour is due to the
+with [`IndeterminateStateException`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/exception/IndeterminateStateException.java).
+This behaviour is due to the
 asynchronous nature of distributed systems. When the leader cannot get _Append
 Entries RPC_ responses from some of its followers, it may not accurately decide
 if those followers are actually crashed, or just temporarily unreachable. If
@@ -248,12 +359,10 @@ can also elect a new leader among themselves and commit operations replicated by
 the previous leader. Hence, MicroRaft takes a defensive approach here and makes
 a leader Raft node step down from the leadership role.  
 
-![](/img/warning.png){: style="height:25px;width:25px"} It is up to the client
-to retry an operation which is notified with `IndeterminateStateException`,
-because a retry could cause the operation to be committed twice. MicroRaft goes
-for simplicity and does not employ deduplication (I have plans to implement an
-opt-in deduplication mechanism in future). If deduplication is needed, it can be
-done inside `StateMachine` implementations for now.
+<div class="mr-callout mr-callout-warning">
+  <div class="mr-callout-title">Indeterminate state</div>
+  <p>Clients must decide how to handle <code>IndeterminateStateException</code>. Retrying immediately may duplicate an operation, so write semantics need to be designed with ambiguity in mind.</p>
+</div>
 
 We will see another code sample to demonstrate how to restore from majority
 failure. In this part we use the `InMemoryRaftStore` utility we used in
@@ -282,27 +391,28 @@ could just discover the leader Raft node. Our Raft group will restore its
 availability as long as there is a leader Raft node taking to the majority
 (including itself).  
 
+<div class="mr-snippet-note">
+  <strong>What this snippet proves</strong>
+  <p>When majority is gone, the cluster must stop pretending it is available. Recovery only becomes possible after enough persisted nodes return to reform quorum.</p>
+</div>
+
 <script src="https://gist.github.com/metanet/0ab1af1675056445da2cd99295de2665.js"></script>
 
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ gh repo clone MicroRaft/MicroRaft
-$ cd MicroRaft && ./mvnw clean test -Dtest=io.microraft.faulttolerance.MajorityFailureTest -DfailIfNoTests=false -Ptutorial
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.MajorityFailureTest -Pmicroraft.javaVersion=20
 ~~~~
 
-You can also see it in the 
-<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/MajorityFailureTest.java" target="_blank">MicroRaft Github repository</a>.
+You can also see it in the
+[MicroRaft GitHub repository](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/MajorityFailureTest.java).
 
-![](/img/warning.png){: style="height:25px;width:25px"} Please note that you
-need to have a persistence-layer (i.e., `RaftStore` implementation) to make this
-recovery option work. If a crashed Raft node is restarted with the same identity
-but an empty state, it turns into a Byzantine-failure scenario, where already
-committed operations can be lost and consistency of the system can be broken.
-Please see the [Corruption or loss of persistent Raft
-state](#6-corruption-or-loss-of-persistent-raft-state) part for more details. 
+<div class="mr-callout mr-callout-warning">
+  <div class="mr-callout-title">Persistence required</div>
+  <p>This recovery path only works with a real persistence layer. Restarting a crashed node with the same identity but empty state creates a Byzantine-style failure where committed operations can be lost. See <a href="#6-corruption-or-loss-of-persistent-raft-state">Corruption or loss of persistent Raft state</a>.</p>
+</div>
 
------
+<div class="mr-section-break"><span>Network Partitions</span></div>
 
 ## 5. Network partitions
 
@@ -327,10 +437,10 @@ When the network problem is resolved, Raft nodes connect to each other again.
 The Raft nodes that was on the minority side of the network partition catch up
 with the other Raft nodes, and the Raft group continues its normal operation.
 
-![](/img/info.png){: style="height:25px;width:25px"} __One of the key points of
-the Raft consensus algorithm's and hence MicroRaft's network partition behaviour
-is the absence of _split-brain_. In any network partition scenario, there can be
-at most one functional leader.__
+<div class="mr-callout mr-callout-info">
+  <div class="mr-callout-title">No split brain</div>
+  <p>One of the key guarantees in network partition scenarios is the absence of split brain. At most one side can retain a functional leader.</p>
+</div>
 
 We will see how our Raft nodes behave in a network partitioning scenario in the
 following test. Again, we have a 3-node Raft group here, and we create an
@@ -342,19 +452,23 @@ Once we fix the network problem, we see that the old leader connects back to the
 other Raft nodes, discovers the new leader and gets the new committed operation.
 Phew! 
 
+<div class="mr-snippet-note">
+  <strong>What this snippet proves</strong>
+  <p>Partitions do not create split brain here. The minority side steps down, the majority side keeps progress, and the old leader catches up after the network heals.</p>
+</div>
+
 <script src="https://gist.github.com/metanet/ac66fbb2f6e2ef5e8224ac387d2e2b44.js"></script>
 
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ gh repo clone MicroRaft/MicroRaft
-$ cd MicroRaft && ./mvnw clean test -Dtest=io.microraft.faulttolerance.NetworkPartitionTest -DfailIfNoTests=false -Ptutorial
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.NetworkPartitionTest -Pmicroraft.javaVersion=20
 ~~~~
 
-You can also see it in the 
-<a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/NetworkPartitionTest.java" target="_blank">MicroRaft Github repository</a>.
+You can also see it in the
+[MicroRaft GitHub repository](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/test/java/io/microraft/faulttolerance/NetworkPartitionTest.java).
 
------
+<div class="mr-section-break"><span>Durability</span></div>
 
 ## 6. Corruption or loss of persistent Raft state
 
@@ -366,10 +480,7 @@ committed operation. If that Raft node becomes leader, it may commit another
 operation for the same log index with the lost operation and breaks the safety
 property of the Raft consensus algorithm.
 
-![](/img/warning.png){: style="height:25px;width:25px"} <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RaftStore.java"
-target="_blank">`RaftStore`</a> documents all the durability and integrity
-guarantees required by its implementations. Hence, it is the responsibility of
-`RaftStore` implementations to ensure durability and integrity of the persisted
-Raft state. `RaftNode` does not perform any error checks when they are restored
-with `RestoredRaftState` objects.
+<div class="mr-callout mr-callout-warning">
+  <div class="mr-callout-title">Durability contract</div>
+  <p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RaftStore.java" target="_blank" rel="noreferrer"><code>RaftStore</code></a> defines the durability and integrity guarantees persistence implementations must uphold. <code>RaftNode</code> assumes restored state is valid; it does not re-verify corrupted or partial state for you.</p>
+</div>

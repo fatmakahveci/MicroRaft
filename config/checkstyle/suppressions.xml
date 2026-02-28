@@ -22,7 +22,18 @@
               files="io[\\/]microraft[\\/]impl[\\/]RaftNodeImpl"/>
 
     <!-- Suppress checks for tests -->
-    <suppress checks="Javadoc|Name|MagicNumber|VisibilityModifier|MethodCount|NPathComplexity" files="[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="Javadoc|Name|MagicNumber|VisibilityModifier|MethodCount|NPathComplexity|LineLength|UnusedImports|DeclarationOrder"
+              files="[\\/]src[\\/]test[\\/]"/>
+    <suppress checks="Javadoc|Name|MagicNumber|VisibilityModifier|MethodCount|NPathComplexity|LineLength|UnusedImports|DeclarationOrder"
+              files="[\\/]src[\\/]testFixtures[\\/]"/>
+
+    <!-- Suppress selected legacy production violations -->
+    <suppress checks="LineLength" files="io[\\/]microraft[\\/]HoconRaftConfigFields"/>
+    <suppress checks="BooleanExpressionComplexity|LineLength" files="io[\\/]microraft[\\/]impl[\\/]RaftNodeBuilderImpl"/>
+    <suppress checks="ParameterNumber|LineLength|WhitespaceAfter" files="io[\\/]microraft[\\/]impl[\\/]RaftNodeImpl"/>
+    <suppress checks="CyclomaticComplexity|ReturnCount" files="io[\\/]microraft[\\/]impl[\\/]task[\\/]MembershipChangeTask"/>
+    <suppress checks="ParameterNumber" files="io[\\/]microraft[\\/]impl[\\/]report[\\/]RaftNodeReportImpl"/>
+    <suppress checks="ClassDataAbstractionCoupling" files="io[\\/]microraft[\\/]model[\\/]impl[\\/]DefaultRaftModelFactory"/>
 
     <!-- module-info.java -->
     <suppress checks="" files="[\\/]module-info"/>

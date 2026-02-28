@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% set meta_title = page.meta.seo_title if page and page.meta and page.meta.seo_title else (page.title if page and page.title else config.site_name) %}
+{% set meta_description = page.meta.description if page and page.meta and page.meta.description else config.site_description %}
+{% set meta_keywords = page.meta.keywords if page and page.meta and page.meta.keywords else None %}
+{% set meta_type = page.meta.og_type if page and page.meta and page.meta.og_type else ('website' if page and page.is_homepage else 'article') %}
+{% set schema_type = page.meta.schema_type if page and page.meta and page.meta.schema_type else ('SoftwareApplication' if page and page.is_homepage else 'TechArticle') %}
+{% set social_image = page.meta.social_image if page and page.meta and page.meta.social_image else config.extra.social_image %}
+{% set absolute_image = config.site_url.rstrip('/') ~ '/' ~ social_image.lstrip('/') %}
+
+{% block site_meta %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ meta_description }}">
+  {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
+  {% if page and page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
+  {% if config.site_favicon %}<link rel="shortcut icon" href="{{ config.site_favicon|url }}">
+  {% else %}<link rel="shortcut icon" href="{{ 'img/favicon.ico'|url }}">{% endif %}
+{% endblock %}
+
+{% block htmltitle %}
+  <title>{{ meta_title }} | {{ config.site_name }}</title>
+{% endblock %}
+
+{% block extrahead %}
+  {{ super() }}
+  {% if meta_keywords %}
+  <meta name="keywords" content="{{ meta_keywords }}">
+  {% endif %}
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ meta_title }}">
+  <meta property="og:description" content="{{ meta_description }}">
+  <meta property="og:type" content="{{ meta_type }}">
+  {% if page and page.canonical_url %}
+  <meta property="og:url" content="{{ page.canonical_url }}">
+  {% endif %}
+  <meta property="og:image" content="{{ absolute_image }}">
+  <meta property="og:image:alt" content="{{ meta_title }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ meta_title }}">
+  <meta name="twitter:description" content="{{ meta_description }}">
+  <meta name="twitter:image" content="{{ absolute_image }}">
+  <meta name="twitter:site" content="{{ config.extra.x_handle }}">
+  {% if page and page.meta and page.meta.date %}
+  <meta property="article:published_time" content="{{ page.meta.date }}">
+  {% endif %}
+  {% if schema_type != 'FAQPage' %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "{{ schema_type }}",
+      "name": {{ meta_title|tojson }},
+      "headline": {{ meta_title|tojson }},
+      "description": {{ meta_description|tojson }},
+      "url": {{ page.canonical_url|tojson if page and page.canonical_url else config.site_url|tojson }},
+      "image": {{ absolute_image|tojson }},
+      "author": {
+        "@type": "Person",
+        "name": {{ config.site_author|tojson }}
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ config.site_name|tojson }},
+        "url": {{ config.site_url|tojson }}
+      }{% if page and page.meta and page.meta.date %},
+      "datePublished": {{ page.meta.date|tojson }},
+      "dateModified": {{ page.meta.date|tojson }}{% endif %}{% if page and page.meta and page.meta.keywords %},
+      "keywords": {{ page.meta.keywords|tojson }}{% endif %}
+    }
+  </script>
+  {% endif %}
+{% endblock %}
+
+{% block next_prev %}{% endblock %}
+
+{% block footer %}
+  <footer class="mr-site-footer">
+    <div class="mr-site-footer-inner">
+      {% if page and (page.next_page or page.previous_page) %}
+      <nav class="mr-page-nav" aria-label="Page navigation">
+        {% if page.previous_page %}
+        <a class="mr-page-nav-link is-previous" href="{{ page.previous_page.url|url }}">
+          <span class="mr-page-nav-label">Previous</span>
+          <span class="mr-page-nav-title">{{ page.previous_page.title }}</span>
+        </a>
+        {% else %}
+        <span class="mr-page-nav-link is-previous is-disabled">
+          <span class="mr-page-nav-label">Previous</span>
+          <span class="mr-page-nav-title">Start of this section</span>
+        </span>
+        {% endif %}
+        {% if page.next_page %}
+        <a class="mr-page-nav-link is-next" href="{{ page.next_page.url|url }}">
+          <span class="mr-page-nav-label">Next</span>
+          <span class="mr-page-nav-title">{{ page.next_page.title }}</span>
+        </a>
+        {% else %}
+        <span class="mr-page-nav-link is-next is-disabled">
+          <span class="mr-page-nav-label">Next</span>
+          <span class="mr-page-nav-title">End of this section</span>
+        </span>
+        {% endif %}
+      </nav>
+      {% endif %}
+      {% if page and page.url %}
+      <div class="mr-page-nav-utility">
+        {% if page.url.startswith('docs/') %}
+        <a class="mr-page-nav-utility-link" href="{{ 'docs/documentation/'|url }}">Back to docs hub</a>
+        {% if page.next_page %}
+        <span class="mr-page-nav-utility-sep" aria-hidden="true">/</span>
+        <a class="mr-page-nav-utility-link" href="{{ page.next_page.url|url }}">Up next in this section</a>
+        {% endif %}
+        {% elif page.url.startswith('blog/') and not page.url.startswith('blog/index') %}
+        <a class="mr-page-nav-utility-link" href="{{ 'blog/'|url }}">Back to blog index</a>
+        {% if page.next_page %}
+        <span class="mr-page-nav-utility-sep" aria-hidden="true">/</span>
+        <a class="mr-page-nav-utility-link" href="{{ page.next_page.url|url }}">Up next in the blog</a>
+        {% endif %}
+        {% endif %}
+        <span class="mr-page-nav-utility-sep" aria-hidden="true">/</span>
+        <a class="mr-page-nav-utility-link" href="#top">Back to top</a>
+      </div>
+      {% endif %}
+      <section class="mr-site-footer-grid">
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Project</div>
+          <a href="{{ 'docs/why-microraft/'|url }}">Why MicroRaft?</a>
+          <a href="{{ 'docs/main-abstractions/'|url }}">Main Abstractions</a>
+          <a href="{{ 'docs/setup/'|url }}">Setup</a>
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noreferrer"><span class="fa fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+        </div>
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Community</div>
+          <a href="{{ 'blog/'|url }}">Blog</a>
+          <a href="{{ 'docs/troubleshooting/'|url }}">Troubleshooting</a>
+          <a href="{{ 'docs/roadmap/'|url }}">Roadmap</a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noreferrer"><span class="fa fa-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X / Twitter</span></a>
+        </div>
+        <div class="mr-site-footer-column">
+          <div class="mr-site-footer-title">Releases</div>
+          <a href="{{ 'docs/release-notes/'|url }}">Release Notes</a>
+          <a href="{{ 'docs/benchmarks/'|url }}">Benchmarks</a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noreferrer"><span class="fa fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+          <a href="https://github.com/MicroRaft/MicroRaft/releases" target="_blank" rel="noreferrer"><span class="fa fa-tag mr-site-footer-icon" aria-hidden="true"></span><span>GitHub Releases</span></a>
+        </div>
+      </section>
+      <p class="mr-site-footer-note">Embeddable Java Raft for metadata, coordination, and control-plane services.</p>
+      <div class="mr-site-footer-meta">
+        <div class="mr-site-footer-meta-copy">Apache 2.0 licensed · Copyright MicroRaft</div>
+        <div class="mr-site-footer-meta-copy">Built for embeddable CP systems</div>
+        <div class="mr-site-footer-meta-links">
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noreferrer"><span class="fa fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noreferrer"><span class="fa fa-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X</span></a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noreferrer"><span class="fa fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
