@@ -8,11 +8,11 @@
 ![](https://microraft.io/img/microraft-logo.png)
 
 MicroRaft is a feature-complete and stable open-source implementation of the
-Raft consensus algorithm in Java. __It is a single lightweight JAR file of a few
-hundred KBs of size.__ It can be used for building fault tolerant and
-strongly-consistent (CP) data, metadata and coordination services. A few
+Raft consensus algorithm in Java. __It is a single lightweight JAR file of a
+few hundred KBs of size.__ It can be used for building fault tolerant and
+strongly-consistent (CP) data, metadata, and coordination services. A few
 examples of possible use-cases are building distributed file systems, key-value
-stores, distributed lock services, etc.
+stores, distributed lock services, and control-plane services.
 
 MicroRaft works on top of a minimalistic and modular design. __It is a single
 lightweight JAR with a few hundred KBs of size and only logging dependency.__
@@ -28,6 +28,13 @@ __Please note that MicroRaft is not a high-level solution like a distributed
 key-value store or a distributed lock service. It is a core library that offers
 a set of abstractions and functionalities to help you build such high-level
 systems.__
+
+## Start here
+
+- Want to see MicroRaft running locally? Start with the [Quick Start](#quick-start).
+- Want to embed it into your own service? See [Use MicroRaft in your project](#use-microraft-in-your-project).
+- Want the conceptual model first? Read the [User Guide](https://microraft.io/docs/main-abstractions/).
+- Want to understand the positioning and tradeoffs? Read [Why MicroRaft?](https://microraft.io/docs/why-microraft/).
 
 ## Features
 
@@ -54,9 +61,59 @@ enhancements:
 * Leadership transfer [(Section 3.10 of the Raft dissertation)](https://github.com/ongardie/dissertation).
 * [Improved majority quorums](https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/)
 
-## Get started
+## Quick Start
 
-See [the User Guide](https://microraft.io/docs/setup).
+Run a single tutorial test that starts a local 3-node Raft group, elects a
+leader, and commits operations to an atomic register:
+
+```bash
+./gradlew :microraft-tutorial:test \
+  --tests io.microraft.tutorial.OperationCommitTest \
+  -Pmicroraft.javaVersion=20
+```
+
+`microraft.javaVersion` defaults to `11`. If Java 11 is already installed on
+your machine, you can omit that property. If you want a quick smoke test for
+leader election only, run:
+
+```bash
+./gradlew :microraft-tutorial:test \
+  --tests io.microraft.tutorial.LeaderElectionTest \
+  -Pmicroraft.javaVersion=20
+```
+
+What you will see:
+
+- a 3-node local Raft group bootstrapping in-process,
+- a leader elected for the group,
+- replicated operations committed with increasing commit indexes,
+- the final atomic register value observed from the leader.
+
+Next steps:
+
+- Read the runnable tutorial entry point in [microraft-tutorial/README.md](microraft-tutorial/README.md).
+- Continue with the [setup guide](https://microraft.io/docs/setup/).
+- Build an atomic register by following the [tutorial](https://microraft.io/docs/tutorial-building-an-atomic-register/).
+
+## Why MicroRaft?
+
+Use MicroRaft when you want to embed consensus into your own Java service
+without adopting an entire distributed data platform.
+
+MicroRaft is a good fit when you need:
+
+- a lightweight embeddable Raft library,
+- explicit control over persistence, transport, serialization, and threading,
+- production-oriented Raft features such as membership changes, snapshotting,
+  quorum-aware reads, and leadership transfer.
+
+MicroRaft is not the right fit when you need:
+
+- a turnkey distributed database,
+- a managed coordination service,
+- a system that hides Raft integration details completely.
+
+For a fuller positioning guide, see [Why MicroRaft?](https://microraft.io/docs/why-microraft/).
 
 ## Use MicroRaft in your project
 
@@ -93,6 +150,14 @@ Maven
 Pull the latest code with `gh repo clone MicroRaft/MicroRaft`
 and build with `cd MicroRaft && ./gradlew build`.
 
+Common development tasks:
+
+- `./gradlew check` runs tests, Checkstyle, and SpotBugs across all modules.
+- `./gradlew qualityDashboard` generates a single HTML index at `build/reports/quality/index.html`.
+- `./gradlew test -Pmicroraft.javaVersion=21` runs the suite on a newer local JDK without changing the default toolchain.
+- `./gradlew benchmark -Pmicroraft.javaVersion=21` runs the JMH benchmark suite.
+- `./gradlew mutationTest -Pmicroraft.javaVersion=21` runs PIT mutation testing for the core module.
+
 ## Source code layout
 
 `microraft` module contains the source code of MicroRaft along with its unit
@@ -104,9 +169,21 @@ parsing HOCON and YAML files to start Raft nodes.
 `microraft-metrics` module contains the integration with the Micrometer library
 for publishing MicroRaft metrics to external systems.
 
+`microraft-tutorial` contains runnable local tests and sample building blocks
+for learning the core abstractions.
+
 `afloatdb` contains a simple in-memory distributed KV store project built with MicroRaft and gRPC.
 
 `site-src` contains the source files of [microraft.io](https://microraft.io).
+
+## Production and operations
+
+If you are evaluating MicroRaft for production use, start with:
+
+- [Monitoring](https://microraft.io/docs/monitoring/)
+- [Production checklist](https://microraft.io/docs/production-checklist/)
+- [Troubleshooting](https://microraft.io/docs/troubleshooting/)
+- [Micrometer integration](microraft-metrics/README.md)
 
 ## Contribute to MicroRaft
 

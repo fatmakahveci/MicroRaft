@@ -1,8 +1,45 @@
-# Roadmap
+---
+seo_title: "MicroRaft Roadmap and Direction for Java Raft Development"
+description: "Understand the MicroRaft roadmap and direction for future Java Raft capabilities, without treating it as a fixed release promise."
+keywords: "microraft roadmap, java raft roadmap, microraft future, raft library roadmap java"
+schema_type: CollectionPage
+og_type: website
+---
+<div class="mr-doc-shell" data-mr-doc-layout="reference">
+  <section class="mr-doc-hero">
+    <h1 class="mr-page-title mr-doc-title">Roadmap</h1>
+    <p class="mr-page-summary">
+      These are areas of interest, not promised delivery dates. Use them to
+      understand direction, not to plan against a fixed release schedule.
+    </p>
+  </section>
 
-I am planning to work on the following tasks in the future, but have no strict
-plans about their timeline. If you have ideas, just [chime
-in](https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lIme2IaaQ)!
+  <section class="mr-doc-grid">
+    <article class="mr-doc-card">
+      <h3>Protocol and correctness work</h3>
+      <ul class="mr-doc-list">
+        <li>opt-in deduplication mechanisms</li>
+        <li>witness replicas and quorum-shaping ideas</li>
+      </ul>
+    </article>
+    <article class="mr-doc-card">
+      <h3>Replication improvements</h3>
+      <ul class="mr-doc-list">
+        <li>offloading more work from leader to followers</li>
+        <li>smarter log catch-up behavior after snapshots</li>
+        <li>more adaptive append entries batching and retry behavior</li>
+      </ul>
+    </article>
+    <article class="mr-doc-card">
+      <h3>Feedback</h3>
+      <p>
+        If you have ideas or want to discuss tradeoffs, join the
+        <a href="https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lIme2IaaQ" target="_blank" rel="noreferrer">community Slack</a>.
+      </p>
+      <span class="mr-card-cta">Join discussion</span>
+    </article>
+  </section>
+</div>
 
 - Opt-in deduplication mechanism via implementation of the [Implementing
   Linearizability at Large Scale and Low
@@ -20,7 +57,7 @@ in](https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lI
 
 - Offload more work from leader to followers. One candidate is transfer of
   committed log entries. Just like parallel snapshot chunk transfer from
-  followers, a slow follower can get committed log entries from followers.  
+  followers, a slow follower can get committed log entries from followers.
 
 - Improve the log replication design. The current log replication design is
   quite solid but there is still room for improvement. One idea is, once a

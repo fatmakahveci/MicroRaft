@@ -1,5 +1,56 @@
+---
+seo_title: "MicroRaft Configuration for Java Raft Timeouts, Snapshots, and Throughput"
+description: "Tune MicroRaft configuration for Java Raft timeouts, batching, snapshots, recovery behavior, and operational stability."
+keywords: "microraft configuration, java raft timeouts, raft snapshots java, raft batching config, microraft tuning"
+schema_type: TechArticle
+og_type: article
+---
+<div class="mr-doc-shell" data-mr-doc-layout="reference">
+  <section class="mr-doc-hero">
+    <h1 class="mr-page-title mr-doc-title">Configuration</h1>
+    <p class="mr-page-summary">
+      Use this page as a tuning reference. Start with the defaults, then change
+      timeouts, batching, and snapshot policy only when your workload gives you
+      a concrete reason.
+    </p>
+  </section>
 
-# Configuration
+  <section class="mr-doc-grid">
+    <article class="mr-doc-card">
+      <h3>Most important knobs</h3>
+      <ul class="mr-doc-list">
+        <li>leader election timeout for retry cadence</li>
+        <li>leader heartbeat timeout for failure detection sensitivity</li>
+        <li>pending log entry count for backpressure</li>
+        <li>snapshot frequency for recovery cost versus steady-state overhead</li>
+      </ul>
+    </article>
+    <article class="mr-doc-card">
+      <h3>How to approach tuning</h3>
+      <ul class="mr-doc-list">
+        <li>change one dimension at a time</li>
+        <li>measure under realistic load and induced failures</li>
+        <li>treat false leader changes as a signal that timeouts are too aggressive</li>
+      </ul>
+    </article>
+    <article class="mr-doc-card">
+      <h3>Configuration surfaces</h3>
+      <ul class="mr-doc-list">
+        <li><code>RaftConfigBuilder</code> for programmatic setup</li>
+        <li>HOCON parsing via <code>microraft-hocon</code></li>
+        <li>YAML parsing via <code>microraft-yaml</code></li>
+      </ul>
+    </article>
+    <article class="mr-doc-card">
+      <h3>Read this with</h3>
+      <ul class="mr-doc-list">
+        <li><a href="/docs/main-abstractions/">Main Abstractions</a></li>
+        <li><a href="/docs/monitoring/">Monitoring</a></li>
+        <li><a href="/docs/production-checklist/">Production Checklist</a></li>
+      </ul>
+    </article>
+  </section>
+</div>
 
 MicroRaft is a lightweight library with a minimal feature set, yet it allows
 users to fine-tune its behaviour. In this section, we elaborate the
@@ -14,6 +65,53 @@ parsers to populate `RaftConfig` objects for such cases. Once you create a
 you can provide it to `RaftNodeBuilder` while building `RaftNode` instances.
 
 You can see MicroRaft's configuration parameters below:
+
+<div class="mr-doc-grid">
+  <article class="mr-doc-card">
+    <h3>Timeouts</h3>
+    <p>
+      These decide how quickly the cluster suspects leader failure and how
+      aggressively it retries elections.
+    </p>
+    <ul class="mr-doc-list">
+      <li>leader election timeout</li>
+      <li>leader heartbeat timeout</li>
+      <li>leader heartbeat period</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Throughput and backpressure</h3>
+    <p>
+      These control how much work the leader accumulates and how efficiently it
+      pushes entries to followers.
+    </p>
+    <ul class="mr-doc-list">
+      <li>maximum pending log entry count</li>
+      <li>append entries request batch size</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Log retention and recovery</h3>
+    <p>
+      These shape snapshot cost, replay length, and recovery behavior for slow
+      followers.
+    </p>
+    <ul class="mr-doc-list">
+      <li>commit count to take snapshot</li>
+      <li>transfer snapshots from followers</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Observability</h3>
+    <p>
+      This determines how often internal state becomes visible to external
+      monitoring and reporting systems.
+    </p>
+    <ul class="mr-doc-list">
+      <li>raft node report publish period seconds</li>
+    </ul>
+  </article>
+</div>
 
 * __Leader election timeout milliseconds:__
 
@@ -105,14 +203,33 @@ state. `RaftNodeReport` objects can be used for monitoring a running Raft group.
 
 ## HOCON Configuration
 
+<div class="mr-doc-grid">
+  <article class="mr-doc-card">
+    <h3>Choose HOCON when</h3>
+    <ul class="mr-doc-list">
+      <li>your service already uses Typesafe Config</li>
+      <li>you want environment-specific overlays and substitutions</li>
+      <li>you prefer JVM-native config conventions</li>
+    </ul>
+  </article>
+  <article class="mr-doc-card">
+    <h3>Choose YAML when</h3>
+    <ul class="mr-doc-list">
+      <li>your deployment stack already standardizes on YAML</li>
+      <li>operations teams expect Kubernetes-style config files</li>
+      <li>you want the same values to appear in app and infra config flows</li>
+    </ul>
+  </article>
+</div>
+
 `RaftConfig` objects can be populated from HOCON files easily if you add the
 `microraft-hocon` dependency to your classpath.
 
 ~~~~{.xml}
 <dependency>
-	<groupId>io.microraft</groupId>
-	<artifactId>microraft-hocon</artifactId>
-	<version>0.1</version>
+    <groupId>io.microraft</groupId>
+    <artifactId>microraft-hocon</artifactId>
+    <version>0.9</version>
 </dependency>
 ~~~~
 
@@ -152,9 +269,9 @@ add the `microraft-yaml` dependency to your classpath.
 
 ~~~~{.xml}
 <dependency>
-	<groupId>io.microraft</groupId>
-	<artifactId>microraft-yaml</artifactId>
-	<version>0.1</version>
+    <groupId>io.microraft</groupId>
+    <artifactId>microraft-yaml</artifactId>
+    <version>0.9</version>
 </dependency>
 ~~~~
 

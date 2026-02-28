@@ -1,151 +1,285 @@
 ---
-title: 'Home'
+seo_title: "MicroRaft Java Raft Library for Consensus, Metadata Stores, and Coordination"
+description: "MicroRaft is an embeddable Java Raft library for consensus, metadata stores, coordination services, distributed locks, and control-plane systems."
+keywords: "java raft library, raft implementation java, embeddable raft java, java consensus library, microraft"
+schema_type: SoftwareApplication
+og_type: website
 ---
+<div class="mr-home">
+  <section class="mr-hero">
+    <div class="mr-hero-grid">
+      <div>
+        <span class="mr-page-kicker mr-eyebrow">Embeddable Java Raft</span>
+        <h1 class="mr-page-title">Java Raft for metadata and coordination.</h1>
+        <p class="mr-page-summary">
+          Embed a CP core inside your own Java service. Do not use it when you
+          want a turnkey distributed database or a managed coordination product.
+        </p>
+        <ul class="mr-hero-list">
+          <li>Embeddable CP core, not a full external platform</li>
+          <li>You keep control over transport, persistence, and failure behavior</li>
+        </ul>
+        <div class="mr-hero-actions">
+          <a class="mr-button mr-button-primary" href="/demo/"><span class="fa fa-play mr-button-icon" aria-hidden="true"></span><span>Open Interactive Demo</span></a>
+          <a class="mr-button mr-button-secondary" href="/docs/documentation/"><span class="fa fa-book mr-button-icon" aria-hidden="true"></span><span>Start Documentation</span></a>
+        </div>
+        <div class="mr-tab-actions">
+          <a class="mr-button mr-button-ghost" href="/docs/faq/"><span class="fa fa-question-circle mr-button-icon" aria-hidden="true"></span><span>Read the FAQ</span></a>
+          <a class="mr-button mr-button-ghost" href="/docs/use-cases/"><span class="fa fa-compass mr-button-icon" aria-hidden="true"></span><span>See Use Cases</span></a>
+        </div>
+      </div>
+      <aside class="mr-hero-card">
+        <h3>Quick Start</h3>
+        <p>Run a 3-node local tutorial flow from the repository root.</p>
+        <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
+  --tests io.microraft.tutorial.OperationCommitTest \
+  -Pmicroraft.javaVersion=20</code></pre>
+        <p class="mr-muted">If Java 11 is already installed, the Gradle property can be omitted.</p>
+      </aside>
+    </div>
+  </section>
 
-# MicroRaft
+  <section class="mr-proof-strip">
+    <a class="mr-proof" href="https://central.sonatype.com/artifact/io.microraft/microraft"><span class="fa fa-cube mr-proof-icon" aria-hidden="true"></span><span>Maven Central</span></a>
+    <a class="mr-proof" href="https://javadoc.io/doc/io.microraft/microraft"><span class="fa fa-code mr-proof-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+    <a class="mr-proof" href="https://github.com/MicroRaft/MicroRaft"><span class="fa fa-github mr-proof-icon" aria-hidden="true"></span><span>GitHub</span></a>
+    <a class="mr-proof" href="/docs/production-checklist/"><span class="fa fa-shield mr-proof-icon" aria-hidden="true"></span><span>Production guidance</span></a>
+  </section>
 
-![](img/microraft-logo.png){: style="height:192px;width:192px;float:right;"}
+  <section class="mr-stat-grid">
+    <div class="mr-stat">
+      <strong>1 JAR</strong>
+      <span>Lightweight embeddable core</span>
+    </div>
+    <div class="mr-stat">
+      <strong>CP-first</strong>
+      <span>For metadata, coordination, and control planes</span>
+    </div>
+  </section>
 
-MicroRaft is a feature-complete and stable open-source implementation of the
-Raft consensus algorithm in Java. It is released with
-<a href="https://github.com/MicroRaft/MicroRaft/blob/master/LICENSE"
-target="_blank">the Apache 2 license</a>.
+  <section class="mr-home-band">
+    <div class="mr-home-band-grid">
+      <article>
+        <h2 class="mr-section-heading">Use MicroRaft when</h2>
+        <ul class="mr-home-list">
+          <li>you need a CP core inside a Java service</li>
+          <li>you want to own transport and persistence</li>
+          <li>you care about explicit failure semantics</li>
+        </ul>
+      </article>
+      <article>
+        <h2 class="mr-section-heading">Do not use it when</h2>
+        <ul class="mr-home-list">
+          <li>you want a turnkey distributed database</li>
+          <li>you want a managed coordination product</li>
+          <li>you do not want to own state-machine behavior</li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-MicroRaft works on top of a minimalistic and modular design. __It is a single
-lightweight JAR with a few hundred KBs of size and only logging dependency__. It
-contains an isolated implementation of the Raft consensus algorithm, and a set
-of accompanying interfaces to run the algorithm in a multi-threaded and
-distributed environment. These interfaces surround the Raft consensus algorithm,
-and abstract away the concerns of persistence, thread-safety, serialization,
-networking and actual state machine logic. Developers are required to implement
-these interfaces to build *CP* distributed systems on top of MicroRaft.
+  <section>
+    <h2 class="mr-section-heading">Choose your entry point</h2>
+    <div class="mr-home-tabs" data-mr-tabs>
+      <div class="mr-tab-nav" role="tablist" aria-label="Homepage paths">
+        <button class="mr-tab-button is-active" type="button" role="tab" aria-selected="true" data-tab-target="getting-started">
+          Getting Started
+        </button>
+        <button class="mr-tab-button" type="button" role="tab" aria-selected="false" data-tab-target="evaluate">
+          Evaluate
+        </button>
+        <button class="mr-tab-button" type="button" role="tab" aria-selected="false" data-tab-target="operate">
+          Operate
+        </button>
+      </div>
+      <div class="mr-tab-panel is-active" role="tabpanel" data-tab-panel="getting-started">
+        <div class="mr-tab-panel-grid">
+          <a class="mr-card mr-home-link-card" href="/docs/setup/">
+            <h3>Run the shortest path first</h3>
+            <p>Start with the local tutorial test. It is the fastest way to see leader election, quorum, and commit flow in one place.</p>
+            <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
+  --tests io.microraft.tutorial.OperationCommitTest \
+  -Pmicroraft.javaVersion=20</code></pre>
+            <span class="mr-card-cta">Open guide</span>
+          </a>
+          <a class="mr-card mr-home-link-card" href="/docs/tutorial-building-an-atomic-register/">
+            <h3>Turn it into a real state machine</h3>
+            <p>Once the local cluster makes sense, move to the atomic register walkthrough and see the smallest practical integration shape.</p>
+            <span class="mr-card-cta">Open tutorial</span>
+          </a>
+        </div>
+      </div>
+      <div class="mr-tab-panel" role="tabpanel" hidden data-tab-panel="evaluate">
+        <div class="mr-tab-panel-grid">
+          <a class="mr-card mr-home-link-card" href="/docs/why-microraft/">
+            <h3>Check the abstraction fit</h3>
+            <p>Read this first if you want to know where an embeddable Java Raft core fits, and where a turnkey data platform is the better choice.</p>
+            <span class="mr-card-cta">Read guide</span>
+          </a>
+          <a class="mr-card mr-home-link-card" href="/docs/use-cases/">
+            <h3>Map it to real workloads</h3>
+            <p>Go here when you want to evaluate MicroRaft through metadata stores, lock services, and coordination systems instead of protocol theory.</p>
+            <span class="mr-card-cta">View use cases</span>
+          </a>
+        </div>
+      </div>
+      <div class="mr-tab-panel" role="tabpanel" hidden data-tab-panel="operate">
+        <div class="mr-tab-panel-grid">
+          <a class="mr-card mr-home-link-card" href="/docs/production-checklist/">
+            <h3>Open the rollout checklist</h3>
+            <p>Use this once the local flow is clear and you need a practical checklist for observability, persistence, transport, and failure handling.</p>
+            <span class="mr-card-cta">Open checklist</span>
+          </a>
+          <a class="mr-card mr-home-link-card" href="/docs/resiliency-and-fault-tolerance/">
+            <h3>Validate failure behavior</h3>
+            <p>Check follower loss, recovery catch-up, quorum behavior, and leader changes before you trust the cluster in production.</p>
+            <span class="mr-card-cta">Open guide</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-You can read the [public announcement](blog/2021-09-03-introducing-microraft.md)
-here.
+  <section class="mr-callout">
+    <h2 class="mr-section-heading">Why teams reach for MicroRaft</h2>
+    <div class="mr-card-grid">
+      <article>
+        <h3>Embeddable by design</h3>
+        <p>Bring Raft into your Java service instead of adopting a full external data platform.</p>
+      </article>
+      <article>
+        <h3>Modular integration points</h3>
+        <p>Keep control over persistence, networking, serialization, state machine logic, and threading decisions.</p>
+      </article>
+      <article>
+        <h3>Operationally serious</h3>
+        <p>Snapshotting, membership changes, quorum-aware queries, leadership transfer, and metrics support are already part of the story.</p>
+      </article>
+    </div>
+  </section>
 
-## Features
+  <section>
+    <h2 class="mr-section-heading">Evaluate fit in two fast reads</h2>
+    <div class="mr-card-grid">
+      <a class="mr-card mr-home-link-card" href="/docs/faq/">
+        <h3>FAQ</h3>
+        <p>Use this if you want short answers about what MicroRaft is, whether it is a database, and when a Java Raft library is the right fit.</p>
+        <span class="mr-card-cta">Read answers</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="/docs/use-cases/">
+        <h3>Use Cases</h3>
+        <p>Use this if you want to map MicroRaft directly to metadata stores, lock services, and coordination systems instead of reading abstract protocol docs first.</p>
+        <span class="mr-card-cta">View use cases</span>
+      </a>
+    </div>
+  </section>
 
-MicroRaft is a complete implementation of the Raft consensus algorithm. It
-implements the leader election, log replication, log compaction (snapshotting),
-and cluster membership changes components. Additionally, it realizes a rich set
-of optimizations and enhancements, as listed below, to allow developers to run
-Raft clusters in a reliable and performant manner, and tune its behaviour based
-on their needs.
+  <section>
+    <h2 class="mr-section-heading">What you can build</h2>
+    <div class="mr-card-grid">
+      <a class="mr-card mr-home-link-card" href="/docs/recipe-metadata-store/">
+        <h3>Metadata stores</h3>
+        <p>Keep shard maps, ownership records, and cluster metadata strongly consistent.</p>
+        <span class="mr-card-cta">View recipe</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="/docs/recipe-coordination-service/">
+        <h3>Coordination services</h3>
+        <p>Drive control-plane decisions, registrations, elections, and state transitions with ordered commits.</p>
+        <span class="mr-card-cta">View recipe</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="/docs/recipe-distributed-lock-service/">
+        <h3>Distributed locks</h3>
+        <p>Build fencing-token based lock services with explicit consistency and failure semantics.</p>
+        <span class="mr-card-cta">View recipe</span>
+      </a>
+    </div>
+  </section>
 
-* Adaptive batching during log replication
-* Back pressure to prevent OOMEs on Raft leader and followers
-* Parallel snapshot transfer from Raft leader and followers
-* Pre-voting and leader stickiness (<a href="https://github.com/ongardie/dissertation" target="_blank">§ 4.2.3 and 9.6 of the Raft dissertation</a>, and <a href="https://openlife.cc/system/files/4-modifications-for-Raft-consensus.pdf" target="_blank">4 Modifications for Raft Consensus</a>)
-* Auto-demotion of Raft leader on loss of quorum heartbeats
-* Linearizable quorum reads without appending log entries <a href="https://github.com/ongardie/dissertation" target="_blank">(§ 6.4 of the Raft dissertation)</a>
-* Lease-based local queries on Raft leader <a href="https://github.com/ongardie/dissertation" target="_blank">(§ 6.4.1 of the Raft dissertation)</a>
-* Monotonic local queries on Raft followers <a href="https://github.com/ongardie/dissertation" target="_blank">(§ 6.4.1 of the Raft dissertation)</a>
-* Parallel disk writes on Raft leader and followers <a href="https://github.com/ongardie/dissertation" target="_blank">(§ 10.2.1 of the Raft dissertation)</a>
-* Leadership transfer <a href="https://github.com/ongardie/dissertation" target="_blank">(§ 3.10 of the Raft dissertation)</a>
-* <a href="https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/" target="_blank">Improved majority quorums</a>
+  <section>
+    <h2 class="mr-section-heading">Search by workload, not just by feature</h2>
+    <div class="mr-card-grid">
+      <a class="mr-card mr-home-link-card" href="/docs/recipe-metadata-store/">
+        <h3>Java metadata store</h3>
+        <p>Use MicroRaft for shard maps, ownership records, and cluster metadata that must stay strongly consistent.</p>
+        <span class="mr-card-cta">View guidance</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="/docs/recipe-distributed-lock-service/">
+        <h3>Distributed lock service</h3>
+        <p>Build fencing-token based lock services when stale owners must not survive a leader change or failover.</p>
+        <span class="mr-card-cta">View guidance</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="/docs/recipe-coordination-service/">
+        <h3>Coordination service</h3>
+        <p>Embed Raft into a Java control plane for elections, registrations, and ordered coordination decisions.</p>
+        <span class="mr-card-cta">View guidance</span>
+      </a>
+    </div>
+  </section>
 
-## Use cases
+  <section>
+    <h2 class="mr-section-heading">From demo to real code</h2>
+    <div class="mr-card-grid">
+      <a class="mr-card mr-home-link-card" href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/src/test/java/io/microraft/tutorial/LeaderElectionTest.java">
+        <h3>See the cluster form</h3>
+        <p>The shortest runnable example is the leader election tutorial test.</p>
+        <span class="mr-card-cta">View source</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/src/test/java/io/microraft/tutorial/OperationCommitTest.java">
+        <h3>See replication happen</h3>
+        <p>The operation commit scenario is the best bridge from the website demo to executable code.</p>
+        <span class="mr-card-cta">View source</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="https://github.com/MicroRaft/MicroRaft/tree/master/microraft-tutorial/src/main/java/io/microraft/tutorial/atomicregister">
+        <h3>See the sample state machine</h3>
+        <p>The atomic register tutorial classes show the smallest practical integration shape.</p>
+        <span class="mr-card-cta">View source</span>
+      </a>
+    </div>
+  </section>
 
-MicroRaft can be used for building highly available and strongly consistent
-data, metadata and coordination services.
+  <section>
+    <h2 class="mr-section-heading">A cleaner documentation path</h2>
+    <div class="mr-steps-grid">
+      <a class="mr-step mr-home-link-card" href="/docs/setup/">
+        <span class="mr-step-index">1</span>
+        <h3>Run the tutorial</h3>
+        <p>Start from Setup and verify the local 3-node example.</p>
+        <span class="mr-card-cta">Open guide</span>
+      </a>
+      <a class="mr-step mr-home-link-card" href="/docs/main-abstractions/">
+        <span class="mr-step-index">2</span>
+        <h3>Learn the core APIs</h3>
+        <p>Move to Main Abstractions and the atomic register tutorial.</p>
+        <span class="mr-card-cta">Open guide</span>
+      </a>
+      <a class="mr-step mr-home-link-card" href="/docs/production-checklist/">
+        <span class="mr-step-index">3</span>
+        <h3>Harden for production</h3>
+        <p>Use the monitoring, troubleshooting, and production checklist guides before rollout.</p>
+        <span class="mr-card-cta">Open checklist</span>
+      </a>
+    </div>
+  </section>
 
-An example of data service is a distributed key-value store. You can build a
-distributed key-value store where each partition / shard is maintained by a
-separate Raft cluster (*Raft group* in MicroRaft terms).
+  <section class="mr-callout">
+    <h2 class="mr-section-heading">Start in the right order</h2>
+    <p>
+      The fastest successful path is not "read everything". It is:
+    </p>
+    <ol>
+      <li>open the <a href="/demo/">interactive demo</a> to build intuition,</li>
+      <li>run the local tutorial from <a href="/docs/setup/">Setup</a>,</li>
+      <li>read <a href="/docs/main-abstractions/">Main Abstractions</a> and the atomic register tutorial,</li>
+      <li>use <a href="/docs/production-checklist/">Production Checklist</a> before rollout.</li>
+    </ol>
+  </section>
 
-MicroRaft can be also used for building a control plane or coordination cluster.
-It can store the metadata of your large-scale data services. High-level APIs,
-such as leader election mechanisms, group membership management systems,
-distributed locks, distributed transaction managers, or distributed resource
-schedulers can be also built on top of MicroRaft.
-
-__Please note that MicroRaft is not a high-level solution like a distributed
-key-value store, or a distributed lock service. It is a library that offers a
-set of abstractions and functionalities to help you build such high-level
-systems without intertwining your system with Raft code.__
-
-## Get started
-
-Just run the following command on your terminal for a sneak peek at MicroRaft.
-It starts a 3-node local Raft group, elects a leader, and commits a number of
-operations.
-
-~~~~{.bash}
-$ gh repo clone MicroRaft/MicroRaft && cd MicroRaft && ./mvnw clean test -Dtest=io.microraft.tutorial.OperationCommitTest -DfailIfNoTests=false -Ptutorial
-~~~~
-
-If you want to learn more about how to use MicroRaft for building a *CP*
-distributed system, you can check out the [Main
-Abstractions](docs/main-abstractions.md) section first, and then read the
-[tutorial](docs/tutorial-building-an-atomic-register.md) to build an atomic
-register on top of MicroRaft.
-
-## Use MicroRaft in your project
-
-Add MicroRaft to your dependency list:
-
-~~~~{.xml}
-<dependency>
-    <groupId>io.microraft</groupId>
-    <artifactId>microraft</artifactId>
-    <version>0.8</version>
-</dependency>
-~~~~
-
-## Get involved
-
-MicroRaft is a new open-source library. Your contribution and feedback is 
-welcome! The development happens on <a href="https://github.com/MicroRaft/MicroRaft"
-target="_blank">Github</a>. You can follow <a href="https://twitter.com/microraft" 
-target="_blank">@MicroRaft</a> on Twitter for announcements.
-
-## What is consensus?
-
-Consensus is one of the fundamental problems in distributed systems. It involves
-multiple servers agree on a value. Once a value is decided, the decision is
-final. Consensus algorithms are very useful in a plethora of distributed systems
-that require high availability and strong consistency. Paxos, first introduced
-by Leslie Lamport, is probably the most widely known consensus algorithm.
-However, it has been also known as difficult to reason about and lacking details
-for building practical implementations. Raft was introduced in 2013 as a new
-consensus algorithm with the main goal of understandability. Ever since its
-introduction, Raft has received widespread adoption in the industry.
-
-Raft approaches the consensus problem in the context of replicated state
-machines, where a group of servers applies the same set of operations and
-computes identical copies of the same state. Raft's primary enabler of
-understandability is the problem decomposition technique. It divides the
-consensus problem into 3 pieces: leader election, log replication and safety,
-and solves each piece relatively independently. Raft starts by electing a
-leader. There is a single functional leader managing the servers, and upon its
-failure a new leader is elected. Each server keeps a local log. Clients send
-their requests to the leader. The leader appends incoming requests into its log
-and replicates them to the other servers. Each server appends the requests sent
-by the leader into its log. Once a request is appended to the local logs of
-sufficient number (i.e., more than half) of servers, the leader considers the
-request committed, hence executes it on its local state machine, also notifies
-other servers to do the same. Raft orders requests by the indices they are
-appended to the replicated log. In addition, Raft's leader election and log
-replication rules ensure that once a request is committed and executed at a
-given log index on one server, no other server can execute another request for
-the same log index, including the presence of non-Byzantine failures. This is
-basically Raft's safety property. Thanks to this property, each server executes
-the same sequence of requests. Once these requests are deterministic, servers
-compute identical copies of the same state and produce the same output values.
-
-For more details about Raft, please see the [In Search of an Understandable
-Consensus Algorithm](https://raft.github.io/raft.pdf) paper by Diego Ongaro and
-John Ousterhout.  
-
-## Acknowledgements
-
-MicroRaft originates from Hazelcast IMDG's <a
-href="https://github.com/hazelcast/hazelcast/tree/master/hazelcast/src/main/java/com/hazelcast/cp/internal/raft"
-target="_blank">Raft implementation</a> and includes several significant
-improvements on the public APIs and internals.
-
-MicroRaft's logo is created by modifying <a
-href="https://github.com/raft/logo/tree/3d2c4d5ca0d9c4fb8d5c28a82c4a43e576673b06"
-target="_blank"> Raft's original logo</a>. Raft's logo was created by Andrea
-Ruygt and licensed under <a href="https://creativecommons.org/licenses/by/4.0/"
-target="_blank">the Creative Commons Attribution-4.0 International</a>.
+  <section class="mr-doc-band">
+    <h2>Common questions before adopting a Java Raft library</h2>
+    <ul>
+      <li><a href="/docs/faq/">What is MicroRaft and when should I use it?</a></li>
+      <li><a href="/docs/why-microraft/">Why pick MicroRaft instead of a full distributed database?</a></li>
+      <li><a href="/docs/use-cases/">Which workloads fit an embeddable Raft core?</a></li>
+    </ul>
+  </section>
+</div>

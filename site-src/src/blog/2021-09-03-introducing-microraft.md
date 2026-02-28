@@ -1,26 +1,39 @@
-
-# Introducing MicroRaft
-
-_September 3, 2021 | Ensar Basri Kahveci_
+---
+seo_title: "Introducing MicroRaft: An Embeddable Java Raft Library"
+description: "The launch post for MicroRaft, an embeddable Java Raft library for metadata stores, coordination, and control-plane services."
+keywords: "introducing microraft, java raft library, embeddable raft java, microraft launch, consensus library java"
+schema_type: BlogPosting
+og_type: article
+date: "2021-09-03"
+---
+<div class="mr-blog-shell">
+  <section class="mr-blog-hero">
+    <div class="mr-page-kicker mr-blog-meta">September 3, 2021 | Ensar Basri Kahveci</div>
+    <h1 class="mr-page-title">Introducing MicroRaft</h1>
+    <p class="mr-page-summary">
+      The launch post for an embeddable Java Raft library. It explains where
+      MicroRaft fits, which systems it is designed to power, and why a library
+      approach matters for metadata, coordination, and control-plane workloads.
+    </p>
+  </section>
+</div>
 
 ___Disclaimer: MicroRaft is a project I develop in my free time. It is not
 affiliated, associated, endorsed by, or in any way officially connected with my
 current employer Facebook, or any of its subsidiaries or its affiliates.___
 
 I am pleased to announce the first public release of MicroRaft! MicroRaft is an
-open-source implementation of the <a href="https://raft.github.io/"
-target="_blank">Raft consensus algorithm</a> in Java. You can use MicroRaft to
-build highly available and strongly consistent data, metadata and coordination
-services. The source code is available at <a
-href="https://github.com/MicroRaft/MicroRaft">Github</a> with the Apache 2
-License.
+open-source implementation of the [Raft consensus algorithm](https://raft.github.io/)
+in Java. You can use MicroRaft to build highly available and strongly consistent
+data, metadata and coordination services. The source code is available at
+[GitHub](https://github.com/MicroRaft/MicroRaft) with the Apache 2 License.
 
 MicroRaft is a complete implementation of the Raft consensus algorithm. It
 implements the leader election, log replication, log compaction (snapshotting),
-and cluster membership change components. Additionally, it realizes <a
-href="https://microraft.io/#features" target="_blank">a rich set of
-optimizations and enhancements</a> to allow developers to run Raft clusters in a
-reliable and performant manner, and tune its behaviour based on their needs.
+and cluster membership change components. Additionally, it realizes
+[a rich set of optimizations and enhancements](https://microraft.io/#features)
+to allow developers to run Raft clusters in a reliable and performant manner,
+and tune its behaviour based on their needs.
 
 MicroRaft works on top of a minimalistic and modular design. It is a single
 lightweight JAR with a few hundred KBs of size and only a logging dependency. It
@@ -68,7 +81,7 @@ the majority of the Raft group, the operation it contains is passed to
 `StateMachine` for execution and the leader `RaftNode` returns the output of the
 execution to the client.
 
-![Architectural overview of a Raft group](/img/microraft_architectural_overview.png){: style="height:592px;width:800px"}
+![Architectural overview of a Raft group](../img/microraft_architectural_overview.png){: style="height:592px;width:800px"}
 
 ## Getting started
 
@@ -77,12 +90,12 @@ starts a 3-node local Raft group (a Raft cluster in MicroRaft terms), elects a
 leader, and commits a number of operations.
 
 ```shell
-$ gh repo clone MicroRaft/MicroRaft && cd MicroRaft && ./mvnw clean test -Dtest=io.microraft.tutorial.OperationCommitTest -DfailIfNoTests=false -Ptutorial
+$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest -Pmicroraft.javaVersion=20
 ```
 
-Follow the [tutorial](/docs/tutorial-building-an-atomic-register) to learn how
+Follow the [tutorial](../docs/tutorial-building-an-atomic-register.md) to learn how
 to build an atomic register on top of MicroRaft and for full details, check out
-MicroRaft's [APIs and main abstractions](/docs/apis-and-main-abstractions).
+MicroRaft's [main abstractions](../docs/main-abstractions.md).
 
 ## Ode to open source
 
@@ -98,26 +111,24 @@ relocated to London, I was too busy with everything related to starting a new
 life and a new job in a new country, so I needed a whole year to find some free
 time and make the project ready for release.
 
-<a href="https://twitter.com/mmdogan" target="_blank">Mehmet Dogan</a> and I
+ [Mehmet Dogan](https://twitter.com/mmdogan) and I
 developed the original Raft code inside Hazelcast codebase, but we isolated it 
 from the rest of the Hazelcast code. It depends on Hazelcast for networking,
 logging and testing. So I started by moving out the Raft code and defining
 abstractions for the parts depending on Hazelcast. Then I implemented several
 significant enhancements and improvements that you can see at the
-<a href="https://github.com/MicroRaft/MicroRaft/commits/master"
-target="_blank">commit history</a>.
+[commit history](https://github.com/MicroRaft/MicroRaft/commits/master).
 
 MicroRaft proudly carries on Hazelcast's open-source heritage and is released 
 with the Apache 2 License.
 
 ## What is next
 
-I wrote down <a href="https://microraft.io/docs/roadmap/" target="_blank">a list
-of future work</a> on MicroRaft. I am planning to work on them in my free time.
+I wrote down [a list of future work](../docs/roadmap.md) on MicroRaft. I am planning
+to work on them in my free time.
 The list is tentative and there is nothing urgent at the moment.
 
 MicroRaft is a new open source project. Any kind of contribution and feedback is
-welcome! The development happens on <a
-href="https://github.com/MicroRaft/MicroRaft" target="_blank">Github</a>. Last,
-you can follow <a href="https://twitter.com/microraft"
-target="_blank">@MicroRaft</a> on Twitter for announcements.
+welcome! The development happens on [GitHub](https://github.com/MicroRaft/MicroRaft).
+Last, you can follow [@MicroRaft](https://twitter.com/microraft) on X / Twitter
+for announcements.

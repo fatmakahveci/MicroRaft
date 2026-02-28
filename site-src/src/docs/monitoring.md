@@ -1,47 +1,67 @@
+---
+seo_title: "MicroRaft Monitoring for Java Raft Metrics, Logs, and Health Signals"
+description: "Monitor MicroRaft with Java Raft metrics, logs, and operational signals that help explain quorum, leadership, load, and recovery."
+keywords: "microraft monitoring, java raft metrics, raft logs monitoring, quorum metrics java, microraft health"
+schema_type: TechArticle
+og_type: article
+---
+<div class="mr-doc-shell" data-mr-doc-layout="reference">
+  <section class="mr-doc-hero">
+    <h1 class="mr-page-title mr-doc-title">Monitoring</h1>
+    <p class="mr-page-summary">
+      Monitoring is how you turn Raft from a library into an operable subsystem.
+      MicroRaft exposes both pull-style and push-style surfaces for this.
+    </p>
+  </section>
 
-# Monitoring
+  <section class="mr-doc-grid">
+    <article class="mr-doc-card">
+      <h3>Pull-based reporting</h3>
+      <p><code>RaftNodeReport</code> contains internal state such as role, term, leader, last log index, and commit index.</p>
+      <ul>
+        <li>query reports via <code>RaftNode.getReport()</code></li>
+        <li>export them into your existing monitoring system</li>
+        <li>use them for snapshots of current cluster health</li>
+      </ul>
+    </article>
 
-<a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/report/RaftNodeReport.java"
-target="_blank">`RaftNodeReport`</a> contains detailed information about
-internal state of a `RaftNode`, such as its Raft role, term, leader, last log
-index, and commit index. We can feed our external monitoring systems with these
-information pieces as follows:  
+    <article class="mr-doc-card">
+      <h3>Push-based reporting</h3>
+      <p><code>RaftNodeReportListener</code> is invoked when important state changes happen, such as leader change, term change, or snapshot installation.</p>
+      <ul>
+        <li>capture state transitions as they happen</li>
+        <li>feed alerts and event streams promptly</li>
+        <li>react to topology and health changes without polling lag</li>
+      </ul>
+    </article>
 
-1. We can build a simple _pull-based_ system to query `RaftNodeReport` objects
-   via `RaftNode.getReport()` and publish those objects to any external
-   monitoring system.
+    <article class="mr-doc-card">
+      <h3>Micrometer integration</h3>
+      <p>MicroRaft offers a dedicated module for publishing metrics via Micrometer.</p>
 
-2. MicroRaft contains another abstraction, <a
-   href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/report/RaftNodeReportListener.java"
-   target="_blank">`RaftNodeReportListener`</a> which is called by Raft nodes
-   anytime there is an important change in the internal Raft state, such as
-   leader change, term change, or snapshot installation. We can also use this
-   abstraction to capture `RaftNodeReport` objects and notify external
-   monitoring systems promptly with a _push-based_ approach.
+      <p><strong>Gradle Kotlin DSL</strong></p>
 
------
+      <pre class="mr-code-block"><code>implementation("io.microraft:microraft-metrics:0.9")</code></pre>
 
-## Micrometer integration
+      <p><strong>Maven</strong></p>
 
-MicroRaft offers a module to publish Raft node metrics to external systems
-easily via the <a href="https://micrometer.io/" target="_blank">Micrometer</a>
-project. Just add the following dependency to the classpath for using the
-Micrometer integration.
+      <pre class="mr-code-block"><code>&lt;dependency&gt;
+    &lt;groupId&gt;io.microraft&lt;/groupId&gt;
+    &lt;artifactId&gt;microraft-metrics&lt;/artifactId&gt;
+    &lt;version&gt;0.9&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+    </article>
 
-~~~~{.xml}
-<dependency>
-	<groupId>io.microraft</groupId>
-	<artifactId>microraft-metrics</artifactId>
-	<version>0.1</version>
-</dependency>
-~~~~
-
-<a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-metrics/src/main/java/io/microraft/metrics/RaftNodeMetrics.java"
-target="_blank">`RaftNodeMetrics`</a> implements the <a
-href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/report/RaftNodeReportListener.java"
-target="_blank">`RaftNodeReportListener`</a> interface and can be injected into
-created `RaftNode` instances via `RaftNodeBuilder.setRaftNodeReportListener()`.
-Then, several metrics extracted from published `RaftNodeReport` objects are
-passed to meter registries.
+    <article class="mr-doc-card">
+      <h3>What to alert on</h3>
+      <ul>
+        <li>unexpected leader changes</li>
+        <li>quorum loss or sustained follower isolation</li>
+        <li>replication lag and commit index drift</li>
+        <li>snapshot churn and recovery loops</li>
+      </ul>
+      <p>Continue with the <a href="/docs/production-checklist/">Production Checklist</a> for rollout-level guidance.</p>
+      <span class="mr-card-cta">Open checklist</span>
+    </article>
+  </section>
+</div>
