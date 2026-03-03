@@ -194,15 +194,26 @@
     };
 
     NavEnhancements.prototype.improveMobileMenu = function () {
-        var toggle = bySelector(".navbar-toggle, .navbar-toggler");
-        var collapse = bySelector(".navbar-collapse");
+        var toggle = bySelector(".navbar-toggler, .navbar-toggle");
+        var targetSelector = toggle ? toggle.getAttribute("data-bs-target") : null;
+        var targetId = toggle ? toggle.getAttribute("aria-controls") : null;
+        var collapse = targetSelector ? bySelector(targetSelector) : null;
+        if (!collapse && targetId) {
+            collapse = byId(targetId);
+        }
+        if (!collapse) {
+            collapse = bySelector(".navbar-collapse");
+        }
         if (!toggle || !collapse) {
             return;
         }
 
         var syncState = function () {
             var expanded = toggle.getAttribute("aria-expanded") === "true";
-            var isOpen = collapse.classList.contains("in") || collapse.classList.contains("show") || expanded;
+            var isOpen = collapse.classList.contains("show")
+                || collapse.classList.contains("in")
+                || expanded
+                || !toggle.classList.contains("collapsed");
             document.body.classList.toggle("mr-mobile-nav-open", isOpen && window.innerWidth <= 991);
         };
 
@@ -218,6 +229,10 @@
             new MutationObserver(syncState).observe(collapse, {
                 attributes: true,
                 attributeFilter: ["class"],
+            });
+            new MutationObserver(syncState).observe(toggle, {
+                attributes: true,
+                attributeFilter: ["aria-expanded", "class"],
             });
         }
 
