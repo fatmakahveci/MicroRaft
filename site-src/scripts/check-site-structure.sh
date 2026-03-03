@@ -18,12 +18,10 @@ if [[ ! -f "${homepage}" ]]; then
 fi
 
 for pattern in \
-  'Choose your entry point' \
-  'Why teams reach for MicroRaft' \
+  'Start here' \
+  'Use MicroRaft when' \
   'What you can build' \
-  'From demo to real code' \
-  'Read in this order' \
-  'Before you adopt'; do
+  'Choose your next read'; do
   if ! rg -Fq "${pattern}" "${homepage}"; then
     echo "Missing homepage section ${pattern} in ${homepage}" >&2
     status=1

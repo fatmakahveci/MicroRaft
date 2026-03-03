@@ -76,8 +76,7 @@ That split is declared per page with the `doc_layout` frontmatter field and then
 - sticky header and nav enhancements
 - blog reading-time and scroll progress
 - the interactive Raft demo
-- homepage tabs
-- docs polish that depends on generated MkDocs markup
+- homepage tabs and docs polish that depend on generated MkDocs markup
 
 If this file keeps growing, it should be split by concern, for example:
 
@@ -103,6 +102,9 @@ If this file keeps growing, it should be split by concern, for example:
 
 3. TOC visibility is still heuristic.
    [`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js) decides whether the TOC should be visible based on heading count and content length, so long docs pages should be spot-checked after content edits.
+
+4. Built-site regressions should be caught before push.
+   Run both `check-seo.sh` and `check-site-structure.sh` after a local build when you touch homepage, docs layout, or footer markup.
 
 ## Suggested Follow-ups
 
