@@ -68,18 +68,15 @@ leader, and commits operations to an atomic register:
 
 ```bash
 ./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.OperationCommitTest \
-  -Pmicroraft.javaVersion=20
+  --tests io.microraft.tutorial.OperationCommitTest
 ```
 
-`microraft.javaVersion` defaults to `11`. If Java 11 is already installed on
-your machine, you can omit that property. If you want a quick smoke test for
-leader election only, run:
+MicroRaft builds against Java 11. If you want a quick smoke test for leader
+election only, run:
 
 ```bash
 ./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.LeaderElectionTest \
-  -Pmicroraft.javaVersion=20
+  --tests io.microraft.tutorial.LeaderElectionTest
 ```
 
 What you will see:
@@ -154,9 +151,9 @@ Common development tasks:
 
 - `./gradlew check` runs tests, Checkstyle, and SpotBugs across all modules.
 - `./gradlew qualityDashboard` generates a single HTML index at `build/reports/quality/index.html`.
-- `./gradlew test -Pmicroraft.javaVersion=21` runs the suite on a newer local JDK without changing the default toolchain.
-- `./gradlew benchmark -Pmicroraft.javaVersion=21` runs the JMH benchmark suite.
-- `./gradlew mutationTest -Pmicroraft.javaVersion=21` runs PIT mutation testing for the core module.
+- `./gradlew test` runs the suite.
+- `./gradlew benchmark` runs the JMH benchmark suite.
+- `./gradlew mutationTest` runs PIT mutation testing for the core module.
 
 ## Source code layout
 

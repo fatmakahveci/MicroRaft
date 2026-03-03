@@ -90,7 +90,7 @@ starts a 3-node local Raft group (a Raft cluster in MicroRaft terms), elects a
 leader, and commits a number of operations.
 
 ```shell
-$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest
 ```
 
 Follow the [tutorial](../docs/tutorial-building-an-atomic-register.md) to learn how

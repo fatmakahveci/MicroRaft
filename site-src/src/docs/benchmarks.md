@@ -18,8 +18,8 @@ og_type: article
   <section class="mr-doc-grid">
     <article class="mr-doc-card">
       <h3>Run the benchmark suite</h3>
-      <pre class="mr-code-block"><code>./gradlew benchmark -Pmicroraft.javaVersion=21</code></pre>
-      <p>If your machine uses a different installed JDK, replace <code>21</code> with that version.</p>
+      <pre class="mr-code-block"><code>./gradlew benchmark</code></pre>
+      <p>Make sure Java 11 is installed before running the suite locally.</p>
     </article>
     <article class="mr-doc-card">
       <h3>What these Java Raft benchmarks are for</h3>

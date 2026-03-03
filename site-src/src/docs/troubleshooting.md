@@ -20,18 +20,17 @@ og_type: article
 
       <p><strong>Symptom</strong>: the build fails before running tests and Gradle reports that it cannot find a Java installation matching version 11.</p>
 
-      <p><strong>Why it happens</strong>: the repository defaults to <code>microraft.javaVersion=11</code>.</p>
+      <p><strong>Why it happens</strong>: the repository build targets Java 11.</p>
 
       <p><strong>What to do</strong>:</p>
 
       <ul>
-        <li>install Java 11 locally, or</li>
-        <li>rerun the command with your installed version, for example:</li>
+        <li>install Java 11 locally</li>
+        <li>rerun the original Gradle command after Java 11 is available</li>
       </ul>
 
       <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.OperationCommitTest \
-  -Pmicroraft.javaVersion=20</code></pre>
+  --tests io.microraft.tutorial.OperationCommitTest</code></pre>
     </article>
 
     <article class="mr-doc-card">
@@ -61,8 +60,7 @@ og_type: article
       </ul>
 
       <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.LeaderElectionTest \
-  -Pmicroraft.javaVersion=20</code></pre>
+  --tests io.microraft.tutorial.LeaderElectionTest</code></pre>
     </article>
 
     <article class="mr-doc-card">

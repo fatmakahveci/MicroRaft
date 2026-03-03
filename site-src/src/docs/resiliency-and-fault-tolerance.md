@@ -113,7 +113,7 @@ requests to the leader. After some time, our requests fail with
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.HighLoadTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.HighLoadTest
 ~~~~
 
 You can also see it in the
@@ -177,7 +177,7 @@ crash-recovery testing. In the following code sample, we use this utility, i.e.,
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.RestoreCrashedRaftNodeTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.RestoreCrashedRaftNodeTest
 ~~~~
 
 You can also see it in the
@@ -295,7 +295,7 @@ new leader, we see that there are 2 values applied to the state machine.
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.RaftLeaderFailureTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.RaftLeaderFailureTest
 ~~~~
 
 You can also see it in the
@@ -401,7 +401,7 @@ availability as long as there is a leader Raft node taking to the majority
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.MajorityFailureTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.MajorityFailureTest
 ~~~~
 
 You can also see it in the
@@ -462,7 +462,7 @@ Phew!
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.NetworkPartitionTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft:test --tests io.microraft.faulttolerance.NetworkPartitionTest
 ~~~~
 
 You can also see it in the

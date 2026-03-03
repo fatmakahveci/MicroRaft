@@ -12,7 +12,7 @@ og_type: article
       This is the best end-to-end walkthrough in the docs. It takes you from
       MicroRaft abstractions to a small working replicated state machine.
     </p>
-    <div class="mr-inline-code"><code>./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest -Pmicroraft.javaVersion=20</code></div>
+    <div class="mr-inline-code"><code>./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest</code></div>
   </section>
 
   <section class="mr-doc-band">
@@ -191,7 +191,7 @@ leader. Let's write our first test.
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.LeaderElectionTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.LeaderElectionTest
 ~~~~
 
 You can also see it in the
@@ -357,7 +357,7 @@ greater than the commit index of the previous operation.
 <script src="https://gist.github.com/metanet/96fc904c59da940b7e6b92a6b9e20778.js"></script>
 
 ~~~~{.bash}
-$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest
 ~~~~
 
 You can also see it in the
@@ -477,7 +477,7 @@ now. We will talk about it in a minute.
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.LinearizableQueryTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.LinearizableQueryTest
 ~~~~
 
 You can also see it in the
@@ -549,7 +549,7 @@ hence our query fails with `LaggingCommitIndexException`.
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.MonotonicLocalQueryTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.MonotonicLocalQueryTest
 ~~~~
 
 You can also see it in the
@@ -613,7 +613,7 @@ transferring the snapshot.
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.SnapshotInstallationTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.SnapshotInstallationTest
 ~~~~
 
 You can also see it in the
@@ -663,7 +663,7 @@ quorum size of 5 = 3).
 To run this test on your machine, try the following:
 
 ~~~~{.bash}
-$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.ChangeRaftGroupMemberListTest -Pmicroraft.javaVersion=20
+$ ./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.ChangeRaftGroupMemberListTest
 ~~~~
 
 You can also see it in the
