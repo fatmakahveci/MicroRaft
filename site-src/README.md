@@ -23,6 +23,12 @@ Static build:
 ./.venv/bin/mkdocs build
 ```
 
+Basic validation after a build:
+
+```bash
+./scripts/check-seo.sh site
+```
+
 ## Directory Layout
 
 - [`mkdocs.yml`](/Users/fatmakhv/Desktop/MicroRaft/site-src/mkdocs.yml): navigation, theme, plugins, and site metadata
