@@ -1,10 +1,14 @@
 ---
 seo_title: "Today a Raft Follower, Tomorrow a Raft Leader in MicroRaft"
-description: "A MicroRaft deep dive into Java Raft leader failure detection, election timing, and the availability impact of timeout design."
-keywords: "raft leader election java, microraft leader article, raft timeout java, follower to leader raft, java raft availability"
+description: "A MicroRaft deep dive into Java Raft leader election, follower timeouts, term changes, and the availability tradeoffs behind election timing."
+keywords: "Java Raft leader election, MicroRaft election article, follower timeout Raft, term change Java, Raft availability tradeoffs"
 schema_type: BlogPosting
 og_type: article
 date: "2021-09-08"
+tags:
+  - Leader Election
+  - Availability
+  - Timeouts
 ---
 <div class="mr-blog-shell">
   <section class="mr-blog-hero">
@@ -14,7 +18,21 @@ date: "2021-09-08"
       A Java Raft leader-election deep dive on failure detection, election timing,
       quorum loss, and the availability impact of timeout design.
     </p>
+    <div class="mr-blog-tags" aria-label="Article tags">
+      <span class="mr-blog-tag">Leader Election</span>
+      <span class="mr-blog-tag">Availability</span>
+      <span class="mr-blog-tag">Timeouts</span>
+    </div>
   </section>
+</div>
+
+<div class="mr-blog-summary-card">
+  <p class="mr-blog-summary-kicker">At a glance</p>
+  <ul>
+    <li>Why MicroRaft separates detection timeout from retry timeout</li>
+    <li>How disruptive followers are prevented from hurting availability</li>
+    <li>Why leaders step down when quorum is gone</li>
+  </ul>
 </div>
 
 Readers are expected to have an understanding of how leader election works in
@@ -241,3 +259,12 @@ MicroRaft's leader failure handling behavior is summarized below.
 You can also check out
 [Heidi Howard and Ittai Abraham's great post](https://decentralizedthoughts.github.io/2020-12-12-raft-liveness-full-omission/)
 on the same topic.
+
+<div class="mr-blog-next">
+  <p class="mr-blog-summary-kicker">Read next</p>
+  <div class="mr-blog-next-links">
+    <a href="../blog/2023-04-05-queries/">Query consistency tradeoffs</a>
+    <a href="../blog/2023-02-15-log-replication/">Log replication deep dive</a>
+    <a href="../docs/resiliency-and-fault-tolerance/">Resiliency guide</a>
+  </div>
+</div>

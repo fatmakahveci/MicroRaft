@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Setup Guide for Java Raft Projects and Local Tutorial Runs"
-description: "Set up MicroRaft in a Java project or run the local MicroRaft tutorial flow with Gradle in a few minutes."
-keywords: "microraft setup, java raft setup, microraft gradle, microraft tutorial run, java consensus setup"
+description: "Set up MicroRaft in a Java project, add the dependencies, and run the local tutorial flow with Gradle."
+keywords: "MicroRaft setup, Java Raft setup, Gradle Raft tutorial, MicroRaft dependencies, Java consensus setup"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference
@@ -11,6 +11,20 @@ doc_layout: reference
     <h1 class="mr-page-title mr-doc-title">Setup</h1>
     <p class="mr-page-summary">Get MicroRaft into your project or run the repository locally in a few minutes.</p>
     <div class="mr-inline-code"><code>./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest</code></div>
+  </section>
+  <section class="mr-doc-summary">
+    <article class="mr-doc-summary-card">
+      <strong>Use this page when</strong>
+      <span>You want the fastest path from clone or dependency declaration to a visible local run.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Leave with</strong>
+      <span>A working local command, dependency coordinates, and the right next docs to open.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Read next</strong>
+      <span>Go to Main Abstractions if you are integrating, or the tutorial if you want runnable code first.</span>
+    </article>
   </section>
 
   <section class="mr-doc-grid">
@@ -73,7 +87,7 @@ cd MicroRaft
         <li><a href="/docs/tutorial-building-an-atomic-register/">Tutorial: Building an Atomic Register</a></li>
         <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
       </ul>
-      <span class="mr-card-cta">Open guide</span>
+      <a class="mr-card-cta" href="/docs/main-abstractions/">Open abstractions</a>
     </article>
   </section>
 </div>

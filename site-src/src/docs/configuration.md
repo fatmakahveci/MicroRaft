@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Configuration for Java Raft Timeouts, Snapshots, and Throughput"
-description: "Tune MicroRaft configuration for Java Raft timeouts, batching, snapshots, recovery behavior, and operational stability."
-keywords: "microraft configuration, java raft timeouts, raft snapshots java, raft batching config, microraft tuning"
+description: "Tune MicroRaft configuration for leader election timeouts, batching, snapshots, recovery behavior, and operational stability."
+keywords: "MicroRaft configuration, leader election timeout, Raft snapshot config, batching configuration, Raft tuning Java, recovery settings"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference

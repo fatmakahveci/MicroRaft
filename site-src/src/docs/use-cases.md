@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Use Cases for Java Metadata Stores, Locks, and Coordination"
-description: "Explore MicroRaft use cases for Java metadata stores, distributed lock services, leader election, and control-plane coordination systems."
-keywords: "microraft use cases, java raft use cases, distributed lock service java, metadata store raft, coordination service raft"
+description: "Explore MicroRaft use cases for Java metadata stores, distributed locks, leader election services, and control-plane coordination."
+keywords: "MicroRaft use cases, Java Raft use cases, distributed lock service Java, metadata store Raft, leader election service, coordination service Raft"
 schema_type: CollectionPage
 og_type: website
 doc_layout: reference
@@ -25,7 +25,7 @@ doc_layout: reference
         <li><a href="/docs/production-checklist/">Production Checklist</a></li>
         <li><a href="/docs/benchmarks/">Benchmarks</a></li>
       </ul>
-      <span class="mr-card-cta">View recipe</span>
+      <a class="mr-card-cta" href="/docs/recipe-metadata-store/">View recipe</a>
     </article>
 
     <article class="mr-doc-card">
@@ -36,7 +36,7 @@ doc_layout: reference
         <li><a href="/docs/resiliency-and-fault-tolerance/">Resiliency and Fault Tolerance</a></li>
         <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
       </ul>
-      <span class="mr-card-cta">View recipe</span>
+      <a class="mr-card-cta" href="/docs/recipe-distributed-lock-service/">View recipe</a>
     </article>
 
     <article class="mr-doc-card">
@@ -47,7 +47,7 @@ doc_layout: reference
         <li><a href="/docs/monitoring/">Monitoring</a></li>
         <li><a href="/docs/configuration/">Configuration</a></li>
       </ul>
-      <span class="mr-card-cta">View recipe</span>
+      <a class="mr-card-cta" href="/docs/recipe-coordination-service/">View recipe</a>
     </article>
 
     <article class="mr-doc-card">
@@ -58,7 +58,7 @@ doc_layout: reference
         <li><a href="/demo/">Interactive Demo</a></li>
         <li><a href="/docs/setup/">Setup</a></li>
       </ol>
-      <span class="mr-card-cta">Start path</span>
+      <a class="mr-card-cta" href="/docs/why-microraft/">Read why MicroRaft</a>
     </article>
   </section>
 

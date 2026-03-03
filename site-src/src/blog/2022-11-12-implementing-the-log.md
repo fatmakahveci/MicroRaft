@@ -1,10 +1,14 @@
 ---
 seo_title: "Implementing the Log in MicroRaft"
-description: "Learn how MicroRaft implements the Raft log, snapshot boundaries, truncation behavior, and persistence mechanics in Java."
-keywords: "raft log java, microraft log, java raft snapshots, raft truncation java, implementing raft log"
+description: "Learn how MicroRaft implements the Raft log in Java, including snapshot boundaries, truncation rules, and persistence behavior."
+keywords: "Raft log Java, MicroRaft log internals, snapshot boundaries Java, Raft truncation rules, Raft persistence article"
 schema_type: BlogPosting
 og_type: article
 date: "2022-11-12"
+tags:
+  - Storage
+  - Snapshots
+  - Log
 ---
 <div class="mr-blog-shell">
   <section class="mr-blog-hero">
@@ -14,7 +18,21 @@ date: "2022-11-12"
       A Java Raft storage deep dive on log layout, snapshot boundaries, truncation
       rules, and the persistence mechanics behind MicroRaft.
     </p>
+    <div class="mr-blog-tags" aria-label="Article tags">
+      <span class="mr-blog-tag">Storage</span>
+      <span class="mr-blog-tag">Snapshots</span>
+      <span class="mr-blog-tag">Log</span>
+    </div>
   </section>
+</div>
+
+<div class="mr-blog-summary-card">
+  <p class="mr-blog-summary-kicker">At a glance</p>
+  <ul>
+    <li>How the in-memory ring buffer is split into safe regions</li>
+    <li>Where snapshot boundaries start and end</li>
+    <li>When truncation is safe and when committed history must stay intact</li>
+  </ul>
 </div>
 
 MicroRaft implements the log with 2 components: [`RaftLog`](https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/impl/log/RaftLog.java) and [`RaftStore`](https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/persistence/RaftStore.java).
@@ -141,3 +159,12 @@ MicroRaft amortizes the cost of disk writes by performing multiple
 
 In this article, we explored the details of MicroRaft's log implementation.
 Next, we will investigate how MicroRaft realizes log replication.
+
+<div class="mr-blog-next">
+  <p class="mr-blog-summary-kicker">Read next</p>
+  <div class="mr-blog-next-links">
+    <a href="../blog/2023-02-15-log-replication/">Log replication deep dive</a>
+    <a href="../docs/configuration/">Configuration reference</a>
+    <a href="../docs/monitoring/">Monitoring</a>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Benchmarks and Performance Notes for Java Raft"
-description: "Review MicroRaft benchmarks, JMH setup, and performance notes before making claims about Java Raft throughput or latency."
-keywords: "microraft benchmarks, java raft benchmarks, raft performance java, microraft jmh, raft throughput java"
+description: "Review MicroRaft benchmarks, JMH setup, and performance notes before making claims about Java Raft throughput, latency, or batching."
+keywords: "MicroRaft benchmarks, Java Raft benchmarks, Raft performance Java, JMH Raft benchmark, throughput latency batching"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference
@@ -59,7 +59,7 @@ doc_layout: reference
         <li><a href="/docs/production-checklist/">Production Checklist</a> if you want to validate rollout assumptions</li>
         <li><a href="/docs/resiliency-and-fault-tolerance/">Resiliency and Fault Tolerance</a> if you care more about failure behavior than peak throughput</li>
       </ul>
-      <span class="mr-card-cta">Open guide</span>
+      <a class="mr-card-cta" href="/docs/use-cases/">View use cases</a>
     </article>
   </section>
 </div>

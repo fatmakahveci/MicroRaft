@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Production Checklist for Java Raft Rollouts"
-description: "Use the MicroRaft production checklist before shipping a Java Raft subsystem, including monitoring, failure testing, rollout, and recovery checks."
-keywords: "microraft production checklist, java raft rollout, raft operations java, microraft production, raft recovery checklist"
+description: "Use the MicroRaft production checklist before shipping a Java Raft subsystem, including observability, failure testing, rollout, and recovery checks."
+keywords: "MicroRaft production checklist, Java Raft rollout, Raft operations checklist, failure testing, recovery checklist, observability setup"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference
@@ -13,6 +13,20 @@ doc_layout: reference
       MicroRaft is a library, so production readiness depends on the system you build
       around it. Use this as a rollout checklist, not as marketing copy.
     </p>
+  </section>
+  <section class="mr-doc-summary">
+    <article class="mr-doc-summary-card">
+      <strong>Use this page when</strong>
+      <span>You already have a prototype and need to pressure-test persistence, transport, and observability choices.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>What this page does</strong>
+      <span>It turns the abstract Raft guarantees into rollout checks you can actually verify before launch.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Read next</strong>
+      <span>Pair this with Monitoring and Troubleshooting before you trust a real deployment.</span>
+    </article>
   </section>
 
   <section class="mr-doc-grid">
@@ -68,7 +82,7 @@ doc_layout: reference
         <li>Validate observability wiring with <a href="/docs/monitoring/">Monitoring</a>.</li>
         <li>Review the relevant <a href="/docs/recipe-metadata-store/">use-case recipes</a>.</li>
       </ol>
-      <span class="mr-card-cta">Open checklist</span>
+      <a class="mr-card-cta" href="/docs/monitoring/">Open monitoring</a>
     </article>
   </section>
 </div>

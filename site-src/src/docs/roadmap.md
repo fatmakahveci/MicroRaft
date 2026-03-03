@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Roadmap and Direction for Java Raft Development"
-description: "Understand the MicroRaft roadmap and direction for future Java Raft capabilities, without treating it as a fixed release promise."
-keywords: "microraft roadmap, java raft roadmap, microraft future, raft library roadmap java"
+description: "Understand the MicroRaft roadmap and future direction for Java Raft capabilities without treating it as a fixed release promise."
+keywords: "MicroRaft roadmap, Java Raft roadmap, future capabilities, Raft library roadmap, MicroRaft direction"
 schema_type: CollectionPage
 og_type: website
 doc_layout: reference
@@ -30,14 +30,6 @@ doc_layout: reference
         <li>smarter log catch-up behavior after snapshots</li>
         <li>more adaptive append entries batching and retry behavior</li>
       </ul>
-    </article>
-    <article class="mr-doc-card">
-      <h3>Feedback</h3>
-      <p>
-        If you have ideas or want to discuss tradeoffs, join the
-        <a href="https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lIme2IaaQ" target="_blank" rel="noreferrer">community Slack</a>.
-      </p>
-      <span class="mr-card-cta">Join discussion</span>
     </article>
   </section>
 </div>

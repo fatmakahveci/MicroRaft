@@ -1,7 +1,7 @@
 ---
 seo_title: "Why MicroRaft for Java Raft, Metadata Stores, and Coordination Services"
-description: "Learn why teams choose MicroRaft when they need an embeddable Java Raft library for metadata stores, coordination services, and control-plane systems."
-keywords: "why microraft, java raft library, metadata store raft, coordination service raft, embeddable consensus java"
+description: "Learn why teams choose MicroRaft for embeddable consensus in metadata stores, coordination services, and control-plane systems."
+keywords: "Why MicroRaft, embeddable consensus Java, metadata store Raft, coordination service Raft, control plane consensus"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference
@@ -76,7 +76,7 @@ doc_layout: reference
       <li><a href="/docs/tutorial-building-an-atomic-register/">Follow the atomic register tutorial</a></li>
       <li><a href="/docs/production-checklist/">Review the production checklist</a></li>
     </ol>
-    <span class="mr-card-cta">Start path</span>
+    <a class="mr-card-cta" href="/docs/main-abstractions/">Open abstractions</a>
   </section>
 
   <section class="mr-doc-band">
@@ -86,6 +86,6 @@ doc_layout: reference
       <li><a href="/docs/faq/">FAQ</a></li>
       <li><a href="/docs/benchmarks/">Benchmarks</a></li>
     </ul>
-    <span class="mr-card-cta">Read guide</span>
+    <a class="mr-card-cta" href="/docs/use-cases/">View use cases</a>
   </section>
 </div>

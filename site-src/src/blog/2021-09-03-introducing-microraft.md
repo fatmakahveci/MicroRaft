@@ -1,10 +1,14 @@
 ---
 seo_title: "Introducing MicroRaft: An Embeddable Java Raft Library"
-description: "The launch post for MicroRaft, an embeddable Java Raft library for metadata stores, coordination, and control-plane services."
-keywords: "introducing microraft, java raft library, embeddable raft java, microraft launch, consensus library java"
+description: "The launch post for MicroRaft, an embeddable Java Raft library for metadata stores, coordination services, and control-plane workloads."
+keywords: "Introducing MicroRaft, MicroRaft launch, Java Raft library, embeddable Raft Java, metadata store consensus, coordination service Java"
 schema_type: BlogPosting
 og_type: article
 date: "2021-09-03"
+tags:
+  - Introduction
+  - Consensus
+  - Use Cases
 ---
 <div class="mr-blog-shell">
   <section class="mr-blog-hero">
@@ -15,7 +19,21 @@ date: "2021-09-03"
       MicroRaft fits, which systems it is designed to power, and why a library
       approach matters for metadata, coordination, and control-plane workloads.
     </p>
+    <div class="mr-blog-tags" aria-label="Article tags">
+      <span class="mr-blog-tag">Introduction</span>
+      <span class="mr-blog-tag">Consensus</span>
+      <span class="mr-blog-tag">Use Cases</span>
+    </div>
   </section>
+</div>
+
+<div class="mr-blog-summary-card">
+  <p class="mr-blog-summary-kicker">At a glance</p>
+  <ul>
+    <li>What MicroRaft is and where it fits</li>
+    <li>Which CP use cases it is designed to power</li>
+    <li>Which core abstractions you implement around the library</li>
+  </ul>
 </div>
 
 ___Disclaimer: MicroRaft is a project I develop in my free time. It is not
@@ -132,3 +150,12 @@ MicroRaft is a new open source project. Any kind of contribution and feedback is
 welcome! The development happens on [GitHub](https://github.com/MicroRaft/MicroRaft).
 Last, you can follow [@MicroRaft](https://twitter.com/microraft) on X / Twitter
 for announcements.
+
+<div class="mr-blog-next">
+  <p class="mr-blog-summary-kicker">Read next</p>
+  <div class="mr-blog-next-links">
+    <a href="../docs/why-microraft/">Why MicroRaft?</a>
+    <a href="../blog/2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/">Leader election deep dive</a>
+    <a href="../demo/">Interactive demo</a>
+  </div>
+</div>

@@ -14,20 +14,18 @@ strongly-consistent (CP) data, metadata, and coordination services. A few
 examples of possible use-cases are building distributed file systems, key-value
 stores, distributed lock services, and control-plane services.
 
-MicroRaft works on top of a minimalistic and modular design. __It is a single
-lightweight JAR with a few hundred KBs of size and only logging dependency.__
-It contains an isolated implementation of the Raft consensus algorithm, and
-a set of accompanying abstractions to run the algorithm in a multi-threaded and
-distributed environment. These abstractions are defined to isolate the core
-algorithm from the concerns of persistence, thread-safety, serialization,
-networking, and actual state machine logic. Users are required to provide their
-own implementations of these abstractions to build their custom CP distributed
-systems with MicroRaft.
+MicroRaft works on top of a minimalistic and modular design with only a logging
+dependency. It contains an isolated implementation of the Raft consensus
+algorithm, and a set of accompanying abstractions to run the algorithm in a
+multi-threaded and distributed environment. These abstractions isolate the core
+algorithm from persistence, thread-safety, serialization, networking, and
+actual state machine logic. Users are expected to provide their own
+implementations of these abstractions to build custom CP distributed systems
+with MicroRaft.
 
-__Please note that MicroRaft is not a high-level solution like a distributed
-key-value store or a distributed lock service. It is a core library that offers
-a set of abstractions and functionalities to help you build such high-level
-systems.__
+__MicroRaft is not a high-level solution like a distributed key-value store or
+a distributed lock service. It is a core library that helps you build those
+systems inside your own service.__
 
 ## Start here
 
@@ -144,8 +142,8 @@ Maven
 
 ## Build from source
 
-Pull the latest code with `gh repo clone MicroRaft/MicroRaft`
-and build with `cd MicroRaft && ./gradlew build`.
+Pull the latest code with `gh repo clone MicroRaft/MicroRaft`, then run
+`cd MicroRaft && ./gradlew build`.
 
 Common development tasks:
 

@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Release Notes and Version History"
-description: "Browse MicroRaft release notes and version history, then follow linked GitHub releases for the full change context."
-keywords: "microraft release notes, microraft versions, java raft releases, microraft changelog"
+description: "Browse MicroRaft release notes and version history, then follow GitHub releases for the full change context and artifacts."
+keywords: "MicroRaft release notes, MicroRaft versions, Java Raft releases, MicroRaft changelog, GitHub releases"
 schema_type: CollectionPage
 og_type: website
 doc_layout: reference
@@ -19,8 +19,8 @@ doc_layout: reference
     <article class="mr-doc-card">
       <h3>Latest published note in this site</h3>
       <p><strong>v0.1</strong> was released on September 3, 2021.</p>
-      <p><a href="https://github.com/MicroRaft/MicroRaft/releases/tag/v0.1" target="_blank" rel="noreferrer">View the GitHub release</a></p>
-      <span class="mr-card-cta">View release</span>
+      <p><a href="https://github.com/MicroRaft/MicroRaft/releases/tag/v0.1" target="_blank" rel="noopener noreferrer">View the GitHub release</a></p>
+      <a class="mr-card-cta" href="https://github.com/MicroRaft/MicroRaft/releases/tag/v0.1" target="_blank" rel="noopener noreferrer">View release</a>
     </article>
     <article class="mr-doc-card">
       <h3>Where to check current artifacts</h3>
