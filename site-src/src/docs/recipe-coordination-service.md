@@ -1,7 +1,7 @@
 ---
 seo_title: "Build a Coordination Service with MicroRaft in Java"
-description: "Learn how MicroRaft can back a Java coordination service for leader election, registrations, and control-plane decisions."
-keywords: "coordination service java, raft coordination service, microraft coordination, leader election service java, java raft use case"
+description: "Learn how MicroRaft can back a Java coordination service for leader election, registrations, leases, and control-plane decisions."
+keywords: "coordination service Java, Raft coordination service, MicroRaft coordination, leader election service, lease service Java"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference
@@ -51,7 +51,7 @@ doc_layout: reference
         <li><a href="/docs/monitoring/">Monitoring</a></li>
         <li><a href="/docs/recipe-metadata-store/">Recipe: Metadata Store</a></li>
       </ul>
-      <span class="mr-card-cta">Open guide</span>
+      <a class="mr-card-cta" href="/docs/why-microraft/">Read why MicroRaft</a>
     </article>
   </section>
 </div>

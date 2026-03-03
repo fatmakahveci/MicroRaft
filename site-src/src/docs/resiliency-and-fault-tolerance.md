@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Resiliency and Fault Tolerance for Java Raft Clusters"
-description: "Study MicroRaft resiliency behavior under high load, leader loss, minority failure, recovery, and other Java Raft fault tolerance scenarios."
-keywords: "microraft resiliency, java raft fault tolerance, raft leader failure java, quorum loss raft, microraft recovery"
+description: "Study MicroRaft resiliency under high load, leader loss, minority failure, recovery, backpressure, and other Raft fault scenarios."
+keywords: "MicroRaft resiliency, Java Raft fault tolerance, leader failure Java, quorum loss Raft, backpressure Raft, recovery behavior"
 schema_type: TechArticle
 og_type: article
 doc_layout: article
@@ -205,7 +205,7 @@ monotonic local query successful on restarted follower. query result: value, com
 
 <div class="mr-callout mr-callout-warning">
   <div class="mr-callout-title">Replay caveat</div>
-  <p>When a node starts from restored state, it replays committed log entries to rebuild the state machine. If your operations have side effects, replay can trigger them again unless the state machine is designed for it. See <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/statemachine/StateMachine.java" target="_blank" rel="noreferrer">StateMachine</a> for the boundary.</p>
+  <p>When a node starts from restored state, it replays committed log entries to rebuild the state machine. If your operations have side effects, replay can trigger them again unless the state machine is designed for it. See <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/statemachine/StateMachine.java" target="_blank" rel="noopener noreferrer">StateMachine</a> for the boundary.</p>
 </div>
 
 <div class="mr-doc-grid">
@@ -483,5 +483,5 @@ property of the Raft consensus algorithm.
 
 <div class="mr-callout mr-callout-warning">
   <div class="mr-callout-title">Durability contract</div>
-  <p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RaftStore.java" target="_blank" rel="noreferrer"><code>RaftStore</code></a> defines the durability and integrity guarantees persistence implementations must uphold. <code>RaftNode</code> assumes restored state is valid; it does not re-verify corrupted or partial state for you.</p>
+  <p><a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/persistence/RaftStore.java" target="_blank" rel="noopener noreferrer"><code>RaftStore</code></a> defines the durability and integrity guarantees persistence implementations must uphold. <code>RaftNode</code> assumes restored state is valid; it does not re-verify corrupted or partial state for you.</p>
 </div>

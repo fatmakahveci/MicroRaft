@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft FAQ for Java Raft, Consensus, Snapshots, and Production Use"
-description: "Read the MicroRaft FAQ covering what MicroRaft is, when to use it, whether it is a database, and how snapshots, monitoring, and production rollout work."
-keywords: "microraft faq, java raft faq, raft library java questions, microraft snapshots, microraft monitoring"
+description: "Read the MicroRaft FAQ covering what it is, when to use it, whether it is a database, and how snapshots, monitoring, and rollout work."
+keywords: "MicroRaft FAQ, Java Raft FAQ, Raft library questions, snapshots FAQ, monitoring FAQ, production rollout FAQ"
 schema_type: FAQPage
 og_type: website
 doc_layout: reference
@@ -45,7 +45,7 @@ doc_layout: reference
       <li><a href="/docs/monitoring/">Monitoring</a></li>
       <li><a href="/docs/production-checklist/">Production Checklist</a></li>
     </ol>
-    <span class="mr-card-cta">Read guide</span>
+    <a class="mr-card-cta" href="/docs/main-abstractions/">Open abstractions</a>
   </section>
 
   <script type="application/ld+json">

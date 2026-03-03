@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Troubleshooting for Java Raft Leader Changes, Quorum, and Startup Issues"
-description: "Troubleshoot MicroRaft startup problems, repeated leader changes, quorum loss, and recovery behavior in Java Raft systems."
-keywords: "microraft troubleshooting, java raft troubleshooting, raft leader changes, quorum troubleshooting, microraft startup issues"
+description: "Troubleshoot MicroRaft startup problems, repeated leader changes, quorum loss, stalled recovery, and misconfiguration in Java Raft systems."
+keywords: "MicroRaft troubleshooting, Java Raft troubleshooting, repeated leader changes, quorum troubleshooting, startup issues, stalled recovery"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference
@@ -74,7 +74,7 @@ doc_layout: reference
       <ul>
         <li>run the command from the repository root</li>
         <li>make sure the repository clone completed successfully</li>
-        <li>use the fully qualified test names shown in <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/README.md" target="_blank" rel="noreferrer">microraft-tutorial/README.md</a></li>
+        <li>use the fully qualified test names shown in <a href="https://github.com/MicroRaft/MicroRaft/blob/master/microraft-tutorial/README.md" target="_blank" rel="noopener noreferrer">microraft-tutorial/README.md</a></li>
       </ul>
     </article>
   </section>

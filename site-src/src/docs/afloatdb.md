@@ -1,7 +1,7 @@
 ---
 seo_title: "AfloatDB: A Distributed Key-Value Store Built with MicroRaft"
 description: "AfloatDB is a case study showing how a distributed key-value store can be built on top of MicroRaft."
-keywords: "afloatdb microraft, distributed key value store raft, java raft case study, microraft example system, raft key value store"
+keywords: "AfloatDB MicroRaft, distributed key-value store Raft, Java Raft case study, MicroRaft example system, key-value store consensus"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference
@@ -45,9 +45,9 @@ doc_layout: reference
       <h3>Repository</h3>
       <p>
         Browse the project on
-        <a href="https://github.com/MicroRaft/AfloatDB" target="_blank" rel="noreferrer">GitHub</a>.
+        <a href="https://github.com/MicroRaft/AfloatDB" target="_blank" rel="noopener noreferrer">GitHub</a>.
       </p>
-      <span class="mr-card-cta">View source</span>
+      <a class="mr-card-cta mr-card-cta-github" href="https://github.com/MicroRaft/AfloatDB" target="_blank" rel="noopener noreferrer"><span class="fa-brands fa-github" aria-hidden="true"></span><span>View source</span></a>
     </article>
   </section>
 </div>

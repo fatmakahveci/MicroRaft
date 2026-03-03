@@ -16,7 +16,9 @@ Useful commands:
 - `./gradlew qualityDashboard` generates a combined quality report at `build/reports/quality/index.html`.
 - `./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest` runs the quickest local tutorial flow.
 
-Make sure Java 11 is installed before running the build locally.
+Make sure Java 11 is installed before running the build locally. If you want
+the fastest sanity check before touching production code, start with the
+tutorial test above and then move to `./gradlew check`.
 
 ## Repository Map
 
@@ -55,6 +57,9 @@ Before opening a pull request:
 - update or add tests for behavior changes,
 - keep documentation in sync if the user-facing workflow changes,
 - include reproduction details for bug fixes and operational changes.
+
+If your change affects `microraft.io`, also run the website checks from
+[`site-src/README.md`](/Users/fatmakhv/Desktop/MicroRaft/site-src/README.md).
 
 ## Good First Contributions
 

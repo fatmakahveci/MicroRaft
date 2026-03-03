@@ -1,10 +1,14 @@
 ---
 seo_title: "Log Replication in MicroRaft"
-description: "See how MicroRaft handles Java Raft log replication, batching, flush behavior, and commit progression in practice."
-keywords: "raft log replication java, microraft replication, java raft batching, raft commit progression, log replication article"
+description: "See how MicroRaft handles Java Raft log replication, batching, disk flush behavior, and commit progression under load."
+keywords: "Java Raft log replication, MicroRaft replication, Raft batching Java, commit progression Raft, Raft throughput article"
 schema_type: BlogPosting
 og_type: article
 date: "2023-02-15"
+tags:
+  - Replication
+  - Throughput
+  - Batching
 ---
 <div class="mr-blog-shell">
   <section class="mr-blog-hero">
@@ -14,7 +18,21 @@ date: "2023-02-15"
       A Java Raft replication deep dive on batching, follower acknowledgements,
       flush behavior, and commit progression under real write pressure.
     </p>
+    <div class="mr-blog-tags" aria-label="Article tags">
+      <span class="mr-blog-tag">Replication</span>
+      <span class="mr-blog-tag">Throughput</span>
+      <span class="mr-blog-tag">Batching</span>
+    </div>
   </section>
+</div>
+
+<div class="mr-blog-summary-card">
+  <p class="mr-blog-summary-kicker">At a glance</p>
+  <ul>
+    <li>How replication enters the Raft thread</li>
+    <li>Why batching and flush amortization matter for throughput</li>
+    <li>Why MicroRaft keeps one outstanding AppendEntries per follower</li>
+  </ul>
 </div>
 
 MicroRaft replicates a log entry as follows:
@@ -193,3 +211,12 @@ techniques to replicate log entries in a performant manner. In this article, we
 investigated the techniques implemented in MicroRaft. Of course, we are not done
 yet. We still have a few more tricks in the tank to improve performance of log
 replication!
+
+<div class="mr-blog-next">
+  <p class="mr-blog-summary-kicker">Read next</p>
+  <div class="mr-blog-next-links">
+    <a href="../blog/2022-11-12-implementing-the-log/">How the log is implemented</a>
+    <a href="../blog/2023-04-05-queries/">Query consistency tradeoffs</a>
+    <a href="../docs/main-abstractions/">Main abstractions</a>
+  </div>
+</div>

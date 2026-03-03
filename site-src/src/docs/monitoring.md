@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Monitoring for Java Raft Metrics, Logs, and Health Signals"
-description: "Monitor MicroRaft with Java Raft metrics, logs, and operational signals that help explain quorum, leadership, load, and recovery."
-keywords: "microraft monitoring, java raft metrics, raft logs monitoring, quorum metrics java, microraft health"
+description: "Monitor MicroRaft with Raft metrics, node reports, logs, and operational signals that explain quorum, leadership, load, and recovery."
+keywords: "MicroRaft monitoring, Java Raft metrics, RaftNodeReport, quorum metrics, leader health metrics, recovery observability"
 schema_type: TechArticle
 og_type: article
 doc_layout: reference
@@ -62,7 +62,7 @@ doc_layout: reference
         <li>snapshot churn and recovery loops</li>
       </ul>
       <p>Continue with the <a href="/docs/production-checklist/">Production Checklist</a> for rollout-level guidance.</p>
-      <span class="mr-card-cta">Open checklist</span>
+      <a class="mr-card-cta" href="/docs/production-checklist/">Open checklist</a>
     </article>
   </section>
 </div>

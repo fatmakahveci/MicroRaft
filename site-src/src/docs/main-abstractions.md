@@ -1,7 +1,7 @@
 ---
 seo_title: "MicroRaft Main Abstractions in Java: RaftNode, StateMachine, Transport, and Store"
-description: "Understand the main MicroRaft abstractions in Java, including RaftNode, StateMachine, transport, persistence, model factories, and execution."
-keywords: "microraft abstractions, raftnode java, state machine raft java, transport raft java, raft store java"
+description: "Understand the main MicroRaft abstractions in Java, including RaftNode, StateMachine, transport, persistence, model factories, and executors."
+keywords: "MicroRaft abstractions, RaftNode Java, state machine Java, transport interface Raft, persistence store Raft, model factory"
 schema_type: TechArticle
 og_type: article
 doc_layout: article
@@ -14,6 +14,20 @@ doc_layout: article
       you want the names, responsibilities, and extension points to make sense
       while you wire your own service.
     </p>
+  </section>
+  <section class="mr-doc-summary">
+    <article class="mr-doc-summary-card">
+      <strong>Use this page when</strong>
+      <span>You already know you want MicroRaft and now need the integration vocabulary.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Focus on</strong>
+      <span><code>RaftNode</code> as the core runtime, then <code>StateMachine</code>, <code>Transport</code>, and <code>RaftStore</code> as your boundaries.</span>
+    </article>
+    <article class="mr-doc-summary-card">
+      <strong>Read next</strong>
+      <span>Open the atomic register tutorial once the names and responsibilities below feel familiar.</span>
+    </article>
   </section>
 
   <section class="mr-doc-band">
