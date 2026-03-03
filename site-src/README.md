@@ -34,7 +34,7 @@ Basic validation after a build:
 - [`mkdocs.yml`](/Users/fatmakhv/Desktop/MicroRaft/site-src/mkdocs.yml): navigation, theme, plugins, and site metadata
 - [`src/`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src): markdown content, demo page, docs pages, blog posts, assets
 - [`src/stylesheets/microraft.css`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/stylesheets/microraft.css): shared visual system and layout rules
-- [`src/javascripts/demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js): site behavior, demo behavior, tabs, footer injection
+- [`src/javascripts/demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js): site behavior, demo behavior, and homepage/docs enhancements
 - [`overrides/`](/Users/fatmakhv/Desktop/MicroRaft/site-src/overrides): theme overrides such as extra meta tags
 - [`scripts/check-seo.sh`](/Users/fatmakhv/Desktop/MicroRaft/site-src/scripts/check-seo.sh): basic site validation used by CI
 
@@ -74,7 +74,7 @@ That split is currently controlled by hardcoded path lists in [`demo.js`](/Users
 - blog reading-time and scroll progress
 - the interactive Raft demo
 - homepage tabs
-- custom site footer injection
+- homepage tab behavior and docs polish
 
 If this file keeps growing, it should be split by concern, for example:
 
@@ -95,8 +95,8 @@ If this file keeps growing, it should be split by concern, for example:
 1. High: mobile navigation state tracking is wired to old Bootstrap class names, so the custom mobile-nav open state can silently fail.
    [`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js#L211) looks for `.navbar-toggle` and the `in` class, while the generated MkDocs markup uses Bootstrap 5 style `navbar-toggler` and `collapse` state classes. The result is that `mr-mobile-nav-open` can miss real open/close transitions.
 
-2. Medium: the site injects a custom footer in JavaScript while MkDocs still renders its own default footer.
-   The custom footer is appended in [`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js#L1091), but MkDocs also renders footer content from [`mkdocs.yml`](/Users/fatmakhv/Desktop/MicroRaft/site-src/mkdocs.yml#L5). If the default footer is not intentionally hidden, users can end up with two footer systems to maintain and style.
+2. Medium: the custom footer is implemented in the template override layer rather than the theme itself.
+   [`overrides/main.html`](/Users/fatmakhv/Desktop/MicroRaft/site-src/overrides/main.html) replaces the default footer block. Any future footer redesign should happen there, not in page-level scripts.
 
 3. Medium: docs layout behavior is path-allowlist driven, so adding new docs pages can silently pick the wrong layout and TOC rule.
    [`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js#L78) hardcodes which paths are `article` and which are `reference`. New docs pages will fall through to the default behavior unless that list is updated as part of the content change.
@@ -105,4 +105,4 @@ If this file keeps growing, it should be split by concern, for example:
 
 1. Move docs layout selection from hardcoded path lists into page metadata.
 2. Replace the current mobile-menu state detection with Bootstrap 5 compatible events or class checks.
-3. Decide whether the MkDocs default footer should be removed or the custom footer should replace it at the template level instead of at runtime.
+3. Decide whether footer content should stay in the template override layer or move into a smaller shared include if it keeps growing.
