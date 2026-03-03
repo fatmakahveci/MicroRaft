@@ -9,7 +9,7 @@ og_type: article
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Setup</h1>
     <p class="mr-page-summary">Get MicroRaft into your project or run the repository locally in a few minutes.</p>
-    <div class="mr-inline-code"><code>./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest -Pmicroraft.javaVersion=20</code></div>
+    <div class="mr-inline-code"><code>./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest</code></div>
   </section>
 
   <section class="mr-doc-grid">
@@ -54,12 +54,11 @@ cd MicroRaft
       <p>Run the local 3-node tutorial cluster before integrating the library into your own service.</p>
 
       <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.OperationCommitTest \
-  -Pmicroraft.javaVersion=20</code></pre>
+  --tests io.microraft.tutorial.OperationCommitTest</code></pre>
 
       <ul>
-        <li>the build defaults to Java 11</li>
-        <li>if Java 11 is already installed locally, you can omit <code>-Pmicroraft.javaVersion=20</code></li>
+        <li>the build targets Java 11</li>
+        <li>make sure Java 11 is installed locally before running the command</li>
         <li><code>LeaderElectionTest</code> is the shortest smoke test for cluster formation</li>
       </ul>
     </article>

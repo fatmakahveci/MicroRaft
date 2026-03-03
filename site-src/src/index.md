@@ -32,9 +32,8 @@ og_type: website
         <h3>Quick Start</h3>
         <p>Run a 3-node local tutorial flow from the repository root.</p>
         <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.OperationCommitTest \
-  -Pmicroraft.javaVersion=20</code></pre>
-        <p class="mr-muted">If Java 11 is already installed, the Gradle property can be omitted.</p>
+  --tests io.microraft.tutorial.OperationCommitTest</code></pre>
+        <p class="mr-muted">MicroRaft builds against Java 11.</p>
       </aside>
     </div>
   </section>
@@ -98,8 +97,7 @@ og_type: website
             <h3>Run the shortest path first</h3>
             <p>Start with the local tutorial test. It is the fastest way to see leader election, quorum, and commit flow in one place.</p>
             <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.OperationCommitTest \
-  -Pmicroraft.javaVersion=20</code></pre>
+  --tests io.microraft.tutorial.OperationCommitTest</code></pre>
             <span class="mr-card-cta">Open guide</span>
           </a>
           <a class="mr-card mr-home-link-card" href="/docs/tutorial-building-an-atomic-register/">
