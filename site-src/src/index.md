@@ -157,22 +157,6 @@ og_type: website
   </section>
 
   <section>
-    <h2 class="mr-section-heading">Evaluate fit in two fast reads</h2>
-    <div class="mr-card-grid">
-      <a class="mr-card mr-home-link-card" href="/docs/faq/">
-        <h3>FAQ</h3>
-        <p>Use this if you want short answers about what MicroRaft is, whether it is a database, and when a Java Raft library is the right fit.</p>
-        <span class="mr-card-cta">Read answers</span>
-      </a>
-      <a class="mr-card mr-home-link-card" href="/docs/use-cases/">
-        <h3>Use Cases</h3>
-        <p>Use this if you want to map MicroRaft directly to metadata stores, lock services, and coordination systems instead of reading abstract protocol docs first.</p>
-        <span class="mr-card-cta">View use cases</span>
-      </a>
-    </div>
-  </section>
-
-  <section>
     <h2 class="mr-section-heading">What you can build</h2>
     <div class="mr-card-grid">
       <a class="mr-card mr-home-link-card" href="/docs/recipe-metadata-store/">
@@ -189,27 +173,6 @@ og_type: website
         <h3>Distributed locks</h3>
         <p>Build fencing-token based lock services with explicit consistency and failure semantics.</p>
         <span class="mr-card-cta">View recipe</span>
-      </a>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="mr-section-heading">Search by workload, not just by feature</h2>
-    <div class="mr-card-grid">
-      <a class="mr-card mr-home-link-card" href="/docs/recipe-metadata-store/">
-        <h3>Java metadata store</h3>
-        <p>Use MicroRaft for shard maps, ownership records, and cluster metadata that must stay strongly consistent.</p>
-        <span class="mr-card-cta">View guidance</span>
-      </a>
-      <a class="mr-card mr-home-link-card" href="/docs/recipe-distributed-lock-service/">
-        <h3>Distributed lock service</h3>
-        <p>Build fencing-token based lock services when stale owners must not survive a leader change or failover.</p>
-        <span class="mr-card-cta">View guidance</span>
-      </a>
-      <a class="mr-card mr-home-link-card" href="/docs/recipe-coordination-service/">
-        <h3>Coordination service</h3>
-        <p>Embed Raft into a Java control plane for elections, registrations, and ordered coordination decisions.</p>
-        <span class="mr-card-cta">View guidance</span>
       </a>
     </div>
   </section>
@@ -236,7 +199,7 @@ og_type: website
   </section>
 
   <section>
-    <h2 class="mr-section-heading">A cleaner documentation path</h2>
+    <h2 class="mr-section-heading">Read in this order</h2>
     <div class="mr-steps-grid">
       <a class="mr-step mr-home-link-card" href="/docs/setup/">
         <span class="mr-step-index">1</span>
@@ -260,24 +223,23 @@ og_type: website
   </section>
 
   <section class="mr-callout">
-    <h2 class="mr-section-heading">Start in the right order</h2>
-    <p>
-      The fastest successful path is not "read everything". It is:
-    </p>
-    <ol>
-      <li>open the <a href="/demo/">interactive demo</a> to build intuition,</li>
-      <li>run the local tutorial from <a href="/docs/setup/">Setup</a>,</li>
-      <li>read <a href="/docs/main-abstractions/">Main Abstractions</a> and the atomic register tutorial,</li>
-      <li>use <a href="/docs/production-checklist/">Production Checklist</a> before rollout.</li>
-    </ol>
-  </section>
-
-  <section class="mr-doc-band">
-    <h2>Common questions before adopting a Java Raft library</h2>
-    <ul>
-      <li><a href="/docs/faq/">What is MicroRaft and when should I use it?</a></li>
-      <li><a href="/docs/why-microraft/">Why pick MicroRaft instead of a full distributed database?</a></li>
-      <li><a href="/docs/use-cases/">Which workloads fit an embeddable Raft core?</a></li>
-    </ul>
+    <h2 class="mr-section-heading">Before you adopt</h2>
+    <div class="mr-card-grid">
+      <a class="mr-card mr-home-link-card" href="/docs/faq/">
+        <h3>Read the FAQ</h3>
+        <p>Get short answers on fit, scope, and what MicroRaft is not.</p>
+        <span class="mr-card-cta">Read answers</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="/docs/use-cases/">
+        <h3>Review use cases</h3>
+        <p>Map MicroRaft to metadata stores, lock services, and coordination workloads.</p>
+        <span class="mr-card-cta">View use cases</span>
+      </a>
+      <a class="mr-card mr-home-link-card" href="/docs/production-checklist/">
+        <h3>Open the production checklist</h3>
+        <p>Validate persistence, observability, transport, and failure handling before rollout.</p>
+        <span class="mr-card-cta">Open checklist</span>
+      </a>
+    </div>
   </section>
 </div>
