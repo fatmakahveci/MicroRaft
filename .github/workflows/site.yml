@@ -47,6 +47,9 @@ jobs:
       - name: Run basic SEO checks
         run: bash scripts/check-seo.sh site
 
+      - name: Run site structure checks
+        run: bash scripts/check-site-structure.sh site
+
       - name: Upload preview artifact
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4

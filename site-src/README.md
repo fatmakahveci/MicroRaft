@@ -27,6 +27,7 @@ Basic validation after a build:
 
 ```bash
 ./scripts/check-seo.sh site
+./scripts/check-site-structure.sh site
 ```
 
 ## Directory Layout
@@ -37,6 +38,7 @@ Basic validation after a build:
 - [`src/javascripts/demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js): site behavior, demo behavior, and homepage/docs enhancements
 - [`overrides/`](/Users/fatmakhv/Desktop/MicroRaft/site-src/overrides): theme overrides such as extra meta tags
 - [`scripts/check-seo.sh`](/Users/fatmakhv/Desktop/MicroRaft/site-src/scripts/check-seo.sh): basic site validation used by CI
+- [`scripts/check-site-structure.sh`](/Users/fatmakhv/Desktop/MicroRaft/site-src/scripts/check-site-structure.sh): homepage/footer/layout assertions for built output
 
 ## Page Model
 
