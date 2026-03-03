@@ -4,8 +4,9 @@ description: "Read the MicroRaft FAQ covering what MicroRaft is, when to use it,
 keywords: "microraft faq, java raft faq, raft library java questions, microraft snapshots, microraft monitoring"
 schema_type: FAQPage
 og_type: website
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">FAQ</h1>
     <p class="mr-page-summary">

@@ -4,8 +4,9 @@ description: "Follow the MicroRaft tutorial that builds a Java atomic register a
 keywords: "microraft tutorial, java atomic register raft, replicated state machine java, raft tutorial java, microraft atomic register"
 schema_type: TechArticle
 og_type: article
+doc_layout: article
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="article">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Tutorial: Building an Atomic Register</h1>
     <p class="mr-page-summary">

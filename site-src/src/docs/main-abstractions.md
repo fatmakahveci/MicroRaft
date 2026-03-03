@@ -4,8 +4,9 @@ description: "Understand the main MicroRaft abstractions in Java, including Raft
 keywords: "microraft abstractions, raftnode java, state machine raft java, transport raft java, raft store java"
 schema_type: TechArticle
 og_type: article
+doc_layout: article
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="article">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Main Abstractions</h1>
     <p class="mr-page-summary">

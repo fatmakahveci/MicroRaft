@@ -4,8 +4,9 @@ description: "Monitor MicroRaft with Java Raft metrics, logs, and operational si
 keywords: "microraft monitoring, java raft metrics, raft logs monitoring, quorum metrics java, microraft health"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Monitoring</h1>
     <p class="mr-page-summary">

@@ -4,8 +4,9 @@ description: "Study MicroRaft resiliency behavior under high load, leader loss, 
 keywords: "microraft resiliency, java raft fault tolerance, raft leader failure java, quorum loss raft, microraft recovery"
 schema_type: TechArticle
 og_type: article
+doc_layout: article
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="article">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Resiliency and Fault Tolerance</h1>
     <p class="mr-page-summary">

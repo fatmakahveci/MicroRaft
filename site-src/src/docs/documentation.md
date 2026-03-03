@@ -4,8 +4,9 @@ description: "Start the MicroRaft documentation with setup, evaluation, integrat
 keywords: "microraft documentation, java raft docs, microraft setup, microraft tutorial, microraft operations"
 schema_type: CollectionPage
 og_type: website
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Documentation hub</h1>
     <p class="mr-page-summary">

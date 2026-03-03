@@ -4,8 +4,9 @@ description: "Understand the MicroRaft roadmap and direction for future Java Raf
 keywords: "microraft roadmap, java raft roadmap, microraft future, raft library roadmap java"
 schema_type: CollectionPage
 og_type: website
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Roadmap</h1>
     <p class="mr-page-summary">

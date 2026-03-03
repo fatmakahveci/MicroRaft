@@ -4,8 +4,9 @@ description: "Use the MicroRaft production checklist before shipping a Java Raft
 keywords: "microraft production checklist, java raft rollout, raft operations java, microraft production, raft recovery checklist"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Production Checklist</h1>
     <p class="mr-page-summary">

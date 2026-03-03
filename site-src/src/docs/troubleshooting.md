@@ -4,8 +4,9 @@ description: "Troubleshoot MicroRaft startup problems, repeated leader changes, 
 keywords: "microraft troubleshooting, java raft troubleshooting, raft leader changes, quorum troubleshooting, microraft startup issues"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Troubleshooting</h1>
     <p class="mr-page-summary">

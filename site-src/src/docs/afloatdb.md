@@ -4,8 +4,9 @@ description: "AfloatDB is a case study showing how a distributed key-value store
 keywords: "afloatdb microraft, distributed key value store raft, java raft case study, microraft example system, raft key value store"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">AfloatDB</h1>
     <p class="mr-page-summary">

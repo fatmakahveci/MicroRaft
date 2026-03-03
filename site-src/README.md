@@ -54,7 +54,8 @@ Docs pages are further split into two layout types:
 - `article`: long-form pages with narrower reading width
 - `reference`: card-heavy or scan-heavy pages with wider layout
 
-That split is currently controlled by hardcoded path lists in [`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js).
+That split is declared per page with the `doc_layout` frontmatter field and then applied by
+[`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js).
 
 ## Styling Conventions
 
@@ -74,7 +75,7 @@ That split is currently controlled by hardcoded path lists in [`demo.js`](/Users
 - blog reading-time and scroll progress
 - the interactive Raft demo
 - homepage tabs
-- homepage tab behavior and docs polish
+- docs polish that depends on generated MkDocs markup
 
 If this file keeps growing, it should be split by concern, for example:
 
@@ -90,19 +91,19 @@ If this file keeps growing, it should be split by concern, for example:
 - Raw HTML wrappers are acceptable for layout shells, but inner content should prefer normal HTML or normal markdown, not fragile mixed markdown-in-HTML patterns.
 - For long-form article pages, use short summary bands or snippet notes ahead of dense code sections.
 
-## Review Findings
+## Current Maintenance Notes
 
-1. High: mobile navigation state tracking is wired to old Bootstrap class names, so the custom mobile-nav open state can silently fail.
-   [`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js#L211) looks for `.navbar-toggle` and the `in` class, while the generated MkDocs markup uses Bootstrap 5 style `navbar-toggler` and `collapse` state classes. The result is that `mr-mobile-nav-open` can miss real open/close transitions.
+1. Footer ownership is in the template override layer.
+   [`overrides/main.html`](/Users/fatmakhv/Desktop/MicroRaft/site-src/overrides/main.html) replaces the theme footer block, so footer changes should happen there first.
 
-2. Medium: the custom footer is implemented in the template override layer rather than the theme itself.
-   [`overrides/main.html`](/Users/fatmakhv/Desktop/MicroRaft/site-src/overrides/main.html) replaces the default footer block. Any future footer redesign should happen there, not in page-level scripts.
+2. Docs layout selection now depends on frontmatter discipline.
+   When a new docs page needs the wider card-heavy layout, set `doc_layout: reference`. Otherwise it will fall back to heuristic article/reference detection.
 
-3. Medium: docs layout behavior is path-allowlist driven, so adding new docs pages can silently pick the wrong layout and TOC rule.
-   [`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js#L78) hardcodes which paths are `article` and which are `reference`. New docs pages will fall through to the default behavior unless that list is updated as part of the content change.
+3. TOC visibility is still heuristic.
+   [`demo.js`](/Users/fatmakhv/Desktop/MicroRaft/site-src/src/javascripts/demo.js) decides whether the TOC should be visible based on heading count and content length, so long docs pages should be spot-checked after content edits.
 
 ## Suggested Follow-ups
 
-1. Move docs layout selection from hardcoded path lists into page metadata.
-2. Replace the current mobile-menu state detection with Bootstrap 5 compatible events or class checks.
-3. Decide whether footer content should stay in the template override layer or move into a smaller shared include if it keeps growing.
+1. Add a dedicated frontmatter field for TOC visibility so long pages do not depend on heuristics alone.
+2. Split `demo.js` into smaller files once another site behavior change lands.
+3. Do a browser-based mobile QA pass after any nav or layout change that touches MkDocs-generated markup.

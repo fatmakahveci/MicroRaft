@@ -4,8 +4,9 @@ description: "Learn how MicroRaft can back a Java coordination service for leade
 keywords: "coordination service java, raft coordination service, microraft coordination, leader election service java, java raft use case"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Recipe: Coordination Service</h1>
     <p class="mr-page-summary">

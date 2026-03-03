@@ -4,8 +4,9 @@ description: "Browse MicroRaft release notes and version history, then follow li
 keywords: "microraft release notes, microraft versions, java raft releases, microraft changelog"
 schema_type: CollectionPage
 og_type: website
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Release Notes</h1>
     <p class="mr-page-summary">

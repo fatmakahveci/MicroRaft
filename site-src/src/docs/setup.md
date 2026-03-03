@@ -4,8 +4,9 @@ description: "Set up MicroRaft in a Java project or run the local MicroRaft tuto
 keywords: "microraft setup, java raft setup, microraft gradle, microraft tutorial run, java consensus setup"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Setup</h1>
     <p class="mr-page-summary">Get MicroRaft into your project or run the repository locally in a few minutes.</p>
