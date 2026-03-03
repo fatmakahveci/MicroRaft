@@ -76,7 +76,7 @@
 {% block next_prev %}{% endblock %}
 
 {% block footer %}
-  <footer class="mr-site-footer">
+  <div class="mr-site-footer" role="contentinfo">
     <div class="mr-site-footer-inner">
       {% if page and (page.next_page or page.previous_page) %}
       <nav class="mr-page-nav" aria-label="Page navigation">
@@ -157,5 +157,5 @@
         </div>
       </div>
     </div>
-  </footer>
+  </div>
 {% endblock %}
