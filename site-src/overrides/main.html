@@ -25,6 +25,10 @@
 
 {% block extrahead %}
   {{ super() }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   {% if meta_keywords %}
   <meta name="keywords" content="{{ meta_keywords }}">
   {% endif %}
@@ -132,21 +136,21 @@
           <a href="{{ 'docs/why-microraft/'|url }}">Why MicroRaft?</a>
           <a href="{{ 'docs/main-abstractions/'|url }}">Main Abstractions</a>
           <a href="{{ 'docs/setup/'|url }}">Setup</a>
-          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noreferrer"><span class="fa fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noreferrer"><span class="fa-brands fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
         </div>
         <div class="mr-site-footer-column">
           <div class="mr-site-footer-title">Community</div>
           <a href="{{ 'blog/'|url }}">Blog</a>
           <a href="{{ 'docs/troubleshooting/'|url }}">Troubleshooting</a>
           <a href="{{ 'docs/roadmap/'|url }}">Roadmap</a>
-          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noreferrer"><span class="fa fa-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X / Twitter</span></a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noreferrer"><span class="fa-brands fa-x-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X / Twitter</span></a>
         </div>
         <div class="mr-site-footer-column">
           <div class="mr-site-footer-title">Releases</div>
           <a href="{{ 'docs/release-notes/'|url }}">Release Notes</a>
           <a href="{{ 'docs/benchmarks/'|url }}">Benchmarks</a>
-          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noreferrer"><span class="fa fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
-          <a href="https://github.com/MicroRaft/MicroRaft/releases" target="_blank" rel="noreferrer"><span class="fa fa-tag mr-site-footer-icon" aria-hidden="true"></span><span>GitHub Releases</span></a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noreferrer"><span class="fa-solid fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+          <a href="https://github.com/MicroRaft/MicroRaft/releases" target="_blank" rel="noreferrer"><span class="fa-solid fa-tag mr-site-footer-icon" aria-hidden="true"></span><span>GitHub Releases</span></a>
         </div>
       </section>
       <p class="mr-site-footer-note">Embeddable Java Raft for metadata, coordination, and control-plane services.</p>
@@ -154,9 +158,9 @@
         <div class="mr-site-footer-meta-copy">Apache 2.0 licensed · Copyright MicroRaft</div>
         <div class="mr-site-footer-meta-copy">Built for embeddable CP systems</div>
         <div class="mr-site-footer-meta-links">
-          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noreferrer"><span class="fa fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
-          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noreferrer"><span class="fa fa-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X</span></a>
-          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noreferrer"><span class="fa fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
+          <a href="https://github.com/MicroRaft/MicroRaft" target="_blank" rel="noreferrer"><span class="fa-brands fa-github mr-site-footer-icon" aria-hidden="true"></span><span>GitHub</span></a>
+          <a href="https://twitter.com/MicroRaft" target="_blank" rel="noreferrer"><span class="fa-brands fa-x-twitter mr-site-footer-icon" aria-hidden="true"></span><span>X</span></a>
+          <a href="https://javadoc.io/doc/io.microraft/microraft" target="_blank" rel="noreferrer"><span class="fa-solid fa-code mr-site-footer-icon" aria-hidden="true"></span><span>Javadoc</span></a>
         </div>
       </div>
     </div>
