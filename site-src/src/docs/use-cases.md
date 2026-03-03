@@ -4,8 +4,9 @@ description: "Explore MicroRaft use cases for Java metadata stores, distributed 
 keywords: "microraft use cases, java raft use cases, distributed lock service java, metadata store raft, coordination service raft"
 schema_type: CollectionPage
 og_type: website
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Use Cases</h1>
     <p class="mr-page-summary">

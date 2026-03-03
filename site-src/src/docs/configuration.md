@@ -4,8 +4,9 @@ description: "Tune MicroRaft configuration for Java Raft timeouts, batching, sna
 keywords: "microraft configuration, java raft timeouts, raft snapshots java, raft batching config, microraft tuning"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Configuration</h1>
     <p class="mr-page-summary">

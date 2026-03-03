@@ -4,8 +4,9 @@ description: "Learn why teams choose MicroRaft when they need an embeddable Java
 keywords: "why microraft, java raft library, metadata store raft, coordination service raft, embeddable consensus java"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Why MicroRaft?</h1>
     <p class="mr-page-summary">

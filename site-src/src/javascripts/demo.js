@@ -86,8 +86,13 @@
             return;
         }
 
+        var explicitLayoutMeta = bySelector('meta[name="mr-doc-layout"]');
         var explicitLayoutRoot = bySelector("[data-mr-doc-layout]", this.main) || bySelector(".mr-doc-shell[data-mr-doc-layout]");
-        var explicitLayout = explicitLayoutRoot ? explicitLayoutRoot.getAttribute("data-mr-doc-layout") : "";
+        var explicitLayout = explicitLayoutMeta
+            ? explicitLayoutMeta.getAttribute("content")
+            : explicitLayoutRoot
+              ? explicitLayoutRoot.getAttribute("data-mr-doc-layout")
+              : "";
         var topLevelBlocks = bySelectorAll(":scope > p, :scope > ul, :scope > ol, :scope > blockquote, :scope > pre, :scope > .highlight", this.main);
         var headings = bySelectorAll("h2, h3", this.main);
         var cardCount = bySelectorAll(".mr-doc-card", this.main).length;

@@ -4,8 +4,9 @@ description: "See how MicroRaft fits a Java metadata store that needs strong con
 keywords: "metadata store raft, java metadata store raft, microraft metadata store, control plane metadata java, raft use case"
 schema_type: TechArticle
 og_type: article
+doc_layout: reference
 ---
-<div class="mr-doc-shell" data-mr-doc-layout="reference">
+<div class="mr-doc-shell">
   <section class="mr-doc-hero">
     <h1 class="mr-page-title mr-doc-title">Recipe: Metadata Store</h1>
     <p class="mr-page-summary">
