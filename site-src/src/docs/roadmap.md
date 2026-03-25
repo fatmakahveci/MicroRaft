@@ -1,8 +1,39 @@
-# Roadmap
+---
+tab_title: "Roadmap"
+seo_title: "MicroRaft Roadmap and Direction for Java Raft Development"
+description: "Understand the MicroRaft roadmap and future direction for Java Raft capabilities without treating it as a fixed release promise."
+keywords: "MicroRaft roadmap, Java Raft roadmap, future capabilities, Raft library roadmap, MicroRaft direction"
+schema_type: CollectionPage
+og_type: website
+doc_layout: reference
+---
+<div class="mr-doc-shell">
+  <section class="mr-doc-hero">
+    <h1 class="mr-page-title mr-doc-title">Roadmap</h1>
+    <p class="mr-page-summary">
+      These are areas of interest, not promised delivery dates. Use them to
+      understand direction, not to plan against a fixed release schedule.
+    </p>
+  </section>
 
-I am planning to work on the following tasks in the future, but have no strict
-plans about their timeline. If you have ideas, just [chime
-in](https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lIme2IaaQ)!
+  <section class="mr-doc-grid">
+    <article class="mr-doc-card">
+      <h3>Protocol and correctness work</h3>
+      <ul class="mr-doc-list">
+        <li>opt-in deduplication mechanisms</li>
+        <li>witness replicas and quorum-shaping (initial support available)</li>
+      </ul>
+    </article>
+    <article class="mr-doc-card">
+      <h3>Replication improvements</h3>
+      <ul class="mr-doc-list">
+        <li>offloading more work from leader to followers</li>
+        <li>smarter log catch-up behavior after snapshots</li>
+        <li>more adaptive append entries batching and retry behavior</li>
+      </ul>
+    </article>
+  </section>
+</div>
 
 - Opt-in deduplication mechanism via implementation of the [Implementing
   Linearizability at Large Scale and Low
@@ -10,17 +41,19 @@ in](https://join.slack.com/t/microraft/shared_invite/zt-dc6utpfk-84P0VbK7EcrD3lI
   can implement deduplication inside his custom `StateMachine` implementation. I
   would like to offer a generic and opt-in solution by MicroRaft.
 
-- Witness replicas possibly via implementation of the [Pirogue, a lighter
-  dynamic version of the Raft distributed consensus
-  algorithm](https://dl.acm.org/doi/10.1109/PCCC.2015.7410281) paper. Witness
-  replicas participate in quorum calculations but do not keep any state for
-  `StateMachine` to reduce the storage overhead. When a follower fails, a
-  witness replica can be promoted to the follower role to increase the number of
-  `StateMachine` replicas.
+- Witness replicas (inspired by the [Pirogue, a lighter dynamic version of the
+  Raft distributed consensus
+  algorithm](https://dl.acm.org/doi/10.1109/PCCC.2015.7410281)) now have an
+  initial implementation. Witness replicas participate in quorum calculations
+  but do not keep user `StateMachine` state to reduce storage overhead. When a
+  follower fails, a witness replica can be promoted to follower role to
+  increase the number of `StateMachine` replicas. Operational note: witness
+  mode should be enabled only after all group members are upgraded to a
+  witness-aware version.
 
 - Offload more work from leader to followers. One candidate is transfer of
   committed log entries. Just like parallel snapshot chunk transfer from
-  followers, a slow follower can get committed log entries from followers.  
+  followers, a slow follower can get committed log entries from followers.
 
 - Improve the log replication design. The current log replication design is
   quite solid but there is still room for improvement. One idea is, once a
