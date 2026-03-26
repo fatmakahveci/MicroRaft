@@ -1,9 +1,40 @@
-## Implementing the log
+---
+tab_title: "Implementing the log"
+seo_title: "Implementing the Log in MicroRaft"
+description: "Learn how MicroRaft implements the Raft log in Java, including snapshot boundaries, truncation rules, and persistence behavior."
+keywords: "Raft log Java, MicroRaft log internals, snapshot boundaries Java, Raft truncation rules, Raft persistence article"
+schema_type: BlogPosting
+og_type: article
+date: "2022-11-12"
+tags:
+  - Storage
+  - Snapshots
+  - Log
+---
+<div class="mr-blog-shell">
+  <section class="mr-blog-hero">
+    <div class="mr-page-kicker mr-blog-meta">November 12, 2022 | Ensar Basri Kahveci</div>
+    <h1 class="mr-page-title">Implementing the log</h1>
+    <p class="mr-page-summary">
+      A Java Raft storage deep dive on log layout, snapshot boundaries, truncation
+      rules, and the persistence mechanics behind MicroRaft.
+    </p>
+    <div class="mr-blog-tags" aria-label="Article tags">
+      <span class="mr-blog-tag">Storage</span>
+      <span class="mr-blog-tag">Snapshots</span>
+      <span class="mr-blog-tag">Log</span>
+    </div>
+  </section>
+</div>
 
-_November 12, 2022 | Ensar Basri Kahveci_
-
-This article is the second in _the ins and outs of MicroRaft_ series. Here we
-dissect the log.
+<div class="mr-blog-summary-card">
+  <p class="mr-blog-summary-kicker">At a glance</p>
+  <ul>
+    <li>How the in-memory ring buffer is split into safe regions</li>
+    <li>Where snapshot boundaries start and end</li>
+    <li>When truncation is safe and when committed history must stay intact</li>
+  </ul>
+</div>
 
 MicroRaft implements the log with 2 components: [`RaftLog`](https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/impl/log/RaftLog.java) and [`RaftStore`](https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/persistence/RaftStore.java).
 RaftLog is an internal component that keeps log entries in memory. On the other
@@ -17,7 +48,17 @@ RaftLog is implemented as a fixed-size ring-buffer. As shown in Figure 1, it
 consists of 3 sections from head to tail: _snapshotted_, _committed_, and _in
 progress_.
 
+<div class="mr-snippet-note">
+  <strong>What this article clarifies</strong>
+  <p>This post is about the log as a data structure, not the full protocol. The key ideas are bounded in-memory layout, snapshot boundaries, and safe truncation.</p>
+</div>
+
 ## Appending new log entries
+
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>The in-progress region is a bounded buffer. This is where backpressure starts and where ambiguous, uncommitted writes can still be discarded safely.</p>
+</div>
 
 New log entries are appended to the _in progress_ section at the tail.  Its size
 is specified by [`RaftConfig.getMaxPendingLogEntryCount()`](https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/RaftConfig.java#L213). Log entries reside in
@@ -44,6 +85,11 @@ operation on the new leader safely.
 
 ## Committing log entries
 
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>The commit section is where replicated intent becomes durable protocol history. Snapshot cadence is tied to this boundary, not to ad hoc cleanup.</p>
+</div>
+
 The commit index moves from head to tail. Once a log entry is committed, it is
 moved to the _committed_ section. A new snapshot is taken from [`StateMachine`](https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/statemachine/StateMachine.java)
 when the _committed_ section is full. The size of the _committed_ section is
@@ -55,6 +101,11 @@ deterministic behaviour enables a snapshotting optimization which we will cover
 later.
 
 ## Truncating committed log entries after snapshots
+
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>Snapshotting is not immediate full deletion. The truncation heuristic exists to avoid forcing slightly lagging followers into expensive snapshot installs too early.</p>
+</div>
 
 Recall that log entries are committed once they are replicated to the majority.
 When a leader Raft node decides to take a snapshot, there can be some Raft nodes
@@ -87,6 +138,11 @@ area.
 
 ## Amortizing the cost of disk writes
 
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>The storage API is designed for batched durability. Buffered writes and explicit flush points are what make the log practical under real traffic.</p>
+</div>
+
 [RaftStore](https://github.com/MicroRaft/MicroRaft/blob/v0.3/microraft/src/main/java/io/microraft/persistence/RaftStore.java) is designed to amortize the cost of disk writes. RaftStore has 2
 methods to reflect changes in RaftLog to disk: `RaftStore.persistLogEntry()` and
 `RaftStore.truncateLogEntriesFrom()`. Both of these methods are called before a log entry
@@ -104,3 +160,12 @@ MicroRaft amortizes the cost of disk writes by performing multiple
 
 In this article, we explored the details of MicroRaft's log implementation.
 Next, we will investigate how MicroRaft realizes log replication.
+
+<div class="mr-blog-next">
+  <p class="mr-blog-summary-kicker">Read next</p>
+  <div class="mr-blog-next-links">
+    <a href="../blog/2023-02-15-log-replication/">Log replication deep dive</a>
+    <a href="../docs/configuration/">Configuration reference</a>
+    <a href="../docs/monitoring/">Monitoring</a>
+  </div>
+</div>
