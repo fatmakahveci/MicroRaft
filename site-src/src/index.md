@@ -1,4 +1,5 @@
 ---
+tab_title: "MicroRaft"
 seo_title: "MicroRaft Java Raft Library for Consensus, Metadata Stores, and Coordination"
 description: "MicroRaft is an embeddable Java Raft library for metadata stores, distributed locks, leader election, and control-plane coordination services."
 keywords: "MicroRaft, Java Raft library, embeddable Raft Java, Java consensus library, metadata store Java, distributed lock Java, control plane coordination"
@@ -19,37 +20,35 @@ og_type: website
           <li>Embeddable library, not a turnkey data platform</li>
           <li>You keep control over transport, persistence, and failure behavior</li>
         </ul>
-        <div class="mr-hero-actions">
-          <a class="mr-button mr-button-primary" href="/demo/"><span class="fa-solid fa-play mr-button-icon" aria-hidden="true"></span><span>Open Interactive Demo</span></a>
-          <a class="mr-button mr-button-secondary" href="/docs/documentation/"><span class="fa-solid fa-book-open mr-button-icon" aria-hidden="true"></span><span>Start Documentation</span></a>
-        </div>
-        <div class="mr-tab-actions">
+        <div class="mr-hero-actions mr-hero-actions--combined">
+          <a class="mr-button mr-button-primary" href="/docs/documentation/"><span class="fa-solid fa-book-open mr-button-icon" aria-hidden="true"></span><span>Start Documentation</span></a>
+          <a class="mr-button mr-button-secondary" href="/docs/setup/"><span class="fa-solid fa-wrench mr-button-icon" aria-hidden="true"></span><span>Open Setup</span></a>
           <a class="mr-button mr-button-ghost" href="/docs/faq/"><span class="fa-regular fa-circle-question mr-button-icon" aria-hidden="true"></span><span>Read the FAQ</span></a>
           <a class="mr-button mr-button-ghost" href="/docs/use-cases/"><span class="fa-regular fa-compass mr-button-icon" aria-hidden="true"></span><span>See Use Cases</span></a>
         </div>
-      </div>
-      <aside class="mr-hero-card">
-        <div class="mr-hero-card-head">
-          <span class="mr-hero-card-kicker">Fastest path to first signal</span>
-          <h3>Quick Start</h3>
-          <p>Run one local test to see leader election, quorum, and commit behavior from the repository root.</p>
-        </div>
-        <div class="mr-hero-command-panel">
-          <div class="mr-hero-command-row">
-            <span class="mr-hero-command-label">Command</span>
-            <span class="mr-hero-command-value">Gradle test target</span>
+        <div class="mr-hero-card">
+          <div class="mr-hero-card-head">
+            <span class="mr-hero-card-kicker">Fastest path to first signal</span>
+            <h3>Quick Start</h3>
+            <p>Run one local test to see leader election, quorum, and commit behavior from the repository root.</p>
           </div>
-          <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
+          <div class="mr-hero-command-panel">
+            <div class="mr-hero-command-row">
+              <span class="mr-hero-command-label">Command</span>
+              <span class="mr-hero-command-value">Gradle test target</span>
+            </div>
+            <pre class="mr-code-block"><code>./gradlew :microraft-tutorial:test \
   --tests io.microraft.tutorial.OperationCommitTest</code></pre>
-          <div class="mr-hero-command-notes">
-            <span class="mr-hero-card-chip">Java 11 build target</span>
-            <span class="mr-hero-card-chip">3-node local tutorial</span>
+            <div class="mr-hero-command-notes">
+              <span class="mr-hero-card-chip">Java 11 build target</span>
+              <span class="mr-hero-card-chip">3-node local tutorial</span>
+            </div>
+          </div>
+          <div class="mr-hero-card-meta">
+            <span class="mr-hero-card-chip">Quorum + commit flow</span>
           </div>
         </div>
-        <div class="mr-hero-card-meta">
-          <span class="mr-hero-card-chip">Quorum + commit flow</span>
-        </div>
-      </aside>
+      </div>
     </div>
   </section>
 

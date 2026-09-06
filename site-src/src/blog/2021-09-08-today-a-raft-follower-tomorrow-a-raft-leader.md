@@ -1,4 +1,5 @@
 ---
+tab_title: "Today a Raft follower, tomorrow a Raft leader"
 seo_title: "Today a Raft Follower, Tomorrow a Raft Leader in MicroRaft"
 description: "A MicroRaft deep dive into Java Raft leader election, follower timeouts, term changes, and the availability tradeoffs behind election timing."
 keywords: "Java Raft leader election, MicroRaft election article, follower timeout Raft, term change Java, Raft availability tradeoffs"

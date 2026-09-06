@@ -1,4 +1,5 @@
 ---
+tab_title: "Configuration"
 seo_title: "MicroRaft Configuration for Java Raft Timeouts, Snapshots, and Throughput"
 description: "Tune MicroRaft configuration for leader election timeouts, batching, snapshots, recovery behavior, and operational stability."
 keywords: "MicroRaft configuration, leader election timeout, Raft snapshot config, batching configuration, Raft tuning Java, recovery settings"

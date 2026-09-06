@@ -1,4 +1,5 @@
 ---
+tab_title: "Monitoring"
 seo_title: "MicroRaft Monitoring for Java Raft Metrics, Logs, and Health Signals"
 description: "Monitor MicroRaft with Raft metrics, node reports, logs, and operational signals that explain quorum, leadership, load, and recovery."
 keywords: "MicroRaft monitoring, Java Raft metrics, RaftNodeReport, quorum metrics, leader health metrics, recovery observability"

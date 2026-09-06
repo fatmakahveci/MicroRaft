@@ -1,4 +1,5 @@
 ---
+tab_title: "Release Notes"
 seo_title: "MicroRaft Release Notes and Version History"
 description: "Browse MicroRaft release notes and version history, then follow GitHub releases for the full change context and artifacts."
 keywords: "MicroRaft release notes, MicroRaft versions, Java Raft releases, MicroRaft changelog, GitHub releases"

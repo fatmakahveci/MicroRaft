@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% set meta_title = page.meta.seo_title if page and page.meta and page.meta.seo_title else (page.title if page and page.title else config.site_name) %}
+{% set browser_title = page.meta.tab_title if page and page.meta and page.meta.tab_title else (config.site_name if page and page.is_homepage else (page.title if page and page.title else config.site_name)) %}
 {% set meta_description = page.meta.description if page and page.meta and page.meta.description else config.site_description %}
 {% set meta_keywords = page.meta.keywords if page and page.meta and page.meta.keywords else None %}
 {% set meta_type = page.meta.og_type if page and page.meta and page.meta.og_type else ('website' if page and page.is_homepage else 'article') %}
@@ -18,12 +19,13 @@
   <meta name="description" content="{{ meta_description }}">
   {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
   {% if page and page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
-  {% if config.site_favicon %}<link rel="shortcut icon" href="{{ config.site_favicon|url }}">
-  {% else %}<link rel="shortcut icon" href="{{ 'img/favicon.ico'|url }}">{% endif %}
+  <link rel="icon" type="image/png" href="{{ 'img/microraft_logo_transparent.png'|url }}">
+  <link rel="shortcut icon" href="{{ 'img/microraft_logo_transparent.png'|url }}">
+  <link rel="apple-touch-icon" href="{{ 'img/microraft_logo_transparent.png'|url }}">
 {% endblock %}
 
 {% block htmltitle %}
-  <title>{{ meta_title }} | {{ config.site_name }}</title>
+  <title>{% if browser_title == config.site_name %}{{ config.site_name }}{% else %}{{ browser_title }} | {{ config.site_name }}{% endif %}</title>
 {% endblock %}
 
 {% block extrahead %}
@@ -31,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   {% if meta_keywords %}
   <meta name="keywords" content="{{ meta_keywords }}">
@@ -161,12 +163,6 @@
           "position": 2,
           "name": "Blog",
           "item": {{ page.canonical_url|tojson if page.canonical_url else (config.site_url.rstrip('/') ~ '/blog/')|tojson }}
-        }{% elif page.url == 'demo/' or page.url == 'demo/index.html' %},
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Demo",
-          "item": {{ page.canonical_url|tojson if page.canonical_url else (config.site_url.rstrip('/') ~ '/demo/')|tojson }}
         }{% endif %}
       ]
     }

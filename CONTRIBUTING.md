@@ -7,18 +7,20 @@ can find in the MicroRaft repository.
 
 ## Local Setup
 
-MicroRaft builds with Gradle and targets Java 11.
+MicroRaft builds with Gradle. The default toolchain target is Java 11 and can
+be overridden locally with the `microraft.javaVersion` Gradle property when you
+want to run the build on a newer installed JDK.
 
 Useful commands:
 
 - `./gradlew build` builds all modules.
 - `./gradlew check` runs tests, Checkstyle, and SpotBugs.
 - `./gradlew qualityDashboard` generates a combined quality report at `build/reports/quality/index.html`.
-- `./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest` runs the quickest local tutorial flow.
+- `./gradlew :microraft-tutorial:test --tests io.microraft.tutorial.OperationCommitTest -Pmicroraft.javaVersion=21` runs the quickest local tutorial flow on a newer JDK.
 
-Make sure Java 11 is installed before running the build locally. If you want
-the fastest sanity check before touching production code, start with the
-tutorial test above and then move to `./gradlew check`.
+If Java 11 is installed on your machine, you can omit `-Pmicroraft.javaVersion=21`.
+If you only have a newer local JDK, set `-Pmicroraft.javaVersion=<your-installed-version>`
+to align Gradle's toolchain request with that JDK.
 
 ## Repository Map
 
@@ -59,7 +61,7 @@ Before opening a pull request:
 - include reproduction details for bug fixes and operational changes.
 
 If your change affects `microraft.io`, also run the website checks from
-[`site-src/README.md`](/Users/fatmakhv/Desktop/MicroRaft/site-src/README.md).
+[`site-src/README.md`](site-src/README.md).
 
 ## Good First Contributions
 

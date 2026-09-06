@@ -23,12 +23,8 @@ markdown_extensions:
 extra_css:
   - stylesheets/microraft.css
 
-extra_javascript:
-  - javascripts/demo.js
-
 nav:
   - Home: "index.md"
-  - Demo: "demo.md"
   - "Docs":
       - "Getting Started":
           - "Docs Hub": "docs/documentation.md"

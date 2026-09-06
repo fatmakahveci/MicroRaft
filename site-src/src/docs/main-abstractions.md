@@ -1,4 +1,5 @@
 ---
+tab_title: "Main Abstractions"
 seo_title: "MicroRaft Main Abstractions in Java: RaftNode, StateMachine, Transport, and Store"
 description: "Understand the main MicroRaft abstractions in Java, including RaftNode, StateMachine, transport, persistence, model factories, and executors."
 keywords: "MicroRaft abstractions, RaftNode Java, state machine Java, transport interface Raft, persistence store Raft, model factory"

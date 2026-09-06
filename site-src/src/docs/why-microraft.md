@@ -1,4 +1,5 @@
 ---
+tab_title: "Why MicroRaft?"
 seo_title: "Why MicroRaft for Java Raft, Metadata Stores, and Coordination Services"
 description: "Learn why teams choose MicroRaft for embeddable consensus in metadata stores, coordination services, and control-plane systems."
 keywords: "Why MicroRaft, embeddable consensus Java, metadata store Raft, coordination service Raft, control plane consensus"

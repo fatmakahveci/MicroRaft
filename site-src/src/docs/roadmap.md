@@ -1,4 +1,5 @@
 ---
+tab_title: "Roadmap"
 seo_title: "MicroRaft Roadmap and Direction for Java Raft Development"
 description: "Understand the MicroRaft roadmap and future direction for Java Raft capabilities without treating it as a fixed release promise."
 keywords: "MicroRaft roadmap, Java Raft roadmap, future capabilities, Raft library roadmap, MicroRaft direction"
@@ -20,7 +21,7 @@ doc_layout: reference
       <h3>Protocol and correctness work</h3>
       <ul class="mr-doc-list">
         <li>opt-in deduplication mechanisms</li>
-        <li>witness replicas and quorum-shaping ideas</li>
+        <li>witness replicas and quorum-shaping (initial support available)</li>
       </ul>
     </article>
     <article class="mr-doc-card">
@@ -40,13 +41,15 @@ doc_layout: reference
   can implement deduplication inside his custom `StateMachine` implementation. I
   would like to offer a generic and opt-in solution by MicroRaft.
 
-- Witness replicas possibly via implementation of the [Pirogue, a lighter
-  dynamic version of the Raft distributed consensus
-  algorithm](https://dl.acm.org/doi/10.1109/PCCC.2015.7410281) paper. Witness
-  replicas participate in quorum calculations but do not keep any state for
-  `StateMachine` to reduce the storage overhead. When a follower fails, a
-  witness replica can be promoted to the follower role to increase the number of
-  `StateMachine` replicas.
+- Witness replicas (inspired by the [Pirogue, a lighter dynamic version of the
+  Raft distributed consensus
+  algorithm](https://dl.acm.org/doi/10.1109/PCCC.2015.7410281)) now have an
+  initial implementation. Witness replicas participate in quorum calculations
+  but do not keep user `StateMachine` state to reduce storage overhead. When a
+  follower fails, a witness replica can be promoted to follower role to
+  increase the number of `StateMachine` replicas. Operational note: witness
+  mode should be enabled only after all group members are upgraded to a
+  witness-aware version.
 
 - Offload more work from leader to followers. One candidate is transfer of
   committed log entries. Just like parallel snapshot chunk transfer from

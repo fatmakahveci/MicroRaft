@@ -1,4 +1,5 @@
 ---
+tab_title: "Setup"
 seo_title: "MicroRaft Setup Guide for Java Raft Projects and Local Tutorial Runs"
 description: "Set up MicroRaft in a Java project, add the dependencies, and run the local tutorial flow with Gradle."
 keywords: "MicroRaft setup, Java Raft setup, Gradle Raft tutorial, MicroRaft dependencies, Java consensus setup"

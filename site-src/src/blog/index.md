@@ -1,4 +1,5 @@
 ---
+tab_title: "Blog"
 seo_title: "MicroRaft Blog: Java Raft Articles on Leader Election, Replication, and Queries"
 description: "Read MicroRaft articles on Java Raft leader election, log replication, snapshots, read consistency, and consensus internals."
 keywords: "MicroRaft blog, Java Raft articles, leader election article, log replication article, Raft snapshots article, Raft queries article, consensus internals"

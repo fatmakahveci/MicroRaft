@@ -66,15 +66,19 @@ leader, and commits operations to an atomic register:
 
 ```bash
 ./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.OperationCommitTest
+  --tests io.microraft.tutorial.OperationCommitTest \
+  -Pmicroraft.javaVersion=21
 ```
 
-MicroRaft builds against Java 11. If you want a quick smoke test for leader
-election only, run:
+`microraft.javaVersion` defaults to `11`. If Java 11 is already installed on
+your machine, you can omit that property. If you only have a newer local JDK,
+set `-Pmicroraft.javaVersion=<your-installed-version>` to match it. If you want
+a quick smoke test for leader election only, run:
 
 ```bash
 ./gradlew :microraft-tutorial:test \
-  --tests io.microraft.tutorial.LeaderElectionTest
+  --tests io.microraft.tutorial.LeaderElectionTest \
+  -Pmicroraft.javaVersion=21
 ```
 
 What you will see:
@@ -191,3 +195,10 @@ MicroRaft is available under [the Apache 2 License](https://github.com/MicroRaft
 MicroRaft originates from the Raft implementation that
 powers [Hazelcast IMDG's CP Subsystem module](https://github.com/hazelcast/hazelcast/tree/master/hazelcast/src/main/java/com/hazelcast/cp/internal/raft).
 You can see [the announcement](https://microraft.io/blog/2021-09-03-introducing-microraft/) for details.
+
+## Project Resources
+
+- [Changelog](CHANGELOG.md)
+- [Contributing guide](.github/CONTRIBUTING.md)
+- [Security policy](.github/SECURITY.md)
+- [License](LICENSE)

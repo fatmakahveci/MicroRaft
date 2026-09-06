@@ -1,4 +1,5 @@
 ---
+tab_title: "Benchmarks"
 seo_title: "MicroRaft Benchmarks and Performance Notes for Java Raft"
 description: "Review MicroRaft benchmarks, JMH setup, and performance notes before making claims about Java Raft throughput, latency, or batching."
 keywords: "MicroRaft benchmarks, Java Raft benchmarks, Raft performance Java, JMH Raft benchmark, throughput latency batching"
@@ -21,6 +22,11 @@ doc_layout: reference
       <h3>Run the benchmark suite</h3>
       <pre class="mr-code-block"><code>./gradlew benchmark</code></pre>
       <p>Make sure Java 11 is installed before running the suite locally.</p>
+    </article>
+    <article class="mr-doc-card">
+      <h3>Run witness overhead benchmark</h3>
+      <pre class="mr-code-block"><code>./gradlew :microraft:jmh --args="WitnessReplicaOverheadBenchmark"</code></pre>
+      <p>This scenario compares local state machine execution and snapshot overhead with the witness fast path.</p>
     </article>
     <article class="mr-doc-card">
       <h3>What these Java Raft benchmarks are for</h3>

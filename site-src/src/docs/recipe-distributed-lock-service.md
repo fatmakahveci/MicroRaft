@@ -1,4 +1,5 @@
 ---
+tab_title: "Lock Service Recipe"
 seo_title: "Build a Distributed Lock Service with MicroRaft in Java"
 description: "Use MicroRaft to build a Java distributed lock service with strong consistency, explicit ownership, fencing, and failure-aware lock semantics."
 keywords: "distributed lock service Java, Raft lock service, MicroRaft lock service, fencing token Raft, lock ownership consensus"
