@@ -170,3 +170,10 @@ MicroRaft is available under [the Apache 2 License](https://github.com/MicroRaft
 MicroRaft originates from the Raft implementation that
 powers [Hazelcast IMDG's CP Subsystem module](https://github.com/hazelcast/hazelcast/tree/master/hazelcast/src/main/java/com/hazelcast/cp/internal/raft).
 You can see [the announcement](https://microraft.io/blog/2021-09-03-introducing-microraft/) for details.
+
+## Project Resources
+
+- [Changelog](CHANGELOG.md)
+- [Contributing guide](.github/CONTRIBUTING.md)
+- [Security policy](.github/SECURITY.md)
+- [License](LICENSE)

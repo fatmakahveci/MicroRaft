@@ -1,10 +1,40 @@
+---
+tab_title: "Log replication in MicroRaft"
+seo_title: "Log Replication in MicroRaft"
+description: "See how MicroRaft handles Java Raft log replication, batching, disk flush behavior, and commit progression under load."
+keywords: "Java Raft log replication, MicroRaft replication, Raft batching Java, commit progression Raft, Raft throughput article"
+schema_type: BlogPosting
+og_type: article
+date: "2023-02-15"
+tags:
+  - Replication
+  - Throughput
+  - Batching
+---
+<div class="mr-blog-shell">
+  <section class="mr-blog-hero">
+    <div class="mr-page-kicker mr-blog-meta">February 15, 2023 | Ensar Basri Kahveci</div>
+    <h1 class="mr-page-title">Log replication in MicroRaft</h1>
+    <p class="mr-page-summary">
+      A Java Raft replication deep dive on batching, follower acknowledgements,
+      flush behavior, and commit progression under real write pressure.
+    </p>
+    <div class="mr-blog-tags" aria-label="Article tags">
+      <span class="mr-blog-tag">Replication</span>
+      <span class="mr-blog-tag">Throughput</span>
+      <span class="mr-blog-tag">Batching</span>
+    </div>
+  </section>
+</div>
 
-# Log replication in MicroRaft
-
-_February 15, 2023 | Ensar Basri Kahveci_
-
-This article is the third in _the ins and outs of MicroRaft_ series. Here we
-uncover how log replication is done in MicroRaft.
+<div class="mr-blog-summary-card">
+  <p class="mr-blog-summary-kicker">At a glance</p>
+  <ul>
+    <li>How replication enters the Raft thread</li>
+    <li>Why batching and flush amortization matter for throughput</li>
+    <li>Why MicroRaft keeps one outstanding AppendEntries per follower</li>
+  </ul>
+</div>
 
 MicroRaft replicates a log entry as follows:
 
@@ -30,13 +60,22 @@ sub-optimal performance. Hence, MicroRaft employs a number of techniques to
 commit log entries in a performant manner. In this article, we describe these
 techniques.
 
+<div class="mr-snippet-note">
+  <strong>What this article clarifies</strong>
+  <p>This post explains why replication throughput is not just “append and wait”. The important ideas are batching, amortized flush cost, and commit progression under load.</p>
+</div>
+
 ## Handling client requests
+
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>Replication starts as a task-scheduling problem. This section shows where client calls enter the Raft thread and why the executor model matters for correctness.</p>
+</div>
 
 MicroRaft's main abstraction is [`RaftNode`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/RaftNode.java). Clients talk to the leader Raft node
 to replicate their operations. Raft node runs in a single-threaded manner and
-executes the Raft consensus algorithm with the <a
-href="https://en.wikipedia.org/wiki/Actor_model" target="_blank">Actor
-model</a>. It uses another abstraction -with a default implementation- for this
+executes the Raft consensus algorithm with the
+[Actor model](https://en.wikipedia.org/wiki/Actor_model). It uses another abstraction -with a default implementation- for this
 purpose: [`RaftNodeExecutor`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/executor/RaftNodeExecutor.java). Raft node submits tasks to its `RaftNodeExecutor` to
 handle API calls made by clients, RPC messages and responses sent by other Raft
 nodes, and internal logic related to the execution of the Raft consensus
@@ -46,8 +85,7 @@ Raft nodes send RPC requests and responses to each other via [`Transport`](https
 `Transport` is expected to realize networking outside of the Raft thread (i.e.,
 `RaftNodeExecutor`'s internal thread). Similarly, the communication between
 clients and Raft nodes happens outside of the Raft thread. You can learn more
-about MicroRaft's main abstractions and threading model <a href="https://microraft.io/docs/main-abstractions/"
-target="_blank">here</a>.
+about MicroRaft's main abstractions and threading model [here](../docs/main-abstractions.md).
 
 Figure 1 depicts the case when a client calls `RaftNode.replicate()` for an
 operation. Upon this API call, Raft node creates an instance of [`ReplicateTask`](https://github.com/MicroRaft/MicroRaft/blob/master/microraft/src/main/java/io/microraft/impl/task/ReplicateTask.java)
@@ -67,6 +105,11 @@ components: [`RaftLog`](https://github.com/MicroRaft/MicroRaft/blob/master/micro
 `RaftStore` writes them to disk.
 
 ## Batching
+
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>Batching is the first major throughput lever. The leader adapts batch size to live request pressure instead of forcing one-entry-at-a-time replication.</p>
+</div>
 
 Batching is a fundamental technique to improve performance. It is used to 
 amortize processing costs of multiple requests. Raft offers a few opportunities
@@ -93,6 +136,11 @@ Followers acknowledge log entries in batches with this design, hence cause the
 leader to advance the commit index in batches.
 
 ## Amortizing the cost of disk writes
+
+<div class="mr-snippet-note">
+  <strong>What this section clarifies</strong>
+  <p>Durability does not require a flush per entry. MicroRaft spreads expensive disk sync cost across multiple log entries on both leader and followers.</p>
+</div>
 
 In a naive implementation of the log replication flow we described 
 in the intro, the leader writes each log entry to its own disk before
@@ -164,3 +212,12 @@ techniques to replicate log entries in a performant manner. In this article, we
 investigated the techniques implemented in MicroRaft. Of course, we are not done
 yet. We still have a few more tricks in the tank to improve performance of log
 replication!
+
+<div class="mr-blog-next">
+  <p class="mr-blog-summary-kicker">Read next</p>
+  <div class="mr-blog-next-links">
+    <a href="../blog/2022-11-12-implementing-the-log/">How the log is implemented</a>
+    <a href="../blog/2023-04-05-queries/">Query consistency tradeoffs</a>
+    <a href="../docs/main-abstractions/">Main abstractions</a>
+  </div>
+</div>
