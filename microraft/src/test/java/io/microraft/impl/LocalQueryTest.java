@@ -37,7 +37,6 @@ import org.junit.Test;
 import io.microraft.Ordered;
 import io.microraft.RaftEndpoint;
 import io.microraft.RaftNode;
-import io.microraft.exception.CannotReplicateException;
 import io.microraft.exception.LaggingCommitIndexException;
 import io.microraft.exception.NotLeaderException;
 import io.microraft.impl.local.LocalRaftGroup;

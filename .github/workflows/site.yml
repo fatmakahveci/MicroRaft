@@ -1,0 +1,76 @@
+name: Deploy Website
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - "site-src/**"
+      - ".github/workflows/site.yml"
+      - ".github/workflows/site-preview.yml"
+  pull_request:
+    paths:
+      - "site-src/**"
+      - ".github/workflows/site.yml"
+      - ".github/workflows/site-preview.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site-src
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install site dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build website
+        run: mkdocs build
+
+      - name: Run basic SEO checks
+        run: bash scripts/check-seo.sh site
+
+      - name: Run site structure checks
+        run: bash scripts/check-site-structure.sh site
+
+      - name: Upload preview artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-preview
+          path: site-src/site
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site-src/site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

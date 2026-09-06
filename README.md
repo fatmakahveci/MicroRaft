@@ -8,26 +8,31 @@
 ![](https://microraft.io/img/microraft-logo.png)
 
 MicroRaft is a feature-complete and stable open-source implementation of the
-Raft consensus algorithm in Java. __It is a single lightweight JAR file of a few
-hundred KBs of size.__ It can be used for building fault tolerant and
-strongly-consistent (CP) data, metadata and coordination services. A few
+Raft consensus algorithm in Java. __It is a single lightweight JAR file of a
+few hundred KBs of size.__ It can be used for building fault tolerant and
+strongly-consistent (CP) data, metadata, and coordination services. A few
 examples of possible use-cases are building distributed file systems, key-value
-stores, distributed lock services, etc.
+stores, distributed lock services, and control-plane services.
 
-MicroRaft works on top of a minimalistic and modular design. __It is a single
-lightweight JAR with a few hundred KBs of size and only logging dependency.__
-It contains an isolated implementation of the Raft consensus algorithm, and
-a set of accompanying abstractions to run the algorithm in a multi-threaded and
-distributed environment. These abstractions are defined to isolate the core
-algorithm from the concerns of persistence, thread-safety, serialization,
-networking, and actual state machine logic. Users are required to provide their
-own implementations of these abstractions to build their custom CP distributed
-systems with MicroRaft.
+MicroRaft works on top of a minimalistic and modular design with only a logging
+dependency. It contains an isolated implementation of the Raft consensus
+algorithm, and a set of accompanying abstractions to run the algorithm in a
+multi-threaded and distributed environment. These abstractions isolate the core
+algorithm from persistence, thread-safety, serialization, networking, and
+actual state machine logic. Users are expected to provide their own
+implementations of these abstractions to build custom CP distributed systems
+with MicroRaft.
 
-__Please note that MicroRaft is not a high-level solution like a distributed
-key-value store or a distributed lock service. It is a core library that offers
-a set of abstractions and functionalities to help you build such high-level
-systems.__
+__MicroRaft is not a high-level solution like a distributed key-value store or
+a distributed lock service. It is a core library that helps you build those
+systems inside your own service.__
+
+## Start here
+
+- Want to see MicroRaft running locally? Start with the [Quick Start](#quick-start).
+- Want to embed it into your own service? See [Use MicroRaft in your project](#use-microraft-in-your-project).
+- Want the conceptual model first? Read the [User Guide](https://microraft.io/docs/main-abstractions/).
+- Want to understand the positioning and tradeoffs? Read [Why MicroRaft?](https://microraft.io/docs/why-microraft/).
 
 ## Features
 
@@ -54,7 +59,7 @@ enhancements:
 * Leadership transfer [(Section 3.10 of the Raft dissertation)](https://github.com/ongardie/dissertation).
 * [Improved majority quorums](https://basri.dev/posts/2020-07-27-improved-majority-quorums-for-raft/)
 
-## Get started
+## Quick Start
 
 Run a single tutorial test that starts a local 3-node Raft group, elects a
 leader, and commits operations to an atomic register:
@@ -141,8 +146,16 @@ Maven
 
 ## Build from source
 
-Pull the latest code with `gh repo clone MicroRaft/MicroRaft`
-and build with `cd MicroRaft && ./gradlew build`.
+Pull the latest code with `gh repo clone MicroRaft/MicroRaft`, then run
+`cd MicroRaft && ./gradlew build`.
+
+Common development tasks:
+
+- `./gradlew check` runs tests, Checkstyle, and SpotBugs across all modules.
+- `./gradlew qualityDashboard` generates a single HTML index at `build/reports/quality/index.html`.
+- `./gradlew test` runs the suite.
+- `./gradlew benchmark` runs the JMH benchmark suite.
+- `./gradlew mutationTest` runs PIT mutation testing for the core module.
 
 ## Source code layout
 
@@ -155,9 +168,21 @@ parsing HOCON and YAML files to start Raft nodes.
 `microraft-metrics` module contains the integration with the Micrometer library
 for publishing MicroRaft metrics to external systems.
 
+`microraft-tutorial` contains runnable local tests and sample building blocks
+for learning the core abstractions.
+
 `afloatdb` contains a simple in-memory distributed KV store project built with MicroRaft and gRPC.
 
 `site-src` contains the source files of [microraft.io](https://microraft.io).
+
+## Production and operations
+
+If you are evaluating MicroRaft for production use, start with:
+
+- [Monitoring](https://microraft.io/docs/monitoring/)
+- [Production checklist](https://microraft.io/docs/production-checklist/)
+- [Troubleshooting](https://microraft.io/docs/troubleshooting/)
+- [Micrometer integration](microraft-metrics/README.md)
 
 ## Contribute to MicroRaft
 

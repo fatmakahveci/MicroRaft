@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.assertj.core.api.AbstractThrowableAssert;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
@@ -64,7 +65,7 @@ public final class ParserTestUtils {
 
     public static File createTempFile(TemporaryFolder folder, String content) throws IOException {
         File file = folder.newFile();
-        try (FileWriter writer = new FileWriter(file)) {
+        try (FileWriter writer = new FileWriter(file, StandardCharsets.UTF_8)) {
             writer.write(content);
         }
 

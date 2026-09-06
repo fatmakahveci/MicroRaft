@@ -1,0 +1,51 @@
+name: Website Preview Summary
+
+on:
+  pull_request:
+    paths:
+      - "site-src/**"
+      - ".github/workflows/site.yml"
+      - ".github/workflows/site-preview.yml"
+
+permissions:
+  pull-requests: write
+
+jobs:
+  preview-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish preview instructions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = "<!-- microraft-site-preview -->";
+            const body = [
+              marker,
+              "Website preview build is attached to this workflow run as the `site-preview` artifact.",
+              "",
+              "Use it to inspect the generated static site before merge.",
+              "",
+              "This PR also runs a basic SEO check: title, meta description, canonical, Open Graph, Twitter tags, JSON-LD, robots.txt, and sitemap.xml."
+            ].join("\n");
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100
+            });
+            const existing = comments.find((comment) => comment.body && comment.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body
+              });
+            }

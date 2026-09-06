@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions"
+    },
+    {
+      "matchManagers": [
+        "gradle"
+      ],
+      "groupName": "gradle-dependencies"
+    }
+  ]
+}
