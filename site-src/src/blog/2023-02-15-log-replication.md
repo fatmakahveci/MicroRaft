@@ -1,4 +1,5 @@
 ---
+tab_title: "Log replication in MicroRaft"
 seo_title: "Log Replication in MicroRaft"
 description: "See how MicroRaft handles Java Raft log replication, batching, disk flush behavior, and commit progression under load."
 keywords: "Java Raft log replication, MicroRaft replication, Raft batching Java, commit progression Raft, Raft throughput article"

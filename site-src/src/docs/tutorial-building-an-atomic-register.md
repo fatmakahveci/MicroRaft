@@ -1,4 +1,5 @@
 ---
+tab_title: "Atomic Register Tutorial"
 seo_title: "MicroRaft Tutorial: Build a Java Atomic Register with Raft"
 description: "Follow the MicroRaft tutorial that builds a Java atomic register and shows how to wire a replicated state machine on top of Raft."
 keywords: "MicroRaft tutorial, Java atomic register Raft, replicated state machine Java, Raft tutorial Java, atomic register example"

@@ -1,4 +1,5 @@
 ---
+tab_title: "Troubleshooting"
 seo_title: "MicroRaft Troubleshooting for Java Raft Leader Changes, Quorum, and Startup Issues"
 description: "Troubleshoot MicroRaft startup problems, repeated leader changes, quorum loss, stalled recovery, and misconfiguration in Java Raft systems."
 keywords: "MicroRaft troubleshooting, Java Raft troubleshooting, repeated leader changes, quorum troubleshooting, startup issues, stalled recovery"

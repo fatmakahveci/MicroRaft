@@ -1,4 +1,5 @@
 ---
+tab_title: "Implementing the log"
 seo_title: "Implementing the Log in MicroRaft"
 description: "Learn how MicroRaft implements the Raft log in Java, including snapshot boundaries, truncation rules, and persistence behavior."
 keywords: "Raft log Java, MicroRaft log internals, snapshot boundaries Java, Raft truncation rules, Raft persistence article"

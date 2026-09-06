@@ -1,4 +1,5 @@
 ---
+tab_title: "Use Cases"
 seo_title: "MicroRaft Use Cases for Java Metadata Stores, Locks, and Coordination"
 description: "Explore MicroRaft use cases for Java metadata stores, distributed locks, leader election services, and control-plane coordination."
 keywords: "MicroRaft use cases, Java Raft use cases, distributed lock service Java, metadata store Raft, leader election service, coordination service Raft"
@@ -55,8 +56,8 @@ doc_layout: reference
       <p>If you are still deciding whether a Java Raft library is the right fit, start here.</p>
       <ol>
         <li><a href="/docs/why-microraft/">Why MicroRaft?</a></li>
-        <li><a href="/demo/">Interactive Demo</a></li>
         <li><a href="/docs/setup/">Setup</a></li>
+        <li><a href="/docs/faq/">FAQ</a></li>
       </ol>
       <a class="mr-card-cta" href="/docs/why-microraft/">Read why MicroRaft</a>
     </article>

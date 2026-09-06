@@ -96,6 +96,7 @@ testing {
 
 dependencies {
     testFixturesImplementation(libs.junit)
+    testFixturesImplementation(libs.assertj)
     testFixturesImplementation(libs.slf4j.api)
     testFixturesCompileOnly(libs.findbugs.annotations)
 }

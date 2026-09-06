@@ -1,4 +1,5 @@
 ---
+tab_title: "Production Checklist"
 seo_title: "MicroRaft Production Checklist for Java Raft Rollouts"
 description: "Use the MicroRaft production checklist before shipping a Java Raft subsystem, including observability, failure testing, rollout, and recovery checks."
 keywords: "MicroRaft production checklist, Java Raft rollout, Raft operations checklist, failure testing, recovery checklist, observability setup"

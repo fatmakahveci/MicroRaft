@@ -1,4 +1,5 @@
 ---
+tab_title: "Resiliency"
 seo_title: "MicroRaft Resiliency and Fault Tolerance for Java Raft Clusters"
 description: "Study MicroRaft resiliency under high load, leader loss, minority failure, recovery, backpressure, and other Raft fault scenarios."
 keywords: "MicroRaft resiliency, Java Raft fault tolerance, leader failure Java, quorum loss Raft, backpressure Raft, recovery behavior"

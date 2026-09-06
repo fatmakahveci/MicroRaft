@@ -1,4 +1,5 @@
 ---
+tab_title: "AfloatDB"
 seo_title: "AfloatDB: A Distributed Key-Value Store Built with MicroRaft"
 description: "AfloatDB is a case study showing how a distributed key-value store can be built on top of MicroRaft."
 keywords: "AfloatDB MicroRaft, distributed key-value store Raft, Java Raft case study, MicroRaft example system, key-value store consensus"

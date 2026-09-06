@@ -50,18 +50,6 @@ pluginManager.withPlugin("checkstyle") {
     }
 }
 
-tasks.matching { it.name.startsWith("spotbugs") }.configureEach {
-    notCompatibleWithConfigurationCache("SpotBugs exclude filter is wired dynamically in the convention plugin.")
-    inputs.file(rootProject.file("config/spotbugs/spotbugs-ignore.xml"))
-    doFirst {
-        val taskClass = javaClass
-        val method = taskClass.methods.find { candidate ->
-            candidate.name == "setExcludeFilter" && candidate.parameterTypes.contentEquals(arrayOf(java.io.File::class.java))
-        }
-        method?.invoke(this, rootProject.file("config/spotbugs/spotbugs-ignore.xml"))
-    }
-}
-
 pluginManager.withPlugin("maven-publish") {
     extensions.configure<org.gradle.api.publish.PublishingExtension> {
         if (publications.findByName("main") == null) {

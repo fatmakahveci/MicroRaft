@@ -1,4 +1,5 @@
 ---
+tab_title: "Introducing MicroRaft"
 seo_title: "Introducing MicroRaft: An Embeddable Java Raft Library"
 description: "The launch post for MicroRaft, an embeddable Java Raft library for metadata stores, coordination services, and control-plane workloads."
 keywords: "Introducing MicroRaft, MicroRaft launch, Java Raft library, embeddable Raft Java, metadata store consensus, coordination service Java"
@@ -156,6 +157,6 @@ for announcements.
   <div class="mr-blog-next-links">
     <a href="../docs/why-microraft/">Why MicroRaft?</a>
     <a href="../blog/2021-09-08-today-a-raft-follower-tomorrow-a-raft-leader/">Leader election deep dive</a>
-    <a href="../demo/">Interactive demo</a>
+    <a href="../docs/setup/">Setup guide</a>
   </div>
 </div>

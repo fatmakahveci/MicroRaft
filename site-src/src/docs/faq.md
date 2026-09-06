@@ -1,4 +1,5 @@
 ---
+tab_title: "FAQ"
 seo_title: "MicroRaft FAQ for Java Raft, Consensus, Snapshots, and Production Use"
 description: "Read the MicroRaft FAQ covering what it is, when to use it, whether it is a database, and how snapshots, monitoring, and rollout work."
 keywords: "MicroRaft FAQ, Java Raft FAQ, Raft library questions, snapshots FAQ, monitoring FAQ, production rollout FAQ"

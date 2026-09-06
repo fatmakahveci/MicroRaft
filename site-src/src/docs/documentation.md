@@ -1,4 +1,5 @@
 ---
+tab_title: "Documentation"
 seo_title: "MicroRaft Documentation for Java Raft Setup, Integration, and Operations"
 description: "Start the MicroRaft docs with setup, evaluation, integration, troubleshooting, and production guidance for Java Raft systems."
 keywords: "MicroRaft documentation, Java Raft docs, MicroRaft setup guide, MicroRaft integration, MicroRaft operations"
@@ -19,11 +20,11 @@ doc_layout: reference
       <h3>New here</h3>
       <p>Start with the smallest path that shows what MicroRaft is and how it behaves.</p>
       <ol>
-        <li><a href="/demo/">Interactive Demo</a></li>
         <li><a href="/docs/setup/">Setup</a></li>
         <li><a href="/docs/tutorial-building-an-atomic-register/">Atomic Register Tutorial</a></li>
+        <li><a href="/docs/main-abstractions/">Main Abstractions</a></li>
       </ol>
-      <a class="mr-card-cta" href="/demo/">Open path</a>
+      <a class="mr-card-cta" href="/docs/setup/">Open path</a>
     </article>
 
     <article class="mr-doc-card">

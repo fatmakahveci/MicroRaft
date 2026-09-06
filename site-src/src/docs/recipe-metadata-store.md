@@ -1,4 +1,5 @@
 ---
+tab_title: "Metadata Store Recipe"
 seo_title: "Build a Metadata Store with MicroRaft in Java"
 description: "See how MicroRaft fits a Java metadata store that needs strong consistency for ownership records, cluster maps, and control-plane state."
 keywords: "metadata store Raft, Java metadata store, MicroRaft metadata store, ownership records consensus, control plane metadata"
