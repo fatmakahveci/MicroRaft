@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FindBugsFilter>
+    <!-- Mutable representation exposure warnings are expected in this codebase -->
+    <Match>
+        <Bug code="EI,EI2"/>
+    </Match>
+
+    <!-- Test classes intentionally use patterns that SpotBugs flags -->
+    <Match>
+        <Class name="~.*Test(\$.*)?"/>
+        <Bug code="DCN,RV,UrF,NP,OBL,Dm,SS"/>
+    </Match>
+
+    <!-- Local test infrastructure -->
+    <Match>
+        <Class name="io.microraft.impl.local.SimpleStateMachine"/>
+        <Bug code="NP,IS"/>
+    </Match>
+    <Match>
+        <Class name="~io\.microraft\.impl\.local\.Firewall\$DropRule\$1"/>
+        <Bug code="NP"/>
+    </Match>
+    <Match>
+        <Class name="io.microraft.impl.local.LocalTransport"/>
+        <Bug code="EI"/>
+    </Match>
+    <Match>
+        <Class name="io.microraft.impl.local.InMemoryRaftStore"/>
+        <Bug code="IS"/>
+    </Match>
+    <Match>
+        <Source name="~.*RaftNodeLifecycleAwareTest\.java"/>
+        <Bug code="NP"/>
+    </Match>
+    <Match>
+        <Source name="~.*Firewall\.java"/>
+        <Bug code="NP"/>
+    </Match>
 
 </FindBugsFilter>

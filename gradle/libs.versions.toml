@@ -11,6 +11,9 @@ slf4j = "1.7.36"
 sqlite = "3.41.2.2"
 typesafe-config = "1.4.2"
 snakeyaml = "2.0"
+jmh = "1.37"
+pitest = "1.17.4"
+pitest-plugin = "1.15.0"
 
 [libraries]
 assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
@@ -25,6 +28,9 @@ slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
 typesafe-config = { module = "com.typesafe:config", version.ref = "typesafe-config" }
 snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }
+jmh-core = { module = "org.openjdk.jmh:jmh-core", version.ref = "jmh" }
+jmh-generator-annprocess = { module = "org.openjdk.jmh:jmh-generator-annprocess", version.ref = "jmh" }
+pitest-command-line = { module = "org.pitest:pitest-command-line", version.ref = "pitest" }
 
 [plugins]
 defaults = { id = "io.github.sgtsilvio.gradle.defaults", version = "0.2.0" }
@@ -32,3 +38,4 @@ javadocLinks = { id = "io.github.sgtsilvio.gradle.javadoc-links", version = "0.8
 mavenCentralPublishing = { id = "io.github.sgtsilvio.gradle.maven-central-publishing", version = "0.4.0" }
 metadata = { id = "io.github.sgtsilvio.gradle.metadata", version = "0.6.0" }
 spotbugs = { id = "com.github.spotbugs", version = "6.1.13" }
+pitest = { id = "info.solidsoft.pitest", version.ref = "pitest-plugin" }

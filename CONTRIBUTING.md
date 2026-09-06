@@ -1,9 +1,9 @@
 # Contributing to MicroRaft
 
-By contributing code to the MicroRaft project in any form, including sending 
+By contributing code to the MicroRaft project in any form, including sending
 a pull request via Github, a code fragment or patch by any public means, you
 agree to release your code under the terms of the Apache 2.0 license that you
-can find in the MicroRaft repository. 
+can find in the MicroRaft repository.
 
 ## Local Setup
 
@@ -34,28 +34,43 @@ to align Gradle's toolchain request with that JDK.
 ## How to Report an Issue
 
 If you want to report an issue or a bug, please provide details, such as Java
-version, JVM parameters, logs or stack traces, operation system, and steps to 
-reproduce your issue. I would be grateful If you could include a unit or an 
+version, JVM parameters, logs or stack traces, operation system, and steps to
+reproduce your issue. I would be grateful if you could include a unit or an
 integration test as a reproducer.
-
 
 ## How to Ask a Question or Discuss a Feature Request
 
-You can chime in to [Discussions](https://github.com/MicroRaft/MicroRaft/discussions) 
+You can chime in to [Discussions](https://github.com/MicroRaft/MicroRaft/discussions)
 for your questions, ideas or feature requests.
 
 ## How to Provide a Code Change
 
-No direct commits are allowed to the MicroRaft repository. If you want to 
+No direct commits are allowed to the MicroRaft repository. If you want to
 provide a code change:
 
-1. Fork MicroRaft on Github,
-2. Create a branch for your code change, 
-3. Push to your branch on your fork,
+1. Fork MicroRaft on Github.
+2. Create a branch for your code change.
+3. Push to your branch on your fork.
 4. Create a pull request to the MicroRaft repository.
 
-MicroRaft contains `checkstyle` and `spotbugs` tools for static code analysis.
-Please run `./gradlew checkstyleMain` and 
-`./gradlew spotbugsMain` locally before issuing your pull request.
+Before opening a pull request:
+
+- run `./gradlew check`,
+- update or add tests for behavior changes,
+- keep documentation in sync if the user-facing workflow changes,
+- include reproduction details for bug fixes and operational changes.
+
+If your change affects `microraft.io`, also run the website checks from
+[`site-src/README.md`](site-src/README.md).
+
+## Good First Contributions
+
+Good entry points for new contributors:
+
+- improve onboarding docs and examples,
+- extend tutorial scenarios,
+- add tests for bug reproductions,
+- improve diagnostics and error messages,
+- tighten metrics, reporting, and operational guidance.
 
 Thanks for your help and effort!

@@ -22,7 +22,7 @@ for pattern in \
   'Use MicroRaft when' \
   'What you can build' \
   'Choose your next read'; do
-  if ! rg -Fq "${pattern}" "${homepage}"; then
+  if ! grep -Fq -- "${pattern}" "${homepage}"; then
     echo "Missing homepage section ${pattern} in ${homepage}" >&2
     status=1
   fi
@@ -32,19 +32,19 @@ for removed_pattern in \
   'Start in the right order' \
   'Common questions before adopting a Java Raft library' \
   '<footer class="mr-site-footer">'; do
-  if rg -Fq "${removed_pattern}" "${homepage}"; then
+  if grep -Fq -- "${removed_pattern}" "${homepage}"; then
     echo "Found stale homepage/footer markup ${removed_pattern} in ${homepage}" >&2
     status=1
   fi
 done
 
-if ! rg -Fq '<div class="mr-site-footer" role="contentinfo">' "${homepage}"; then
+if ! grep -Fq -- '<div class="mr-site-footer" role="contentinfo">' "${homepage}"; then
   echo "Missing footer contentinfo wrapper in ${homepage}" >&2
   status=1
 fi
 
 while IFS= read -r -d '' file; do
-  if ! rg -Fq '<meta name="mr-doc-layout" content="' "${file}"; then
+  if ! grep -Fq -- '<meta name="mr-doc-layout" content="' "${file}"; then
     echo "Missing doc layout metadata in ${file}" >&2
     status=1
   fi

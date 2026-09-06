@@ -44,8 +44,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @SuppressWarnings("checkstyle:magicnumber")
 public final class Long2ObjectHashMap<V> implements Map<Long, V> {
 
-    private static final int MAX_CAPACITY = 1 << 30;
-
     /**
      * The default load factor for constructors not explicitly supplying it
      */
@@ -54,6 +52,8 @@ public final class Long2ObjectHashMap<V> implements Map<Long, V> {
      * The default initial capacity for constructors not explicitly supplying it
      */
     public static final int DEFAULT_INITIAL_CAPACITY = 8;
+
+    private static final int MAX_CAPACITY = 1 << 30;
 
     private final double loadFactor;
     // cached to avoid allocation
